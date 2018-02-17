@@ -9,10 +9,10 @@
 
 html {
     height: 100%;
-    background: #ED1849; /* fallback for old browsers */
-    background: linear-gradient(135deg, #3f4591 0%,#a5607f 69%,#db766a 100%) fixed;
+    background: #6441A5; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #6441A5, #2a0845); /* Chrome 10-25, Safari 5.1-6 */
 }
-/*-webkit-*/
+
 body {
     font-family: montserrat, arial, verdana;
     background: transparent;
@@ -69,11 +69,10 @@ body {
     -o-transition: All 0.5s ease-in;
 }
 
-
 /*buttons*/
 #msform .action-button {
     width: 100px;
-    background: #ed1849;
+    background: #ee0979;
     font-weight: bold;
     color: white;
     border: 0 none;
@@ -89,7 +88,7 @@ body {
 
 #msform .action-button-previous {
     width: 100px;
-    background: #8367B7;
+    background: #C5C5F1;
     font-weight: bold;
     color: white;
     border: 0 none;
@@ -101,25 +100,6 @@ body {
 
 #msform .action-button-previous:hover, #msform .action-button-previous:focus {
     box-shadow: 0 0 0 2px white, 0 0 0 3px #C5C5F1;
-}
-
-.hidden{
-   display:none;
-}
-
-.classOfElements {
-    background-color: #fff;
-    background-color: rgba(255,255,255,0.5);
-}
-
-/* mainheadings*/
-.fs-main-title {
-    font-size: 30px;
-/*    text-transform: uppercase;*/
-    color: #FFF;
-    margin-bottom: 10px;
-    letter-spacing: 2px;
-    font-weight: bold;
 }
 
 /*headings*/
@@ -138,7 +118,6 @@ body {
     color: #666;
     margin-bottom: 20px;
 }
-
 
 /*progressbar*/
 #progressbar {
@@ -197,6 +176,7 @@ body {
     color: white;
 }
 
+
 /* Not relevant to this form */
 .dme_link {
     margin-top: 30px;
@@ -216,29 +196,4 @@ body {
 .dme_link a:hover, .dme_link a:focus {
     background: #C5C5F1;
     text-decoration: none;
-}
-
-/* -------------------- Page Styles (not required) */
-div { margin: 20px; }
-
-select {
-   -webkit-appearance: button;
-   -webkit-border-radius: 2px;
-   -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-   -webkit-padding-end: 20px;
-   -webkit-padding-start: 2px;
-   -webkit-user-select: none;
-   background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
-   background-position: 97% center;
-   background-repeat: no-repeat;
-   border: 1px solid #AAA;
-   color: #555;
-   font-size: inherit;
-   float: left;
-   /*margin: 10px;*/
-   overflow: hidden;
-   padding: 5px 10px;
-   text-overflow: ellipsis;
-   white-space: nowrap;
-   width: 200px;
 }
