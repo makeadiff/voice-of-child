@@ -42,15 +42,8 @@
 
 
 <?php
-//print_r($_POST);
 
-$db_host = '127.0.0.1';
-$db_username = 'root';
-$db_password = 'root@1234';
-$db_name = 'makeadiff_madapp';
-$dbhandle = mysqli_connect( $db_host, $db_username, $db_password,$db_name)
-          or die("Couldn't connect to SQL Server on $db_host");
-
+include ('db/config.php');
 
 //verify user details
 $user_city_id  = $_POST['user_city_id'];
@@ -72,7 +65,7 @@ $query_update_user="UPDATE User
                         address ='".$user_address."'
                     WHERE id =".$user_id;
 
-mysqli_query($dbhandle,$query_update_user) or die(mysqli_error($dbhandle));
+$user_update = $sql->execQuery($query_update_user);
 
 
 //role compatibility survey
@@ -92,6 +85,7 @@ $survey_question[11] = $_POST['survey_question_19'];
 $survey_question[12] = $_POST['survey_question_20'];
 
 //role compatibility survey add/update in SS_UserAnswer table
+
 for($qid=0;$qid<13;$qid++)
      {if(!$survey_question[$qid]) continue;
       $query_survey_check="SELECT * FROM SS_UserAnswer WHERE user_id=".$user_id." AND question_id=".($qid+7);
@@ -102,7 +96,8 @@ for($qid=0;$qid<13;$qid++)
              mysqli_query($dbhandle,$query_survey_insert) or die(mysqli_error($dbhandle));
              }
       else
-            {$query_survey_update="UPDATE SS_UserAnswer
+            {
+              $query_survey_update="UPDATE SS_UserAnswer
                                 SET question_id =".($qid+7).",
                                     user_id = ".$user_id.",
                                     answer = ".$survey_question[$qid]."

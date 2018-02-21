@@ -18,12 +18,29 @@ body {
     background: transparent;
 }
 
+p{
+  line-height: 115%;
+}
+
 /*form styles*/
 #msform {
     text-align: center;
     position: relative;
     margin-top: 30px;
 }
+
+#msform .col-sm-3, #msform .col-sm-2, #msform .col-sm-12{
+  text-align: left;
+  padding-left: 40px;
+}
+
+#msform .col-sm-3 input, #msform .col-sm-2 input, #msform .col-sm-12 input{
+  text-align: left;
+  width: auto;
+  margin: 0px;
+  padding: 0px;
+}
+
 
 #msform fieldset {
     background: white;
@@ -219,7 +236,6 @@ body {
 }
 
 /* -------------------- Page Styles (not required) */
-div { margin: 20px; }
 
 select {
    -webkit-appearance: button;
@@ -241,4 +257,9 @@ select {
    text-overflow: ellipsis;
    white-space: nowrap;
    width: 200px;
+}
+
+
+.indented{
+  padding-left: 40px;
 }

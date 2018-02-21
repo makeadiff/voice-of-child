@@ -1,9 +1,25 @@
+<?php
+  $url =  'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+
+  // if(!isset($_SESSION['user_id'])){
+  //   if($_SERVER['HTTP_HOST'] == 'makeadiff.in')
+  //     header('Location :'.'http://makeadiff.in/madapp/index.php/auth/login/' . base64_encode($url));
+  //   else
+  //     header('Location :'.'http://localhost/makeadiff/madapp/index.php/auth/login/' . base64_encode($url));
+  // }
+
+  include ('db/config.php');
+
+  //Find the configuratio files in db/config.php
+?>
+
+
 <!DOCTYPE html>
 <html lang="en" >
 
     <head>
         <meta charset="UTF-8">
-        <title>Retention and Sign Up Form</title>
+        <title>Retention and Sign Up Form - Make A Difference</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,15 +35,10 @@
                 margin-left: 3em;
             }
             .choice input {
-                vertical-align: middle;
+                vertical-align: left;
             }
         </style>
     </head>
-
-    <?php
-      session_start();
-      include 'db/database.php';
-    ?>
 
     <body>
         <div class="container">
@@ -44,7 +55,6 @@
                         <li>Sign Up</li>
                         <li>Recommendation</li>
                         <li>Referrals</li>
-
                         <li>Submit</li>
                         </ul>
                     <!-- fieldsets -->
@@ -71,8 +81,6 @@
                                  <option value="1" >Yes</option>
                                  <option value="0" >No</option>
                         </select><br><br><hr>
-
-
                         <input type="button" name="next" class="next action-button" value="Next"/>
                     </fieldset>
 
@@ -81,22 +89,34 @@
                         <h2 class="fs-title">Role Compatibility</h2>
                         <h3 class="fs-subtitle">Self Analysis</h3><hr>
                         <?php
+                          $indx=1;
+                          $last_question_id = 0;
+                          foreach ($result as $qna) {
 
-                        $indx=1;
-                        for($i=2;$result[$i]!='NULL'&&$i<42;$i++)
-                             {echo'<p align=left>'.$indx.'. '.$result[$i]['question'].'</p>';
-                              $indx++;
+                            $form_input = '<div class="col-sm-12">
+                                            <input type="radio" name="survey_question_'.$qna['question_id'].'" value="'.$qna['answer_id'].'">
+                                            <label class="radio-inline">
+                                              '.$qna['answer'].'
+                                            </label>
+                                           </div>';
 
-                              for($j=$i;$result[$j]['question_id']==$result[$i]['question_id'];$j++)
-                                  {echo '<span><label class="radio-inline"><input type="radio" name="survey_question_'.$result[$j]['question_id'].'" value="'.$result[$j]['answer_id'].'"><br>'.$result[$j]['answer'].'</label></span>';
-                                  }
-
-                              $i=$j-1;
-                              echo "<hr>";
+                            if($qna['question_id']==$last_question_id){
+                              echo $form_input;
+                            }
+                            else{
+                              if($indx!=1){
+                                echo '</div>'.'<hr/>';
                               }
+                              echo '<p align=left>'.$indx.'. '.$qna['question'].'</p>'.'<div class="row">';
+                              $indx++;
+                              $last_question_id = $qna['question_id'];
+                              echo $form_input;
+                            }
+                          }
                         ?>
-                        <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-                        <input type="button" name="next" class="next action-button" value="Next"/>
+                          </div>
+                          <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                          <input type="button" name="next" class="next action-button" value="Next"/>
                     </fieldset>
 
                     <!-- SignUp page -->
@@ -111,7 +131,7 @@
                         <!-- pull roles frommuser group table -->
                         <select id ="user_group_preference_id" name="user_group_preference_name" >
                                  <option selected value="">Roles</option>
-                                 <option value=0>Fellow</option>
+                                 <option value=0 selected>Fellow</option>
                                  <option value=8>Mentor</option>
                                  <option value=9>ASV(5th-10th)</option>
                                  <option value=349>ASV(11th-12th)</option>
@@ -120,47 +140,30 @@
                         </select><br><hr>
 
                         <!-- <input type='text' id="other" class="hidden" /><br><br><hr> -->
-                        <div id="hidden_div" style="display: none;">
+
+                        <div id="hidden_div" class="indented">
                           <p align=left>What is Fellowship profile first preference?</p>
                           <select id ="fellow_prefernece1_id" name="fellow_prefernece1_name" value ="">
-                                   <option selected value="">Roles</option>
-                                   <option value=0>City Team Lead</option>
-                                   <option value=8>Shelter Support Fellow</option>
-                                   <option value=9>Ed Support Fellow</option>
-                                   <option value=349>Transition Redainess and Aftercare Fellow</option>
-                                   <option value=348>Shelter Operations Fellow</option>
-                                   <option value=370>Fundraising Fellow</option>
-                                   <option value=5>Human Capital Fellow</option>
-                                   <option value=989>Foundations Fellow</option>
-                                   <option value=11>Campaigns Fellow</option>
+                             <option selected value="" selected>Select Role</option>
+                             <?php echo $options_fellow; ?>
                           </select><br><hr>
 
                           <p align=left>What is Fellowship profile second preference?</p>
                           <select id ="fellow_prefernece2_id" name="fellow_prefernece2_name" value ="">
-                                    <option selected value="">Roles</option>
-                                    <option value=0>City Team Lead</option>
-                                    <option value=8>Shelter Support Fellow</option>
-                                    <option value=9>Ed Support Fellow</option>
-                                    <option value=349>Transition Redainess and Aftercare Fellow</option>
-                                    <option value=348>Shelter Operations Fellow</option>
-                                    <option value=370>Fundraising Fellow</option>
-                                    <option value=5>Human Capital Fellow</option>
-                                    <option value=989>Foundations Fellow</option>
-                                    <option value=11>Campaigns Fellow</option>
+                            <option selected value="" selected>Select Role</option>
+                            <?php
+                              echo $options_fellow;
+                              echo $options_volunteer;
+                            ?>
                           </select><br><hr>
 
                           <p align=left>What is Fellowship profile third preference?</p>
                           <select id ="fellow_prefernece3_id" name="fellow_prefernece3_name" value ="">
-                                  <option selected value="">Roles</option>
-                                  <option value=0>City Team Lead</option>
-                                  <option value=8>Shelter Support Fellow</option>
-                                  <option value=9>Ed Support Fellow</option>
-                                  <option value=349>Transition Redainess and Aftercare Fellow</option>
-                                  <option value=348>Shelter Operations Fellow</option>
-                                  <option value=370>Fundraising Fellow</option>
-                                  <option value=5>Human Capital Fellow</option>
-                                  <option value=989>Foundations Fellow</option>
-                                  <option value=11>Campaigns Fellow</option>
+                            <option selected value="" selected>Select Role</option>
+                            <?php
+                              echo $options_fellow;
+                              echo $options_volunteer;
+                            ?>
                           </select><br><hr>
                         </div>
 
@@ -170,6 +173,7 @@
 
                     <!-- recommendation -->
                     <fieldset>
+
                         <h2 class="fs-title">Recommendation</h2>
                         <h3 class="fs-subtitle"></h3><hr>
                         <h3 align=left class="fs-subtitle">This is your opportunity to voice your choice of City Managers (Fellows) for your city for the upcoming year.<br>You've gone through the role compatibility screening and read about what it takes to be a fellow.<br><br>Keeping that in mind, fill in the following.
@@ -179,46 +183,21 @@
                         <p align=left>Recommended Profile:</p>
                             <select id ="recommendation_role1_id" name="recommendation1_role_name" value ="">
                                      <option selected value="">Roles</option>
-                                     <option value=0>City Team Lead</option>
-                                     <option value=8>Shelter Support Fellow</option>
-                                     <option value=9>Ed Support Fellow</option>
-                                     <option value=349>Transition Redainess and Aftercare Fellow</option>
-                                     <option value=348>Shelter Operations Fellow</option>
-                                     <option value=999>Fundraising Fellow</option>
-                                     <option value=999>Human Capital Fellow</option>
-                                     <option value=999>Foundations Fellow</option>
-                                     <option value=999>Campaigns Fellow</option>
-                                     <option value=8>Ed Support Mentor</option>
+                                     <?php echo $options_fellow; ?>
                             </select>
                         <br><br><hr>
                         <input type="text" id="tags2" required="" class="auto" name="recommendation2_name" placeholder=" Potential Fellowship/Mentorship Candidate 2" >
                         <p align=left>Recommended Profile:</p>
                             <select id ="recommendation_role2_id" name="recommendation2_role_name" value ="">
                                      <option selected value="">Roles</option>
-                                     <option value=0>City Team Lead</option>
-                                     <option value=8>Shelter Support Fellow</option>
-                                     <option value=9>Ed Support Fellow</option>
-                                     <option value=349>Transition Redainess and Aftercare Fellow</option>
-                                     <option value=348>Shelter Operations Fellow</option>
-                                     <option value=999>Fundraising Fellow</option>
-                                     <option value=999>Human Capital Fellow</option>
-                                     <option value=999>Foundations Fellow</option>
-                                     <option value=999>Campaigns Fellow</option>
+                                     <?php echo $options_fellow; ?>
                             </select>
                         <br><br><hr>
                         <input type="text" id="tags3" required="" class="auto" name="recommendation3_name" placeholder=" Potential Fellowship/Mentorship Candidate 3" >
                         <p align=left>Recommended Profile:</p>
                             <select id ="recommendation_role3_id" name="recommendation3_role_name" value ="">
                                      <option selected value="">Roles</option>
-                                     <option value=0>City Team Lead</option>
-                                     <option value=8>Shelter Support Fellow</option>
-                                     <option value=9>Ed Support Fellow</option>
-                                     <option value=349>Transition Redainess and Aftercare Fellow</option>
-                                     <option value=348>Shelter Operations Fellow</option>
-                                     <option value=999>Fundraising Fellow</option>
-                                     <option value=999>Human Capital Fellow</option>
-                                     <option value=999>Foundations Fellow</option>
-                                     <option value=999>Campaigns Fellow</option>
+                                     <?php echo $options_fellow; ?>
                             </select>
                         <br><br><hr>
                         <br><input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
@@ -266,7 +245,6 @@
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
         <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
-        <script src='https://code.jquery.com/jquery-1.10.2.js'></script>
         <script src='https://code.jquery.com/ui/1.10.4/jquery-ui.js'></script>
         <script  src="js/index.js"></script>
 
