@@ -79,10 +79,3 @@ $(".previous").click(function(){
 });
 
 
-
-
- // index.php te koi mismatch ache khuje ber koren :p
- //horrible. Thanks alot man. u always were helful. thanks for ur time
- // bye
-
-//});
