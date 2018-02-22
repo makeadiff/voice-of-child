@@ -1,7 +1,9 @@
 <?php
   $url =  'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 
-  // if(!isset($_SESSION['user_id'])){
+  $user_id = $_SESSION['user_id'];
+
+  // if(isset($_SESSION['user_id'])){
   //   if($_SERVER['HTTP_HOST'] == 'makeadiff.in')
   //     header('Location :'.'http://makeadiff.in/madapp/index.php/auth/login/' . base64_encode($url));
   //   else
@@ -9,6 +11,8 @@
   // }
 
   include ('db/config.php');
+
+  var_dump (isset($_SESSION['user_id']));
 
   //Find the configuratio files in db/config.php
 ?>
@@ -206,22 +210,46 @@
 
                     <!--referral-->
                     <fieldset>
+
                         <h2 class="fs-title">Refer</h2>
                         <h3 align=left class="fs-subtitle">If you know someone who has the spark to join and Make A Difference, refer them.
                         </h3><hr>
                         <h3 class="fs-subtitle">Person 1</h3><hr>
-                        <input type="text" name="referral1_name" placeholder="Full Name" value= "" required=""/><hr>
-                        <input type="email" name="referral1_email" placeholder="Email Address" value="" required=""/><hr>
-                        <input type="text" name="referral1_phone" placeholder="Phone" value = "" required=""/><hr>
+                        <input type="text" name="referral1_name" placeholder="Full Name" value= "" required=""/>
+                        <input type="email" name="referral1_email" placeholder="Email Address" value="" required=""/>
+                        <input type="text" name="referral1_phone" placeholder="Phone" value = "" required=""/>
+                        <select id ="soflow" name="referral1_sex" value ="f">
+                          <option>Gender</option>
+                          <option value="m">Male</option>
+                          <option value="f">Female</option>
+                          <option value="o">Other</option>
+                        </select>
+                        <br/><br/><br/>
+                        <hr>
                         <h3 class="fs-subtitle">Person 2</h3><hr>
-                        <input type="text" name="referral2_name" placeholder="Full Name" value= "" required=""/><hr>
-                        <input type="email" name="referral2_email" placeholder="Email Address" value="" required=""/><hr>
-                        <input type="text" name="referral2_phone" placeholder="Phone" value = "" required=""/><hr>
+                        <input type="text" name="referral2_name" placeholder="Full Name" value= "" required=""/>
+                        <input type="email" name="referral2_email" placeholder="Email Address" value="" required=""/>
+                        <input type="text" name="referral2_phone" placeholder="Phone" value = "" required=""/>
+                        <select id ="soflow" name="referral2_sex" value ="f">
+                          <option>Gender</option>
+                          <option value="m">Male</option>
+                          <option value="f">Female</option>
+                          <option value="o">Other</option>
+                        </select>
+                        <br/><br/><br/>
+                        <hr>
                         <h3 class="fs-subtitle">Person 3</h3><hr>
                         <input type="text" name="referral3_name" placeholder="Full Name" value= "" required=""/><hr>
                         <input type="email" name="referral3_email" placeholder="Email Address" value="" required=""/><hr>
                         <input type="text" name="referral3_phone" placeholder="Phone" value = "" required=""/><hr>
-
+                        <select id ="soflow" name="referral3_sex" value ="f">
+                          <option>Gender</option>
+                          <option value="m">Male</option>
+                          <option value="f">Female</option>
+                          <option value="o">Other</option>
+                        </select>
+                        <br/><br/><br/>
+                        <hr>
                         <br><input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
                         <input type="button" name="next" class="next action-button" value="Next"/>
                     </fieldset>
