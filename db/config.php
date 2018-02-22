@@ -47,7 +47,7 @@
               INNER JOIN SS_Question ON SS_Answer.question_id=SS_Question.id
               WHERE survey_event_id = ".$survey_id."
               AND question<>'Are you planning to continue with MAD in 2018-19?'
-              ORDER BY question_id";
+              ORDER BY question_id,answer DESC";
 
   $result = $sql->getAll($query_qna);
 

@@ -153,64 +153,65 @@ foreach ($recommendations as $recommendation) {
 
 
 //referral
-$referrals    = array();
-
-for ($i=1;$i<=3;$i++) {
-  $referrals[$i] = array(
-    'name'  => $_POST['referral'.$i.'_name'],
-    'email' => $_POST['referral'.$i.'_email'],
-    'phone' => $_POST['referral'.$i.'_phone'],
-    'sex' => $_POST['referral'.$i.'_sex']
-  );
-}
-
-foreach ($referrals as $referral) {
-  if($referral['name']!=''){
-    $check = $sql->getOne('SELECT id from User where (email="'.$referral['email'].'" OR mad_email="'.$referral['email'].'" OR phone="'.$referral['phone'].'")');
-    if($check==''){
-      $insert = $sql->insert('User',array(
-        'name' => $referral['name'],
-        'email' => $referral['email'],
-        'phone' => $referral['phone'],
-        'joined_on' => date('Y-m-d H:i:s'),
-        'sex' => $referral['sex'],
-        'city_id' => $user_city_id,
-        'password' => '',
-        'password_hash' => '',
-        'photo' => '',
-        'bio' => '',
-        'address' => '',
-        'profile_progress' => 0,
-        'source' => 'other',
-        'facebook_id' => '',
-        'source_other' => 'referral',
-        'birthday' => '1970-01-01 00:00:00',
-        'job_status' => 'student',
-        'left_on' => '1970-01-01 00:00:00',
-        'verification_status' => '',
-        'edu_institution' => '',
-        'company' => '',
-        'why_mad' => '',
-        'title' => '',
-        'reason_for_leaving' => '',
-        'center_id' => 0,
-        'city_other' => '',
-        'subject_id' => 0,
-        'project_id' => 0,
-        'consecutive_credit' => 0,
-        'admin_credit' => 0,
-        'app_version' => '',
-      ));
-
-      if($insert_ref!=0){
-        $referral_form_check = true;
-      }
-    }
-    else{
-      $referral_form_check = true;
-    }
-  }
-}
+// $referrals    = array();
+//
+// for ($i=1;$i<=3;$i++) {
+//   if
+//   $referrals[$i] = array(
+//     'name'  => $_POST['referral'.$i.'_name'],
+//     'email' => $_POST['referral'.$i.'_email'],
+//     'phone' => $_POST['referral'.$i.'_phone'],
+//     'sex' => $_POST['referral'.$i.'_sex']
+//   );
+// }
+//
+// foreach ($referrals as $referral) {
+//   if($referral['name']!=''){
+//     $check = $sql->getOne('SELECT id from User where (email="'.$referral['email'].'" OR mad_email="'.$referral['email'].'" OR phone="'.$referral['phone'].'")');
+//     if($check==''){
+//       $insert = $sql->insert('User',array(
+//         'name' => $referral['name'],
+//         'email' => $referral['email'],
+//         'phone' => $referral['phone'],
+//         'joined_on' => date('Y-m-d H:i:s'),
+//         'sex' => $referral['sex'],
+//         'city_id' => $user_city_id,
+//         'password' => '',
+//         'password_hash' => '',
+//         'photo' => '',
+//         'bio' => '',
+//         'address' => '',
+//         'profile_progress' => 0,
+//         'source' => 'other',
+//         'facebook_id' => '',
+//         'source_other' => 'referral',
+//         'birthday' => '1970-01-01 00:00:00',
+//         'job_status' => 'student',
+//         'left_on' => '1970-01-01 00:00:00',
+//         'verification_status' => '',
+//         'edu_institution' => '',
+//         'company' => '',
+//         'why_mad' => '',
+//         'title' => '',
+//         'reason_for_leaving' => '',
+//         'center_id' => 0,
+//         'city_other' => '',
+//         'subject_id' => 0,
+//         'project_id' => 0,
+//         'consecutive_credit' => 0,
+//         'admin_credit' => 0,
+//         'app_version' => '',
+//       ));
+//
+//       if($insert_ref!=0){
+//         $referral_form_check = true;
+//       }
+//     }
+//     else{
+//       $referral_form_check = true;
+//     }
+//   }
+// }
 
 // var_dump($referral_form_check);
 

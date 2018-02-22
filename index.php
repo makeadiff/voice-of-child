@@ -1,18 +1,17 @@
 <?php
   $url =  'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 
-  $user_id = $_SESSION['user_id'];
-
-  // if(isset($_SESSION['user_id'])){
-  //   if($_SERVER['HTTP_HOST'] == 'makeadiff.in')
-  //     header('Location :'.'http://makeadiff.in/madapp/index.php/auth/login/' . base64_encode($url));
-  //   else
-  //     header('Location :'.'http://localhost/makeadiff/madapp/index.php/auth/login/' . base64_encode($url));
-  // }
-
   include ('db/config.php');
 
-  var_dump (isset($_SESSION['user_id']));
+  if(!isset($_SESSION['user_id'])){
+    if($_SERVER['HTTP_HOST'] == 'makeadiff.in'){
+      $link = 'http://makeadiff.in/madapp/index.php/auth/login/'.base64_encode($url);
+    }
+    else{
+      $link = 'http://localhost/makeadiff/madapp/index.php/auth/login/' . base64_encode($url);
+    }
+    header('Location :'.$link);
+  }
 
   //Find the configuratio files in db/config.php
 ?>
@@ -58,7 +57,6 @@
                         <li>Role Compatibility</li>
                         <li>Sign Up</li>
                         <li>Recommendation</li>
-                        <li>Referrals</li>
                         <li>Submit</li>
                         </ul>
                     <!-- fieldsets -->
@@ -69,19 +67,21 @@
                         <h3 class="fs-subtitle"> Verify Your Details</h3><hr>
                         <input type='text' name="user_id" class="hidden" value= "<?php echo $user['id'] ?>"/>
                         <input type='text' name="user_city_id" class="hidden" value= "<?php echo $user['city_id'] ?>"/>
-                        <input type="text" name="user_name" placeholder="Your Full Name" value= "<?php echo $user['name'] ?>" required=""/><hr>
-                        <input type="email" name="user_email" placeholder="Email Address" value="<?php echo $user['email'] ?>" required=""/><hr>
-                        <input type="text" name="user_phone" placeholder="Phone" value = "<?php echo $user['phone'] ?>" required=""/><hr>
-                        <select id ="soflow" name="user_sex" value ="f">
+
+                        <input type="text" name="user_name" onchange="req(this);" placeholder="Your Full Name" value= "<?php echo $user['name'] ?>" required=""/><hr>
+                        <input type="email" name="user_email" onchange="req(this);" placeholder="Email Address" value="<?php echo $user['email'] ?>" required=""/><hr>
+                        <input type="text" name="user_phone" onchange="{req(this); validphone(this);}" placeholder="Phone" value = "<?php echo $user['phone'] ?>" required=""/><hr>
+
+                        <select id ="user_sex" name="user_sex" value ="f" onchange="req(this);">
                                  <option >Gender</option>
                                  <option value="m" <?php if($user['sex'] == 'm') echo ' selected="selected"'?>>Male</option>
                                  <option value="f" <?php if($user['sex'] == 'f') echo ' selected="selected"'?>>Female</option>
                                  <option value="o" <?php if($user['sex'] == 'o') echo ' selected="selected"'?>>Other</option>
                         </select><br><br><hr>
-                        <input type="date" name="user_birthday" placeholder="birthday" value="<?php echo $user['birthday'] ?>" required=""><hr>
+                        <input type="date" name="user_birthday" placeholder="birthday" value="<?php echo $user['birthday'] ?>" required="" onchange="req(this);"><hr>
                         <input type="text" name="user_address" placeholder="Enter Your Address" value="<?php echo $user['address'] ?>" required=""/><hr><br>
                         <p align="left"> Are you planning to continue next year?</p>
-                        <select id ="soflow" name="cont_status" >
+                        <select id ="soflow" name="cont_status" onchange="req(this);" >
                                  <option value="1" >Yes</option>
                                  <option value="0" >No</option>
                         </select><br><br><hr>
@@ -98,7 +98,7 @@
                           foreach ($result as $qna) {
 
                             $form_input = '<div class="col-sm-12">
-                                            <input type="radio" name="survey_question_'.$qna['question_id'].'" value="'.$qna['answer_id'].'">
+                                            <input type="radio" required="" name="survey_question_'.$qna['question_id'].'" value="'.$qna['answer_id'].'">
                                             <label class="radio-inline">
                                               '.$qna['answer'].'
                                             </label>
@@ -133,7 +133,7 @@
 
                         <p align=left>What Profile would I be interested to sign up for?</p>
                         <!-- pull roles frommuser group table -->
-                        <select id ="user_group_preference_id" name="user_group_preference_name" >
+                        <select id ="user_group_preference_id" name="user_group_preference_name" onchange="req(this);" required>
                                  <option selected value="">Roles</option>
                                  <option value=0 selected>Fellow</option>
                                  <option value=8>Mentor</option>
@@ -147,7 +147,7 @@
 
                         <div id="hidden_div" class="indented">
                           <p align=left>What is Fellowship profile first preference?</p>
-                          <select id ="fellow_prefernece1_id" name="fellow_prefernece1_name" value ="">
+                          <select id ="fellow_prefernece1_id" name="fellow_prefernece1_name" required>
                              <option selected value="" selected>Select Role</option>
                              <?php echo $options_fellow; ?>
                           </select><br><hr>
@@ -183,21 +183,21 @@
                         <h3 align=left class="fs-subtitle">This is your opportunity to voice your choice of City Managers (Fellows) for your city for the upcoming year.<br>You've gone through the role compatibility screening and read about what it takes to be a fellow.<br><br>Keeping that in mind, fill in the following.
                         </h3><hr>
 
-                        <input type="text" id="tags1" required="" class="auto" name="recommendation1_name" placeholder=" Potential Fellowship/Mentorship Candidate 1" >
+                        <input type="text" id="tags1" class="auto" name="recommendation1_name" placeholder=" Potential Fellowship/Mentorship Candidate 1" >
                         <p align=left>Recommended Profile:</p>
                             <select id ="recommendation_role1_id" name="recommendation1_role_name" value ="">
                                      <option selected value="">Roles</option>
                                      <?php echo $options_fellow; ?>
                             </select>
                         <br><br><hr>
-                        <input type="text" id="tags2" required="" class="auto" name="recommendation2_name" placeholder=" Potential Fellowship/Mentorship Candidate 2" >
+                        <input type="text" id="tags2" class="auto" name="recommendation2_name" placeholder=" Potential Fellowship/Mentorship Candidate 2" >
                         <p align=left>Recommended Profile:</p>
                             <select id ="recommendation_role2_id" name="recommendation2_role_name" value ="">
                                      <option selected value="">Roles</option>
                                      <?php echo $options_fellow; ?>
                             </select>
                         <br><br><hr>
-                        <input type="text" id="tags3" required="" class="auto" name="recommendation3_name" placeholder=" Potential Fellowship/Mentorship Candidate 3" >
+                        <input type="text" id="tags3" class="auto" name="recommendation3_name" placeholder=" Potential Fellowship/Mentorship Candidate 3" >
                         <p align=left>Recommended Profile:</p>
                             <select id ="recommendation_role3_id" name="recommendation3_role_name" value ="">
                                      <option selected value="">Roles</option>
@@ -209,7 +209,7 @@
                     </fieldset>
 
                     <!--referral-->
-                    <fieldset>
+                    <!-- <fieldset>
 
                         <h2 class="fs-title">Refer</h2>
                         <h3 align=left class="fs-subtitle">If you know someone who has the spark to join and Make A Difference, refer them.
@@ -252,7 +252,7 @@
                         <hr>
                         <br><input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
                         <input type="button" name="next" class="next action-button" value="Next"/>
-                    </fieldset>
+                    </fieldset> -->
 
 
 
@@ -261,7 +261,7 @@
                     <!-- Submit -->
                     <fieldset>
                         <h2 class="fs-title">Submit</h2><hr>
-                        <h3 class="fs-subtitle">Thank You For Your Response</h3><hr>
+                        <h3 class="fs-subtitle">Thank You For Your Responses. Click on Submit to confirm your application.</h3><hr>
                         <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
                         <input type="submit" name="submit" class="submit action-button" value="Submit" href="preview.php"/>
                     </fieldset>
@@ -273,17 +273,23 @@
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
         <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
+        <script src='https://code.jquery.com/jquery-1.10.2.js'></script>
         <script src='https://code.jquery.com/ui/1.10.4/jquery-ui.js'></script>
         <script  src="js/index.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
         <script>
           document.getElementById('user_group_preference_id').addEventListener('change', function () {
               var style = this.value == 0 ? 'block' : 'none';
               document.getElementById('hidden_div').style.display = style;
               });
+
+          function req(valchange){if (valchange.value=="") window.alert("This field is required");}
+          function validphone(num){if (num.value.match(/\d/g).length!=10) window.alert("Enter a valid phone number");}
+
           $(function() {
             var availableTags =  <?php echo json_encode($volunteer); ?>;
-            console.log(availableTags);
+
           $( "#tags1" ).autocomplete({
               source: availableTags,
               autoFocus:true
