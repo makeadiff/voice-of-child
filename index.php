@@ -3,16 +3,6 @@
 
   include ('db/config.php');
 
-  if(!isset($_SESSION['user_id'])){
-    if($_SERVER['HTTP_HOST'] == 'makeadiff.in'){
-      $link = 'http://makeadiff.in/madapp/index.php/auth/login/'.base64_encode($url);
-    }
-    else{
-      $link = 'http://localhost/makeadiff/madapp/index.php/auth/login/' . base64_encode($url);
-    }
-    header('Location :'.$link);
-  }
-
   //Find the configuratio files in db/config.php
 ?>
 
@@ -50,7 +40,7 @@
         <!-- MultiStep Form -->
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                <form id="msform" action="preview.php" method="POST" novalidate>
+                <form id="msform" action="preview.php" method="POST">
                     <!-- progressbar -->
                     <ul id="progressbar">
                         <li class="active">Personal Details</li>
@@ -183,23 +173,23 @@
                         <h3 align=left class="fs-subtitle">This is your opportunity to voice your choice of City Managers (Fellows) for your city for the upcoming year.<br>You've gone through the role compatibility screening and read about what it takes to be a fellow.<br><br>Keeping that in mind, fill in the following.
                         </h3><hr>
 
-                        <input type="text" id="tags1" class="auto" name="recommendation1_name" placeholder=" Potential Fellowship/Mentorship Candidate 1" >
+                        <input type="text" id="tags1" class="auto" name="recommendation1_name"  required placeholder=" Potential Fellowship/Mentorship Candidate 1" >
                         <p align=left>Recommended Profile:</p>
-                            <select id ="recommendation_role1_id" name="recommendation1_role_name" value ="">
+                            <select id ="recommendation_role1_id" name="recommendation1_role_name" required value ="">
                                      <option selected value="">Roles</option>
                                      <?php echo $options_fellow; ?>
                             </select>
                         <br><br><hr>
-                        <input type="text" id="tags2" class="auto" name="recommendation2_name" placeholder=" Potential Fellowship/Mentorship Candidate 2" >
+                        <input type="text" id="tags2" class="auto" name="recommendation2_name" required placeholder=" Potential Fellowship/Mentorship Candidate 2" >
                         <p align=left>Recommended Profile:</p>
-                            <select id ="recommendation_role2_id" name="recommendation2_role_name" value ="">
+                            <select id ="recommendation_role2_id" name="recommendation2_role_name" required value ="">
                                      <option selected value="">Roles</option>
                                      <?php echo $options_fellow; ?>
                             </select>
                         <br><br><hr>
-                        <input type="text" id="tags3" class="auto" name="recommendation3_name" placeholder=" Potential Fellowship/Mentorship Candidate 3" >
+                        <input type="text" id="tags3" class="auto" name="recommendation3_name" required placeholder=" Potential Fellowship/Mentorship Candidate 3" >
                         <p align=left>Recommended Profile:</p>
-                            <select id ="recommendation_role3_id" name="recommendation3_role_name" value ="">
+                            <select id ="recommendation_role3_id" name="recommendation3_role_name" required value ="">
                                      <option selected value="">Roles</option>
                                      <?php echo $options_fellow; ?>
                             </select>

@@ -24,7 +24,7 @@ p{
 
 
 input.error{
-  background: #ed1849;
+  border: #ed1849 thin solid;
 }
 
 label.error{

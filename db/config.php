@@ -2,7 +2,21 @@
 
   include ('../../common.php');
 
+  if(!isset($_SESSION['user_id'])){
+    if($_SERVER['HTTP_HOST'] == 'makeadiff.in'){
+      $link = 'http://makeadiff.in/madapp/index.php/auth/login/'.base64_encode($url);
+    }
+    else{
+      $link = 'http://localhost/makeadiff/madapp/index.php/auth/login/' . base64_encode($url);
+      dump($link);
+      // exit;
+    }
+    header('Location :'.$link);
+  }
+
   $user_id = $_SESSION['user_id'];
+
+
 
   $db = $config_data['db_database'];
   $db_host = $config_data['db_host'];
