@@ -86,8 +86,14 @@
                           $last_question_id = 0;
                           foreach ($result as $qna) {
 
+                            $selected = '';
+                            if(isset($check_survey[$qna['question_id']])){
+                              if($survey_entered && $qna['answer_id']==$check_survey[$qna['question_id']])
+                                $selected = 'checked';
+                            }
+
                             $form_input = '<div class="col-sm-12">
-                                            <input type="radio" required="" name="survey_question_'.$qna['question_id'].'" value="'.$qna['answer_id'].'">
+                                            <input type="radio" required="" name="survey_question_'.$qna['question_id'].'" value="'.$qna['answer_id'].'" '.$selected.'>
                                             <label class="radio-inline">
                                               '.$qna['answer'].'
                                             </label>
@@ -133,12 +139,18 @@
                         </select><br><hr>
 
                         <!-- <input type='text' id="other" class="hidden" /><br><br><hr> -->
+                        <?php
+                          $options_fellow =  role_options($sql,$user['city_id'],'fellow');
+                          $options_volunteer = role_options($sql,$user['city_id'],'volunteer');
+                        ?>
 
                         <div id="hidden_div" class="indented">
                           <p align=left>What is Fellowship profile first preference?</p>
                           <select id ="fellow_prefernece1_id" name="fellow_prefernece1_name" required>
                              <option selected value="" selected>Select Role</option>
-                             <?php echo $options_fellow; ?>
+                             <?php
+                               echo $options_fellow;
+                             ?>
                           </select><br><hr>
 
                           <p align=left>What is Fellowship profile second preference?</p>
@@ -174,27 +186,23 @@
                         <h3 align=left class="fs-subtitle">This is your opportunity to voice your choice of City Managers (Fellows) for your city for the upcoming year.<br>You've gone through the role compatibility screening and read about what it takes to be a fellow.<br><br>Keeping that in mind, fill in the following.
                         </h3><hr>
 
-                        <input type="text" id="tags1" class="auto" name="recommendation1_name"  required placeholder=" Potential Fellowship/Mentorship Candidate 1" >
-                        <p align=left>Recommended Profile:</p>
-                            <select id ="recommendation_role1_id" name="recommendation1_role_name" required value ="">
-                                     <option selected value="">Roles</option>
-                                     <?php echo $options_fellow; ?>
-                            </select>
-                        <br><br><hr>
-                        <input type="text" id="tags2" class="auto" name="recommendation2_name" required placeholder=" Potential Fellowship/Mentorship Candidate 2" >
-                        <p align=left>Recommended Profile:</p>
-                            <select id ="recommendation_role2_id" name="recommendation2_role_name" required value ="">
-                                     <option selected value="">Roles</option>
-                                     <?php echo $options_fellow; ?>
-                            </select>
-                        <br><br><hr>
-                        <input type="text" id="tags3" class="auto" name="recommendation3_name" required placeholder=" Potential Fellowship/Mentorship Candidate 3" >
-                        <p align=left>Recommended Profile:</p>
-                            <select id ="recommendation_role3_id" name="recommendation3_role_name" required value ="">
-                                     <option selected value="">Roles</option>
-                                     <?php echo $options_fellow; ?>
-                            </select>
-                        <br><br><hr>
+                        <?php
+                          for($i=0;$i<3;$i++){
+                                                        
+                            if($recommendation_check){
+                              $name = 'value ="'.$recommendation[$i]['name'].' / '.$recommendation[$i]['id'].'"';
+                            }
+
+                            echo '<input type="text" id="tags'.($i+1).'" class="auto" name="recommendation'.($i+1).'_name" required placeholder=" Potential Fellowship/Mentorship Candidate '.($i+1).'" '.$name.'>
+                            <p align=left>Recommended Profile:</p>
+                                <select id ="recommendation_role'.($i+1).'_id" name="recommendation'.($i+1).'_role_name" required value ="">
+                                         <option selected value="">Roles</option>
+                                          '.role_options($sql,$user['city_id'],'fellow',$recommendation[$i]['group_id']).'
+                                </select>
+                            <br><br><hr>';
+                          }
+                        ?>
+
                         <br><input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
                         <input type="button" name="next" class="next action-button" value="Next"/>
                     </fieldset>

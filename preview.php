@@ -37,7 +37,7 @@ $sql->update('User', array(
 $survey_question = array();
 
 
-for($i=8;$i<=20;$i++){
+for($i=6;$i<=18;$i++){
   if(isset($_POST['survey_question_'.$i]))
     $survey_question[$i] = $_POST['survey_question_'.$i];
 }
@@ -62,6 +62,12 @@ if(!empty($survey_question)) {
           $survey_form_check = true;
         }
       }
+      else{
+        $insert = $sql->update('SS_UserAnswer',array(
+          'answer' => $response,
+          'added_on' => date('Y-m-d H:i:s')
+        ),'id='.$check);
+      }
     }
   }
 }
@@ -81,7 +87,7 @@ for($i=1;$i<=3;$i++){
 
 
 $cont_status_id = $sql->getOne('SELECT id FROM UserData WHERE name="continuation_status" AND user_id='.$user_id);
-if($cont_status_id!=''){
+if($cont_status_id==''){
   $insert_continuation_status= $sql->insert('UserData',array(
     'user_id' => $user_id,
     'name' => 'continuation_status',
@@ -92,15 +98,19 @@ if($cont_status_id!=''){
 else{
   $update_continuation_status = $sql->update('UserData',array(
     'value' => $cont_status
-  ),'id='$cont_status_id);
+  ),'id='.$cont_status_id);
 }
 
 
 $query_user_group_preference_check="SELECT id FROM FAM_UserGroupPreference WHERE user_id=".$user_id;
 
-$check = $sql->getList($query_user_group_preference_check);
+$check_data = $sql->getAll($query_user_group_preference_check);
+$check = array();
+foreach ($check_data as $data) {
+  $check[] = $data['id'];
+}
 
-if($check!=''){
+if(!empty($check)){
   $delete = $sql->remove('FAM_UserGroupPreference','id IN ('.implode(',',$check).')');
 }
 

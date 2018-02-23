@@ -70,8 +70,17 @@
   //Query to get all questions and answer from survey table
 
   $survey_id = $sql->getOne('SELECT id from SS_Survey_Event WHERE (name LIKE "%Retention%" OR name LIKE "%Succession%")');
-  // $survey_id = 7;
-  // $id = create_survey($sql){}
+
+  $survey_entered = false;
+
+  //Check for Existing Responses for Survey Form and Update Data
+  $check_survey = $sql->getById('SELECT question_id as id, answer
+    FROM SS_UserAnswer UA
+    INNER JOIN SS_Question Q ON Q.id=UA.question_id
+    WHERE user_id='.$user['id'].' AND Q.survey_event_id='.$survey_id);
+
+  if(!empty($check_survey))
+    $survey_entered = true;
 
   $query_qna="SELECT
                 question_id,
@@ -85,239 +94,256 @@
               ORDER BY question_id,level DESC";
 
   $result = $sql->getAll($query_qna);
-  //Roles query
 
-  $query_roles_fellow="SELECT * from `Group` WHERE type='fellow' AND group_type='normal' AND status=1";
-  $fellow_roles_data = $sql->getAll($query_roles_fellow);
+  //Check for Existing Recommentations for the Roles
 
-  $roles = array();
-  $i=0;
+  $recommendation_check = false;
+  $recommendation = $sql->getAll('SELECT U.id,U.name,F.group_id from FAM_Referral F
+          INNER JOIN User U on U.id=F.referee_user_id
+          WHERE referer_user_id='.$user['id'].'
+          LIMIT 3');
+
+  if(!empty($recommendation)) $recommendation_check = true;
 
 
+  // role_options($sql,$user['id'],'fellow');
   // 'CITY ROLE PREFERENCE CHECKS'
-  $check=array();
 
-  $check['foundations_city'] = array(
-    '"Bangalore"',
-    '"Chennai"',
-    '"Coimbatore"',
-    '"Delhi"',
-    '"Mumbai"',
-    '"Mysore"'); //Foundtions Fellow and Volunteer City Check
-  $check['tr_fellow_city'] = array(
-    '"Ahmedabad"',
-    '"Bangalore"',
-    '"Chandigarh"',
-    '"Chennai"',
-    '"Coimbatore"',
-    '"Delhi"',
-    '"Mumbai"',
-    '"Nagpur"',
-    '"Pune"',
-    '"Trivandrum"',
-    '"Vellore"',
-    '"Vijayawada"'); //Transition Readiness Fellow Check
-  $check['a_fellow_city'] = array(
-    '"Bangalore"',
-    '"Chennai"',
-    '"Cochin"',
-    '"Coimbatore"',
-    '"Delhi"',
-    '"Hyderabad"',
-    '"Kolkata"',
-    '"Lucknow"',
-    '"Mangalore"',
-    '"Mumbai"',
-    '"Mysore"',
-    '"Vellore"',
-    '"Vijayawada"'); //Aftercare Fellow City Check
-  $check['a_wingman_city'] = array(
-    '"Ahmedabad"',
-    '"Bangalore"',
-    '"Bhopal"',
-    '"Chandigarh"',
-    '"Chennai"',
-    '"Cochin"',
-    '"Coimbatore"',
-    '"Delhi"',
-    '"Hyderabad"',
-    '"Kolkata"',
-    '"Lucknow"',
-    '"Mangalore"',
-    '"Mumbai"',
-    '"Mysore"',
-    '"Nagpur"',
-    '"Pune"',
-    '"Trivandrum"',
-    '"Vellore"',
-    '"Vijaywada"'); //Aftercare Wingman City Check
-  $check['a_asv_city'] = array(
-    '"Ahmedabad"',
-    '"Bangalore"',
-    '"Chandigarh"',
-    '"Chennai"',
-    '"Cochin"',
-    '"Coimbatore"',
-    '"Delhi"',
-    '"Hyderabad"',
-    '"Kolkata"',
-    '"Lucknow"',
-    '"Mangalore"',
-    '"Mumbai"',
-    '"Mysore"',
-    '"Nagpur"',
-    '"Pune"',
-    '"Trivandrum"',
-    '"Vellore"',
-    '"Vijaywada"'); //Aftercare ASV City Check
-  $check['tr_wingman_city'] = array(
-    '"Ahmedabad"',
-    '"Bangalore"',
-    '"Chandigarh"',
-    '"Chennai"',
-    '"Coimbatore"',
-    '"Delhi"',
-    '"Mumbai"',
-    '"Nagpur"',
-    '"Pune"',
-    '"Trivandrum"',
-    '"Vellore"',
-    '"Vijaywada"'); //Transition Readiness Wingman City Check
-  $check['tr_asv_city'] = array(
-    '"Ahmedabad"',
-    '"Bangalore"',
-    '"Chandigarh"',
-    '"Chennai"',
-    '"Coimbatore"',
-    '"Delhi"',
-    '"Mumbai"',
-    '"Nagpur"',
-    '"Pune"',
-    '"Trivandrum"',
-    '"Vellore"',
-    '"Vijaywada"'); //Transition Readiness ASV City Check
+  function role_options($sql,$city_id,$type,$selected_id = null){
 
-  $check_ids = array();
+    //Roles query
 
-  foreach($check as $key => $city){
-    $cities_id = $sql->getAll('SELECT id from City WHERE name IN ('.implode(',',$city).')');
-    $check_ids[$key] = array();
-    foreach ($cities_id as $city_id) {
-      $check_ids[$key][]=$city_id['id'];
+    $query_roles_fellow="SELECT * from `Group` WHERE type='fellow' AND group_type='normal' AND status=1";
+    $fellow_roles_data = $sql->getAll($query_roles_fellow);
+
+    $roles = array();
+    $i=0;
+
+    $check=array();
+
+    $check['foundations_city'] = array(
+      '"Bangalore"',
+      '"Chennai"',
+      '"Coimbatore"',
+      '"Delhi"',
+      '"Mumbai"',
+      '"Mysore"'); //Foundtions Fellow and Volunteer City Check
+    $check['tr_fellow_city'] = array(
+      '"Ahmedabad"',
+      '"Bangalore"',
+      '"Chandigarh"',
+      '"Chennai"',
+      '"Coimbatore"',
+      '"Delhi"',
+      '"Mumbai"',
+      '"Nagpur"',
+      '"Pune"',
+      '"Trivandrum"',
+      '"Vellore"',
+      '"Vijayawada"'); //Transition Readiness Fellow Check
+    $check['a_fellow_city'] = array(
+      '"Bangalore"',
+      '"Chennai"',
+      '"Cochin"',
+      '"Coimbatore"',
+      '"Delhi"',
+      '"Hyderabad"',
+      '"Kolkata"',
+      '"Lucknow"',
+      '"Mangalore"',
+      '"Mumbai"',
+      '"Mysore"',
+      '"Vellore"',
+      '"Vijayawada"'); //Aftercare Fellow City Check
+    $check['a_wingman_city'] = array(
+      '"Ahmedabad"',
+      '"Bangalore"',
+      '"Bhopal"',
+      '"Chandigarh"',
+      '"Chennai"',
+      '"Cochin"',
+      '"Coimbatore"',
+      '"Delhi"',
+      '"Hyderabad"',
+      '"Kolkata"',
+      '"Lucknow"',
+      '"Mangalore"',
+      '"Mumbai"',
+      '"Mysore"',
+      '"Nagpur"',
+      '"Pune"',
+      '"Trivandrum"',
+      '"Vellore"',
+      '"Vijaywada"'); //Aftercare Wingman City Check
+    $check['a_asv_city'] = array(
+      '"Ahmedabad"',
+      '"Bangalore"',
+      '"Chandigarh"',
+      '"Chennai"',
+      '"Cochin"',
+      '"Coimbatore"',
+      '"Delhi"',
+      '"Hyderabad"',
+      '"Kolkata"',
+      '"Lucknow"',
+      '"Mangalore"',
+      '"Mumbai"',
+      '"Mysore"',
+      '"Nagpur"',
+      '"Pune"',
+      '"Trivandrum"',
+      '"Vellore"',
+      '"Vijaywada"'); //Aftercare ASV City Check
+    $check['tr_wingman_city'] = array(
+      '"Ahmedabad"',
+      '"Bangalore"',
+      '"Chandigarh"',
+      '"Chennai"',
+      '"Coimbatore"',
+      '"Delhi"',
+      '"Mumbai"',
+      '"Nagpur"',
+      '"Pune"',
+      '"Trivandrum"',
+      '"Vellore"',
+      '"Vijaywada"'); //Transition Readiness Wingman City Check
+    $check['tr_asv_city'] = array(
+      '"Ahmedabad"',
+      '"Bangalore"',
+      '"Chandigarh"',
+      '"Chennai"',
+      '"Coimbatore"',
+      '"Delhi"',
+      '"Mumbai"',
+      '"Nagpur"',
+      '"Pune"',
+      '"Trivandrum"',
+      '"Vellore"',
+      '"Vijaywada"'); //Transition Readiness ASV City Check
+
+    $check_ids = array();
+
+    foreach($check as $key => $city){
+      $cities_id = $sql->getAll('SELECT id from City WHERE name IN ('.implode(',',$city).')');
+      $check_ids[$key] = array();
+      foreach ($cities_id as $city_id) {
+        $check_ids[$key][]=$city_id['id'];
+      }
+    }
+    $check_ids['other_roles'][0] = 14; //Kolkata Check for Other Roles
+
+    foreach ($fellow_roles_data as $role) {
+      $roles[$i]['id'] = $role['id'];
+
+      if($role['id']==272 && in_array($city_id,$check_ids['tr_fellow_city'])){ //Propel Fellow - Transition Readiness Fellow Check
+        $roles[$i]['name']='Transition Readiness Fellow';
+      }
+      else if($role['id']==378 && in_array($city_id,$check_ids['a_fellow_city'])){ //Aftercare Fellow Check
+        $roles[$i]['name']='Aftercare Fellow';
+      }
+      else if($role['id']==375 && in_array($city_id,$check_ids['foundations_city'])){ //Foundations Fellow - Check
+        $roles[$i]['name']='Foundations Fellow';
+      }
+      else if($role['id']==269 && !in_array($city_id,$check_ids['other_roles'])){ //Center Head - Shelter Operations Fellow
+        $roles[$i]['name']='Shelter Operations Fellow';
+      }
+      else if($role['id']==370 && !in_array($city_id,$check_ids['other_roles'])){ //FR Fellow - Fundraising Fellow
+        $roles[$i]['name']='Fundraising Fellow';
+      }
+      else if($role['id']==15 && !in_array($city_id,$check_ids['other_roles'])){ //Finance Controller - Finance Fellow
+        $roles[$i]['name']='Finance Fellow';
+      }
+      else if($role['id']==5 && !in_array($city_id,$check_ids['other_roles'])){ //HC Fellow - Human Capital Fellow
+        $roles[$i]['name']='Human Capital Fellow';
+      }
+      else if($role['id']==11 && !in_array($city_id,$check_ids['other_roles'])){ //PR Fellow - Public Relations Fellow
+        $roles[$i]['name']='Campaigns Fellow';
+      }
+      else if(($role['id']==2 || $role['id']==19 || $role['id']==4) && !in_array($city_id,$check_ids['other_roles'])){ //City Team Lead and Ed Support Fellow
+        $roles[$i]['name']=$role['name'];
+      }
+      else{
+        unset($roles[$i]);
+      }
+      $i++;
+    }
+
+    $options_fellow = '';
+    foreach ($roles as $role) {
+      if($selected_id!=null || $selected_id!=''){
+        if($role['id'] == $selected_id){
+          $role['id'] = $role['id'].'" selected="selected';
+         }
+      }
+      $options_fellow .= '<option value="'.$role['id'].'">'.$role['name'].'</option>';
+    }
+
+    $query_roles_vol="SELECT * from `Group`
+                      WHERE type='volunteer'
+                        AND group_type='normal'
+                        AND status=1
+                        AND (name LIKE '%mentor%'
+                          OR name LIKE '%wingman%'
+                          OR name LIKE '%foundations%'
+                          OR name LIKE '%asv%'
+                          OR name LIKE '%ES Volunteer%'
+                          OR name LIKE '%FR Volunteer%'
+                        )";
+    $volunteer_roles_data = $sql->getAll($query_roles_vol);
+
+    $volunteer_roles = array();
+    $i = 0;
+
+    foreach ($volunteer_roles_data as $role) {
+      $volunteer_roles[$i]['id'] = $role['id'];
+
+      if($role['id']== 348 && in_array($city_id,$check_ids['tr_wingman_city'])){ //Propel Wingman - Transition Readiness Wingman - Check
+        $volunteer_roles[$i]['name'] = 'Transition Readiness Wingman';
+      }
+      else if($role['id']==376 && in_array($city_id,$check_ids['foundations_city'])){ //Foundations Volunteer Check
+        $volunteer_roles[$i]['name'] = 'Foundations Volunteer';
+      }
+      else if($role['id']==365 && in_array($city_id,$check_ids['foundations_city'])){ //Aftercare Wingman Check
+        $volunteer_roles[$i]['name'] = 'Aftercare Wingman';
+      }
+      else if($role['id']==377 && in_array($city_id,$check_ids['a_asv_city'])){ //Aftercare ASV - ASV University - Check
+        $volunteer_roles[$i]['name'] = 'ASV (University/College)';
+      }
+      else if($role['id']==349 && in_array($city_id,$check_ids['tr_asv_city'])){ //Propel ASV - ASV Grade 11-12 - Check
+        $volunteer_roles[$i]['name'] = 'ASV (Grade 11-12)';
+      }
+      else if($role['id']==8 && !in_array($city_id,$check_ids['other_roles'])){ //Mentor Check
+        $volunteer_roles[$i]['name'] = 'Mentor';
+      }
+      else if($role['id']==9 && !in_array($city_id,$check_ids['other_roles'])){ //ES Volunteer - ASV Grade 5-10 Check
+        $volunteer_roles[$i]['name'] = 'ASV (Grade 5-10)';
+      }
+      else if($role['id']==369 && !in_array($city_id,$check_ids['other_roles'])){ //FR Volunteer - Fundraising Volunteer - Check
+        $volunteer_roles[$i]['name'] = 'Fundraising Volunteer';
+      }
+      else{
+        unset($volunteer_roles[$i]);
+      }
+      $i++;
+    }
+
+    $options_volunteer = '';
+    foreach ($volunteer_roles as $role) {
+      // if($selected_id!=null || $selected_id!=''){
+      //   if($role['id'] == $selected_id){
+      //     $role['id'] = $role['id'].'" selected="';
+      //    }
+      // }
+      $options_volunteer .= '<option value="'.$role['id'].'">'.$role['name'].'</option>';
+    }
+
+    if($type=='fellow'){
+      return $options_fellow;
+    }
+    else if($type=='volunteer'){
+      return $options_volunteer;
     }
   }
-  $check_ids['other_roles'][0] = 14; //Kolkata Check for Other Roles
-
-  foreach ($fellow_roles_data as $role) {
-    $roles[$i]['id'] = $role['id'];
-
-    if($role['id']==272 && in_array($user['city_id'],$check_ids['tr_fellow_city'])){ //Propel Fellow - Transition Readiness Fellow Check
-      $roles[$i]['name']='Transition Readiness Fellow';
-    }
-    else if($role['id']==378 && in_array($user['city_id'],$check_ids['a_fellow_city'])){ //Aftercare Fellow Check
-      $roles[$i]['name']='Aftercare Fellow';
-    }
-    else if($role['id']==375 && in_array($user['city_id'],$check_ids['foundations_city'])){ //Foundations Fellow - Check
-      $roles[$i]['name']='Foundations Fellow';
-    }
-    else if($role['id']==269 && !in_array($user['city_id'],$check_ids['other_roles'])){ //Center Head - Shelter Operations Fellow
-      $roles[$i]['name']='Shelter Operations Fellow';
-    }
-    else if($role['id']==370 && !in_array($user['city_id'],$check_ids['other_roles'])){ //FR Fellow - Fundraising Fellow
-      $roles[$i]['name']='Fundraising Fellow';
-    }
-    else if($role['id']==15 && !in_array($user['city_id'],$check_ids['other_roles'])){ //Finance Controller - Finance Fellow
-      $roles[$i]['name']='Finance Fellow';
-    }
-    else if($role['id']==5 && !in_array($user['city_id'],$check_ids['other_roles'])){ //HC Fellow - Human Capital Fellow
-      $roles[$i]['name']='Human Capital Fellow';
-    }
-    else if($role['id']==11 && !in_array($user['city_id'],$check_ids['other_roles'])){ //PR Fellow - Public Relations Fellow
-      $roles[$i]['name']='Campaigns Fellow';
-    }
-    else if($role['id']==2 || $role['id']==19 && !in_array($user['city_id'],$check_ids['other_roles'])){ //City Team Lead and Ed Support Fellow
-      $roles[$i]['name']=$role['name'];
-    }
-    else{
-      unset($roles[$i]);
-    }
-    $i++;
-  }
-
-  $options_fellow = '';
-  foreach ($roles as $role) {
-    $options_fellow .= '<option value="'.$role['id'].'">'.$role['name'].'</option>';
-  }
-
-  $query_roles_vol="SELECT * from `Group`
-                    WHERE type='volunteer'
-                      AND group_type='normal'
-                      AND status=1
-                      AND (name LIKE '%mentor%'
-                        OR name LIKE '%wingman%'
-                        OR name LIKE '%foundations%'
-                        OR name LIKE '%asv%'
-                        OR name LIKE '%ES Volunteer%'
-                        OR name LIKE '%FR Volunteer%'
-                      )";
-  $volunteer_roles_data = $sql->getAll($query_roles_vol);
-
-  $volunteer_roles = array();
-  $i = 0;
-
-  foreach ($volunteer_roles_data as $role) {
-    $volunteer_roles[$i]['id'] = $role['id'];
-
-    if($role['id']== 348 && in_array($user['city_id'],$check_ids['tr_wingman_city'])){ //Propel Wingman - Transition Readiness Wingman - Check
-      $volunteer_roles[$i]['name'] = 'Transition Readiness Wingman';
-    }
-    else if($role['id']==376 && in_array($user['city_id'],$check_ids['foundations_city'])){ //Foundations Volunteer Check
-      $volunteer_roles[$i]['name'] = 'Foundations Volunteer';
-    }
-    else if($role['id']==365 && in_array($user['city_id'],$check_ids['foundations_city'])){ //Aftercare Wingman Check
-      $volunteer_roles[$i]['name'] = 'Aftercare Wingman';
-    }
-    else if($role['id']==377 && in_array($user['city_id'],$check_ids['a_asv_city'])){ //Aftercare ASV - ASV University - Check
-      $volunteer_roles[$i]['name'] = 'ASV (University/College)';
-    }
-    else if($role['id']==349 && in_array($user['city_id'],$check_ids['tr_asv_city'])){ //Propel ASV - ASV Grade 11-12 - Check
-      $volunteer_roles[$i]['name'] = 'ASV (Grade 11-12)';
-    }
-    else if($role['id']==8 && !in_array($user['city_id'],$check_ids['other_roles'])){ //Mentor Check
-      $volunteer_roles[$i]['name'] = 'Mentor';
-    }
-    else if($role['id']==9 && !in_array($user['city_id'],$check_ids['other_roles'])){ //ES Volunteer - ASV Grade 5-10 Check
-      $volunteer_roles[$i]['name'] = 'ASV (Grade 5-10)';
-    }
-    else if($role['id']==369 && !in_array($user['city_id'],$check_ids['other_roles'])){ //FR Volunteer - Fundraising Volunteer - Check
-      $volunteer_roles[$i]['name'] = 'Fundraising Volunteer';
-    }
-    else{
-      unset($volunteer_roles[$i]);
-    }
-    $i++;
-  }
-
-  $options_volunteer = '';
-  foreach ($volunteer_roles as $role) {
-    $options_volunteer .= '<option value="'.$role['id'].'">'.$role['name'].'</option>';
-  }
-
-  // function create_survey($sql){
-  //
-  //   $event = array(
-  //     'name' => 'Retention 2018',
-  //     'cycle' => 9,
-  //     'stage' => 0,
-  //     'started_by_user_id' => 57184,
-  //     'added_on' => date('Y-m-d H:i:s'),
-  //     'status' => 1
-  //   );
-  //
-  //   $event_id = $sql->insert('SS_Survey_Event',$event);
-  //   )
-  // }
-
 
   function createTables($sql){
 
