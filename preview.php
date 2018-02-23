@@ -78,13 +78,7 @@ for($i=1;$i<=3;$i++){
 }
 
 //SignUp user group preference insert/update in FAM_UserGroupPreference
-$query_user_group_preference_check="SELECT id FROM FAM_UserGroupPreference WHERE user_id=".$user_id;
 
-$check = $sql->getList($query_user_group_preference_check);
-
-if($check!=''){
-  $delete = $sql->remove('FAM_UserGroupPreference','id IN ('.implode(',',$check).')');
-}
 
 $cont_status_id = $sql->getOne('SELECT id FROM UserData WHERE name="continuation_status" AND user_id='.$user_id);
 if($cont_status_id!=''){
@@ -102,11 +96,18 @@ else{
 }
 
 
+$query_user_group_preference_check="SELECT id FROM FAM_UserGroupPreference WHERE user_id=".$user_id;
+
+$check = $sql->getList($query_user_group_preference_check);
+
+if($check!=''){
+  $delete = $sql->remove('FAM_UserGroupPreference','id IN ('.implode(',',$check).')');
+}
+
 if($user_group_preference[0]!=0){
   $insert_pref = $sql->insert('FAM_UserGroupPreference',array(
                             'user_id' => $user_id,
                             'group_id' => $user_group_preference[0],
-                            // 'continuation_status' => $cont_status,
                             'preference' => 1,
                             'taskfolder_link' => ''
                         ));
@@ -122,7 +123,6 @@ else{
       $insert_pref = $sql->insert('FAM_UserGroupPreference',array(
                                 'user_id' => $user_id,
                                 'group_id' => $user_group_preference[$i],
-                                // 'continuation_status' => $cont_status,
                                 'preference' => $i,
                                 'taskfolder_link' => ''
                             ));
