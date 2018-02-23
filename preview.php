@@ -142,7 +142,7 @@ for($i=1; $i<=3; $i++){
   if(empty($id)) continue;
 
   $recommendations[$i-1] = array(
-    'referrer_user_id' => $user_id,
+    'referer_user_id' => $user_id,
     'referee_user_id' => $id[0],
     'group_id' => $_POST['recommendation'.$i.'_role_name'],
     'created_at' => date("Y-m-d H:i:s")
