@@ -56,7 +56,9 @@
                       AND status = 1
                       AND UG.year = 2017
                       AND User.city_id = ".$user['city_id'].'
-                     GROUP BY User.id';
+                      AND User.id <> '.$user['id'].'
+                     GROUP BY User.id
+                     ORDER BY User.name';
 
   $all_users = $sql->getAll($query_all_users);
 
@@ -80,7 +82,7 @@
               INNER JOIN SS_Question ON SS_Answer.question_id=SS_Question.id
               WHERE survey_event_id = ".$survey_id."
               AND question<>'Are you planning to continue with MAD in 2018-19?'
-              ORDER BY question_id,level ASC";
+              ORDER BY question_id,level DESC";
 
   $result = $sql->getAll($query_qna);
   //Roles query
@@ -335,6 +337,7 @@
           	`id` INT (11)  unsigned NOT NULL auto_increment,
           	`user_id` INT (11)  unsigned NOT NULL,
           	`group_id` INT (11)  unsigned NOT NULL,
+            `preference` INT (5) NOT NULL,
           	`taskfolder_link` VARCHAR (100)   NOT NULL,
           	PRIMARY KEY (`id`),
           	KEY (`user_id`),

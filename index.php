@@ -68,7 +68,7 @@
                                  <option value="o" <?php if($user['sex'] == 'o') echo ' selected="selected"'?>>Other</option>
                         </select><br><br><hr>
                         <input type="date" name="user_birthday" placeholder="birthday" value="<?php echo $user['birthday'] ?>" required="" onchange="req(this);"><hr>
-                        <input type="text" name="user_address" placeholder="Enter Your Address" value="<?php echo $user['address'] ?>" required=""/><hr><br>
+                        <input type="text" name="user_address" placeholder="Enter Your Address" value="<?php echo $user['address'] ?>"/><hr><br>
                         <p align="left"> Are you planning to continue next year?</p>
                         <select id ="soflow" name="cont_status" onchange="req(this);" >
                                  <option value="1" >Yes</option>
