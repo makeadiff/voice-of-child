@@ -86,12 +86,20 @@ if($check!=''){
   $delete = $sql->remove('FAM_UserGroupPreference','id IN ('.implode(',',$check).')');
 }
 
-$insert_continuation_status= $sql->insert('UserData',array(
-                                        'user_id' => $user_id,
-                                        'name' => 'continuation_status',
-                                        'value' => $cont_status,
-                                        'data' => date('Y-m-d H:i:s')
-                                      ));
+$cont_status_id = $sql->getOne('SELECT id FROM UserData WHERE name="continuation_status" AND user_id='.$user_id);
+if($cont_status_id!=''){
+  $insert_continuation_status= $sql->insert('UserData',array(
+    'user_id' => $user_id,
+    'name' => 'continuation_status',
+    'value' => $cont_status,
+    'data' => date('Y-m-d H:i:s')
+  ));
+}
+else{
+  $update_continuation_status = $sql->update('UserData',array(
+    'value' => $cont_status
+  ),'id='$cont_status_id);
+}
 
 
 if($user_group_preference[0]!=0){
