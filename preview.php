@@ -86,11 +86,19 @@ if($check!=''){
   $delete = $sql->remove('FAM_UserGroupPreference','id IN ('.implode(',',$check).')');
 }
 
+$insert_continuation_status= $sql->insert('UserData',array(
+                                        'user_id' => $user_id,
+                                        'name' => 'continuation_status',
+                                        'value' => $cont_status,
+                                        'data' => date('Y-m-d H:i:s')
+                                      ));
+
+
 if($user_group_preference[0]!=0){
   $insert_pref = $sql->insert('FAM_UserGroupPreference',array(
                             'user_id' => $user_id,
                             'group_id' => $user_group_preference[0],
-                            'continuation_status' => $cont_status,
+                            // 'continuation_status' => $cont_status,
                             'preference' => 1,
                             'taskfolder_link' => ''
                         ));
@@ -106,7 +114,7 @@ else{
       $insert_pref = $sql->insert('FAM_UserGroupPreference',array(
                                 'user_id' => $user_id,
                                 'group_id' => $user_group_preference[$i],
-                                'continuation_status' => $cont_status,
+                                // 'continuation_status' => $cont_status,
                                 'preference' => 1,
                                 'taskfolder_link' => ''
                             ));

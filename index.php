@@ -1,5 +1,4 @@
 <?php
-  $url =  'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 
   include ('db/config.php');
 
@@ -147,6 +146,7 @@
                             <option selected value="" selected>Select Role</option>
                             <?php
                               echo $options_fellow;
+                              echo '<hr/>';
                               echo $options_volunteer;
                             ?>
                           </select><br><hr>
@@ -156,6 +156,7 @@
                             <option selected value="" selected>Select Role</option>
                             <?php
                               echo $options_fellow;
+                              echo '<hr/>';
                               echo $options_volunteer;
                             ?>
                           </select><br><hr>
