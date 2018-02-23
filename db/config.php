@@ -301,6 +301,21 @@
     $options_volunteer .= '<option value="'.$role['id'].'">'.$role['name'].'</option>';
   }
 
+  // function create_survey($sql){
+  //
+  //   $event = array(
+  //     'name' => 'Retention 2018',
+  //     'cycle' => 9,
+  //     'stage' => 0,
+  //     'started_by_user_id' => 57184,
+  //     'added_on' => date('Y-m-d H:i:s'),
+  //     'status' => 1
+  //   );
+  //
+  //   $event_id = $sql->insert('SS_Survey_Event',$event);
+  //   )
+  // }
+
 
   function createTables($sql){
 
