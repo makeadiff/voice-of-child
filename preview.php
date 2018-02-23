@@ -115,7 +115,7 @@ else{
                                 'user_id' => $user_id,
                                 'group_id' => $user_group_preference[$i],
                                 // 'continuation_status' => $cont_status,
-                                'preference' => 1,
+                                'preference' => $i,
                                 'taskfolder_link' => ''
                             ));
       if($insert_pref!=0){
