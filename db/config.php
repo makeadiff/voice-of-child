@@ -44,6 +44,8 @@
   //
   // }
 
+  $user_cont_status = $sql->getOne('SELECT value from UserData WHERE name="continuation_status" and user_id='.$user_id);
+
   //Query to get all user from city for referral
   $query_all_users ="SELECT
                       User.id,
@@ -117,6 +119,7 @@
     $role_preference_check = true;
   }
   // 'CITY ROLE PREFERENCE CHECKS'
+
 
   // ---------------------- Functions -------------------------
 
@@ -231,7 +234,6 @@
       '"Vijaywada"'); //Transition Readiness ASV City Check
 
     $check_ids = array();
-
 
     foreach($check as $key => $city){
       $cities_id = $sql->getAll('SELECT id from City WHERE name IN ('.implode(',',$city).')');

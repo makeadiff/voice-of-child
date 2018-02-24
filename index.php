@@ -70,9 +70,23 @@
                         <input type="date" name="user_birthday" placeholder="birthday" value="<?php echo $user['birthday'] ?>" required="" onchange="req(this);"><hr>
                         <input type="text" name="user_address" placeholder="Enter Your Address" value="<?php echo $user['address'] ?>"/><hr><br>
                         <p align="left"> Are you planning to continue next year?</p>
+
                         <select id ="soflow" name="cont_status" onchange="req(this);" >
-                                 <option value="1" >Yes</option>
-                                 <option value="0" >No</option>
+                        <?php
+                          $one = '';
+                          $zero = '';
+                          if($user_cont_status!=''){
+                              if($user_cont_status==1){
+                                $one = 'selected';
+                              }
+                              else{
+                                $zero = 'selected';
+                              }
+                          }
+                        ?>
+                            <option value="1" <?php echo $one; ?> >Yes</option>
+                            <option value="0" <?php echo $zero; ?> >No</option>
+
                         </select><br><br><hr>
                         <input type="button" name="next" class="next action-button" value="Next"/>
                     </fieldset>
@@ -222,10 +236,14 @@
                               $name = 'value ="'.$recommendation[$i]['name'].' / '.$recommendation[$i]['id'].'"';
                               $options = role_options($sql,$user['city_id'],'fellow',$recommendation[$i]['group_id']);
                             }
+                            $required = '';
+                            if($i==0){
+                              $required = 'required';
+                            }
 
-                            echo '<input type="text" id="tags'.($i+1).'" class="auto" name="recommendation'.($i+1).'_name" required placeholder=" Potential Fellowship/Mentorship Candidate '.($i+1).'" '.$name.'>
+                            echo '<input type="text" id="tags'.($i+1).'" class="auto" name="recommendation'.($i+1).'_name" '.$required.' placeholder=" Potential Fellowship/Mentorship Candidate '.($i+1).'" '.$name.'>
                             <p align=left>Recommended Profile:</p>
-                                <select id ="recommendation_role'.($i+1).'_id" name="recommendation'.($i+1).'_role_name" required value ="">
+                                <select id ="recommendation_role'.($i+1).'_id" name="recommendation'.($i+1).'_role_name" '.$required.' value ="">
                                          <option selected value="">Roles</option>
                                           '.$options.'
                                 </select>
@@ -310,7 +328,70 @@
             document.getElementById('hidden_div').style.display = style;
           });
 
-          var style = document.getElementById('user_group_preference_id')
+          //Disable Values
+          document.getElementById('fellow_prefernece1_id').addEventListener('change', function () {
+            var id = this.value;
+
+            $('#fellow_prefernece2_id option').removeAttr("hidden");
+            $('#fellow_prefernece3_id option').removeAttr("hidden");
+
+            $('#fellow_prefernece2_id option[value='+id+']').attr("hidden","hidden");
+            $('#fellow_prefernece3_id option[value='+id+']').attr("hidden","hidden");
+
+          });
+
+          document.getElementById('fellow_prefernece2_id').addEventListener('change', function () {
+            var id = this.value;
+
+            $('#fellow_prefernece1_id option').removeAttr("hidden");
+            $('#fellow_prefernece3_id option').removeAttr("hidden");
+
+            $('#fellow_prefernece1_id option[value='+id+']').attr("hidden","hidden");
+            $('#fellow_prefernece3_id option[value='+id+']').attr("hidden","hidden");
+
+          });
+
+          document.getElementById('fellow_prefernece3_id').addEventListener('change', function () {
+            var id = this.value;
+
+            $('#fellow_prefernece2_id option').removeAttr("hidden");
+            $('#fellow_prefernece1_id option').removeAttr("hidden");
+
+            $('#fellow_prefernece2_id option[value='+id+']').attr("hidden","hidden");
+            $('#fellow_prefernece1_id option[value='+id+']').attr("hidden","hidden");
+
+          });
+
+          if(document.getElementById('fellow_prefernece1_id').value!=''){
+            var id = document.getElementById('fellow_prefernece1_id').value;
+
+            $('#fellow_prefernece2_id option').removeAttr("hidden");
+            $('#fellow_prefernece3_id option').removeAttr("hidden");
+
+            $('#fellow_prefernece2_id option[value='+id+']').attr("hidden","hidden");
+            $('#fellow_prefernece3_id option[value='+id+']').attr("hidden","hidden");
+          }
+
+          if(document.getElementById('fellow_prefernece2_id').value!=''){
+            var id = document.getElementById('fellow_prefernece1_id').value;
+
+            $('#fellow_prefernece1_id option').removeAttr("hidden");
+            $('#fellow_prefernece3_id option').removeAttr("hidden");
+
+            $('#fellow_prefernece1_id option[value='+id+']').attr("hidden","hidden");
+            $('#fellow_prefernece3_id option[value='+id+']').attr("hidden","hidden");
+          }
+
+          if(document.getElementById('fellow_prefernece3_id').value!=''){
+            var id = document.getElementById('fellow_prefernece1_id').value;
+
+            $('#fellow_prefernece2_id option').removeAttr("hidden");
+            $('#fellow_prefernece1_id option').removeAttr("hidden");
+
+            $('#fellow_prefernece2_id option[value='+id+']').attr("hidden","hidden");
+            $('#fellow_prefernece1_id option[value='+id+']').attr("hidden","hidden");
+          }
+
           var style = document.getElementById('user_group_preference_id').value == 0 ? 'block' : 'none';
           document.getElementById('hidden_div').style.display = style;
 

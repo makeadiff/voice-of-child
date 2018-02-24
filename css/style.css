@@ -266,12 +266,13 @@ select {
    color: #555;
    font-size: inherit;
    float: left;
+   /* width: 80%; */
    /*margin: 10px;*/
    overflow: hidden;
    padding: 5px 10px;
    text-overflow: ellipsis;
    white-space: nowrap;
-   width: 200px;
+   width: 300px;
 }
 
 
