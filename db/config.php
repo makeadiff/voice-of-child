@@ -35,7 +35,7 @@
 
   $query_user= "SELECT * FROM User WHERE id = ".$user_id;
 
-  createTables($sql); //Function to Create Tables, if not exits
+  createTables($sql); //Function to Create Tables, if it doesn't not exits
 
   $user = $sql->getAll($query_user);
   $user = $user[0];
@@ -105,14 +105,23 @@
 
   if(!empty($recommendation)) $recommendation_check = true;
 
+  //Check for Existing Role Preferences
 
-  // role_options($sql,$user['id'],'fellow');
+  $role_preference_check = false;
+  $role_preference_data = $sql->getAll('SELECT group_id,preference FROM FAM_UserGroupPreference WHERE user_id='.$user['id']);
+  $role_preference = array();
+  foreach ($role_preference_data as $value) {
+    $role_preference[$value['preference']] = $value['group_id'];
+  }
+  if(!empty($role_preference)){
+    $role_preference_check = true;
+  }
   // 'CITY ROLE PREFERENCE CHECKS'
 
-  function role_options($sql,$city_id,$type,$selected_id = null){
+  // ---------------------- Functions -------------------------
 
-    //Roles query
 
+  function role_options($sql,$current_city_id,$type,$selected_id = null){ //Get Role Options Values for Selected Role etc.
     $query_roles_fellow="SELECT * from `Group` WHERE type='fellow' AND group_type='normal' AND status=1";
     $fellow_roles_data = $sql->getAll($query_roles_fellow);
 
@@ -223,6 +232,7 @@
 
     $check_ids = array();
 
+
     foreach($check as $key => $city){
       $cities_id = $sql->getAll('SELECT id from City WHERE name IN ('.implode(',',$city).')');
       $check_ids[$key] = array();
@@ -235,31 +245,31 @@
     foreach ($fellow_roles_data as $role) {
       $roles[$i]['id'] = $role['id'];
 
-      if($role['id']==272 && in_array($city_id,$check_ids['tr_fellow_city'])){ //Propel Fellow - Transition Readiness Fellow Check
+      if($role['id']==272 && in_array($current_city_id,$check_ids['tr_fellow_city'])){ //Propel Fellow - Transition Readiness Fellow Check
         $roles[$i]['name']='Transition Readiness Fellow';
       }
-      else if($role['id']==378 && in_array($city_id,$check_ids['a_fellow_city'])){ //Aftercare Fellow Check
+      else if($role['id']==378 && in_array($current_city_id,$check_ids['a_fellow_city'])){ //Aftercare Fellow Check
         $roles[$i]['name']='Aftercare Fellow';
       }
-      else if($role['id']==375 && in_array($city_id,$check_ids['foundations_city'])){ //Foundations Fellow - Check
+      else if($role['id']==375 && in_array($current_city_id,$check_ids['foundations_city'])){ //Foundations Fellow - Check
         $roles[$i]['name']='Foundations Fellow';
       }
-      else if($role['id']==269 && !in_array($city_id,$check_ids['other_roles'])){ //Center Head - Shelter Operations Fellow
+      else if($role['id']==269 && !in_array($current_city_id,$check_ids['other_roles'])){ //Center Head - Shelter Operations Fellow
         $roles[$i]['name']='Shelter Operations Fellow';
       }
-      else if($role['id']==370 && !in_array($city_id,$check_ids['other_roles'])){ //FR Fellow - Fundraising Fellow
+      else if($role['id']==370 && !in_array($current_city_id,$check_ids['other_roles'])){ //FR Fellow - Fundraising Fellow
         $roles[$i]['name']='Fundraising Fellow';
       }
-      else if($role['id']==15 && !in_array($city_id,$check_ids['other_roles'])){ //Finance Controller - Finance Fellow
+      else if($role['id']==15 && !in_array($current_city_id,$check_ids['other_roles'])){ //Finance Controller - Finance Fellow
         $roles[$i]['name']='Finance Fellow';
       }
-      else if($role['id']==5 && !in_array($city_id,$check_ids['other_roles'])){ //HC Fellow - Human Capital Fellow
+      else if($role['id']==5 && !in_array($current_city_id,$check_ids['other_roles'])){ //HC Fellow - Human Capital Fellow
         $roles[$i]['name']='Human Capital Fellow';
       }
-      else if($role['id']==11 && !in_array($city_id,$check_ids['other_roles'])){ //PR Fellow - Public Relations Fellow
+      else if($role['id']==11 && !in_array($current_city_id,$check_ids['other_roles'])){ //PR Fellow - Public Relations Fellow
         $roles[$i]['name']='Campaigns Fellow';
       }
-      else if(($role['id']==2 || $role['id']==19 || $role['id']==4) && !in_array($city_id,$check_ids['other_roles'])){ //City Team Lead and Ed Support Fellow
+      else if(($role['id']==2 || $role['id']==19 || $role['id']==4) && !in_array($current_city_id,$check_ids['other_roles'])){ //City Team Lead and Ed Support Fellow
         $roles[$i]['name']=$role['name'];
       }
       else{
@@ -297,28 +307,28 @@
     foreach ($volunteer_roles_data as $role) {
       $volunteer_roles[$i]['id'] = $role['id'];
 
-      if($role['id']== 348 && in_array($city_id,$check_ids['tr_wingman_city'])){ //Propel Wingman - Transition Readiness Wingman - Check
+      if($role['id']== 348 && in_array($current_city_id,$check_ids['tr_wingman_city'])){ //Propel Wingman - Transition Readiness Wingman - Check
         $volunteer_roles[$i]['name'] = 'Transition Readiness Wingman';
       }
-      else if($role['id']==376 && in_array($city_id,$check_ids['foundations_city'])){ //Foundations Volunteer Check
+      else if($role['id']==376 && in_array($current_city_id,$check_ids['foundations_city'])){ //Foundations Volunteer Check
         $volunteer_roles[$i]['name'] = 'Foundations Volunteer';
       }
-      else if($role['id']==365 && in_array($city_id,$check_ids['foundations_city'])){ //Aftercare Wingman Check
+      else if($role['id']==365 && in_array($current_city_id,$check_ids['foundations_city'])){ //Aftercare Wingman Check
         $volunteer_roles[$i]['name'] = 'Aftercare Wingman';
       }
-      else if($role['id']==377 && in_array($city_id,$check_ids['a_asv_city'])){ //Aftercare ASV - ASV University - Check
+      else if($role['id']==377 && in_array($current_city_id,$check_ids['a_asv_city'])){ //Aftercare ASV - ASV University - Check
         $volunteer_roles[$i]['name'] = 'ASV (University/College)';
       }
-      else if($role['id']==349 && in_array($city_id,$check_ids['tr_asv_city'])){ //Propel ASV - ASV Grade 11-12 - Check
+      else if($role['id']==349 && in_array($current_city_id,$check_ids['tr_asv_city'])){ //Propel ASV - ASV Grade 11-12 - Check
         $volunteer_roles[$i]['name'] = 'ASV (Grade 11-12)';
       }
-      else if($role['id']==8 && !in_array($city_id,$check_ids['other_roles'])){ //Mentor Check
+      else if($role['id']==8 && !in_array($current_city_id,$check_ids['other_roles'])){ //Mentor Check
         $volunteer_roles[$i]['name'] = 'Mentor';
       }
-      else if($role['id']==9 && !in_array($city_id,$check_ids['other_roles'])){ //ES Volunteer - ASV Grade 5-10 Check
+      else if($role['id']==9 && !in_array($current_city_id,$check_ids['other_roles'])){ //ES Volunteer - ASV Grade 5-10 Check
         $volunteer_roles[$i]['name'] = 'ASV (Grade 5-10)';
       }
-      else if($role['id']==369 && !in_array($city_id,$check_ids['other_roles'])){ //FR Volunteer - Fundraising Volunteer - Check
+      else if($role['id']==369 && !in_array($current_city_id,$check_ids['other_roles'])){ //FR Volunteer - Fundraising Volunteer - Check
         $volunteer_roles[$i]['name'] = 'Fundraising Volunteer';
       }
       else{
@@ -329,11 +339,11 @@
 
     $options_volunteer = '';
     foreach ($volunteer_roles as $role) {
-      // if($selected_id!=null || $selected_id!=''){
-      //   if($role['id'] == $selected_id){
-      //     $role['id'] = $role['id'].'" selected="';
-      //    }
-      // }
+      if($selected_id!=null || $selected_id!=''){
+        if($role['id'] == $selected_id){
+          $role['id'] = $role['id'].'" selected="selected';
+         }
+      }
       $options_volunteer .= '<option value="'.$role['id'].'">'.$role['name'].'</option>';
     }
 

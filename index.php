@@ -80,7 +80,16 @@
                     <!-- Role Compatibility Survey -->
                     <fieldset>
                         <h2 class="fs-title">Role Compatibility</h2>
-                        <h3 class="fs-subtitle">Self Analysis</h3><hr>
+                        <h3 class="fs-subtitle">
+                          Self Analysis
+                          <?php
+                            if($survey_entered){
+                              echo '<br/><br/>';
+                              echo '<b>You have already filled this section</b>. Update your responses or Click on "Next" to continue.<br/>';
+                            }
+                          ?>
+                        </h3><hr>
+
                         <?php
                           $indx=1;
                           $last_question_id = 0;
@@ -121,35 +130,43 @@
                     <!-- SignUp page -->
                     <fieldset>
                         <h2 class="fs-title">Sign Up</h2>
-                        <h3 class="fs-subtitle"></h3>
+                        <h3 class="fs-subtitle">
+                          <?php
+                            if($role_preference_check){
+                              echo '<br/><br/>';
+                              echo '<b>You have already filled this section</b>. Update your responses or Click on "Next" to continue.<br/>';
+                            }
+                          ?>
+                        </h3>
                         <hr>
                         <img src="img/succession.png" alt="Mountain View" style="width:100%;height:auto;">
                         <h3 align=left class="fs-subtitle">Dear MADster,<br><br>Having filled the role compatibility questionnaire, we hope you have gotten a better insight into your current interests and prospective commitment you can make to MAD.<br>If majority of your answers were Yes, then we would highly recommend you to apply for the role of a Fellow, Strategist, Wingman or a Mentor as these role require a higher level of ownership and commitment as you would be multiplying the impact on ground.<br><br>If your answers were majorly kind of and a few no, we would recommend you to really think about whether you are ready to invest the time and effort to build the skills with the support we will be providing you as well as understand the expected commitment towards Make A Difference for the upcoming year and make an informed decision to take on Fellowship, Strategist, Wingman, Mentor and volunteering profiles.<br><br>We believe that every person can make a difference and if you have identified that you will not be able to commit to MAD in the expected collective capacity we would recommend you to join our Alumni network and work towards transforming outcomes for children in an individual capacity.<br><br>We are in this journey together and we look hope you choose wisely.</h3><hr>
 
                         <p align=left>What Profile would I be interested to sign up for?</p>
-                        <!-- pull roles frommuser group table -->
+                        <!-- pull roles from user group table -->
+
                         <select id ="user_group_preference_id" name="user_group_preference_name" onchange="req(this);" required>
-                                 <option selected value="">Roles</option>
-                                 <option value=0 selected>Fellow</option>
-                                 <option value=8>Mentor</option>
-                                 <option value=9>ASV(5th-10th)</option>
-                                 <option value=349>ASV(11th-12th)</option>
-                                 <option value=348>Wingman</option>
-                                 <option value=999>Alumni</option>
+                                 <option value="">Roles</option>
+                                 <optgroup label="Fellow">
+                                   <option value=0 selected>Fellow</option>
+                                 </optgroup>
+                                 <optgroup label="Volunteer Roles">
+                                   <?php
+                                    echo role_options($sql,$user['city_id'],'volunteer',$role_preference[1]);
+                                   ?>
+                                 </optgroup>
                         </select><br><hr>
 
                         <!-- <input type='text' id="other" class="hidden" /><br><br><hr> -->
-                        <?php
-                          $options_fellow =  role_options($sql,$user['city_id'],'fellow');
-                          $options_volunteer = role_options($sql,$user['city_id'],'volunteer');
-                        ?>
+
 
                         <div id="hidden_div" class="indented">
                           <p align=left>What is Fellowship profile first preference?</p>
                           <select id ="fellow_prefernece1_id" name="fellow_prefernece1_name" required>
                              <option selected value="" selected>Select Role</option>
                              <?php
-                               echo $options_fellow;
+                               dump($role_preference);
+                               echo role_options($sql,$user['city_id'],'fellow',$role_preference[1]);
                              ?>
                           </select><br><hr>
 
@@ -157,9 +174,11 @@
                           <select id ="fellow_prefernece2_id" name="fellow_prefernece2_name" value ="">
                             <option selected value="" selected>Select Role</option>
                             <?php
-                              echo $options_fellow;
-                              echo '<hr/>';
-                              echo $options_volunteer;
+                              echo '<optgroup label="Fellow Roles">';
+                              echo role_options($sql,$user['city_id'],'fellow',$role_preference[2]);
+                              echo '</optgroup><optgroup label="Volunteer Roles">';
+                              echo role_options($sql,$user['city_id'],'volunteer',$role_preference[2]);
+                              echo '</optgroup>';
                             ?>
                           </select><br><hr>
 
@@ -167,9 +186,11 @@
                           <select id ="fellow_prefernece3_id" name="fellow_prefernece3_name" value ="">
                             <option selected value="" selected>Select Role</option>
                             <?php
-                              echo $options_fellow;
-                              echo '<hr/>';
-                              echo $options_volunteer;
+                              echo '<optgroup label="Fellow Roles">';
+                              echo role_options($sql,$user['city_id'],'fellow',$role_preference[3]);
+                              echo '</optgroup><optgroup label="Volunteer Roles">';
+                              echo role_options($sql,$user['city_id'],'volunteer',$role_preference[3]);
+                              echo '</optgroup>';
                             ?>
                           </select><br><hr>
                         </div>
@@ -182,22 +203,31 @@
                     <fieldset>
 
                         <h2 class="fs-title">Recommendation</h2>
-                        <h3 class="fs-subtitle"></h3><hr>
+                        <h3 class="fs-subtitle">
+                          <?php
+                            if($recommendation_check){
+                              echo '<br/><br/>';
+                              echo '<b>You have already filled this section</b>. Update your responses or Click on "Next" to continue.<br/>';
+                            }
+                          ?>
+                        </h3><hr>
                         <h3 align=left class="fs-subtitle">This is your opportunity to voice your choice of City Managers (Fellows) for your city for the upcoming year.<br>You've gone through the role compatibility screening and read about what it takes to be a fellow.<br><br>Keeping that in mind, fill in the following.
                         </h3><hr>
 
                         <?php
                           for($i=0;$i<3;$i++){
-                                                        
+                            $name = '';
+                            $options = role_options($sql,$user['city_id'],'fellow');
                             if($recommendation_check){
                               $name = 'value ="'.$recommendation[$i]['name'].' / '.$recommendation[$i]['id'].'"';
+                              $options = role_options($sql,$user['city_id'],'fellow',$recommendation[$i]['group_id']);
                             }
 
                             echo '<input type="text" id="tags'.($i+1).'" class="auto" name="recommendation'.($i+1).'_name" required placeholder=" Potential Fellowship/Mentorship Candidate '.($i+1).'" '.$name.'>
                             <p align=left>Recommended Profile:</p>
                                 <select id ="recommendation_role'.($i+1).'_id" name="recommendation'.($i+1).'_role_name" required value ="">
                                          <option selected value="">Roles</option>
-                                          '.role_options($sql,$user['city_id'],'fellow',$recommendation[$i]['group_id']).'
+                                          '.$options.'
                                 </select>
                             <br><br><hr>';
                           }
@@ -252,12 +282,9 @@
                         <br><input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
                         <input type="button" name="next" class="next action-button" value="Next"/>
                     </fieldset> -->
-
-
-
                     </fieldset>
 
-                    <!-- Submit -->
+
                     <fieldset>
                         <h2 class="fs-title">Submit</h2><hr>
                         <h3 class="fs-subtitle">Thank You For Your Responses. Click on Submit to confirm your application.</h3><hr>
@@ -279,9 +306,14 @@
 
         <script>
           document.getElementById('user_group_preference_id').addEventListener('change', function () {
-              var style = this.value == 0 ? 'block' : 'none';
-              document.getElementById('hidden_div').style.display = style;
-              });
+            var style = this.value == 0 ? 'block' : 'none';
+            document.getElementById('hidden_div').style.display = style;
+          });
+
+          var style = document.getElementById('user_group_preference_id')
+          var style = document.getElementById('user_group_preference_id').value == 0 ? 'block' : 'none';
+          document.getElementById('hidden_div').style.display = style;
+
 
           function req(valchange){if (valchange.value=="") window.alert("This field is required");}
           function validphone(num){if (num.value.match(/\d/g).length!=10) window.alert("Enter a valid phone number");}
