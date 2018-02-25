@@ -22,6 +22,10 @@ p{
   line-height: 115%;
 }
 
+div.row{
+  width: 100%;
+}
+
 
 input.error{
   border: #ed1849 thin solid;

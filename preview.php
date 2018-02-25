@@ -167,6 +167,19 @@ for($i=1; $i<=3; $i++){
   );
 }
 
+if(!empty($recommendations)){
+  $check_previous = $sql->getAll('SELECT id FROM FAM_Referral WHERE referer_user_id='.$user_id);
+  if(!empty($check_previous)){
+    $delete_ids = array();
+    foreach ($check_previous as $entry) {
+      $delete_ids[] = $entry['id'];
+    }
+    if(!empty($delete_ids)){
+      $delete = $sql->execQuery('DELETE FROM FAM_Referral WHERE id IN ('.implode(',',$delete_ids).')');
+    }
+  }
+}
+
 foreach ($recommendations as $recommendation) {
   $insert_rec = $sql->insert('FAM_Referral',$recommendation);
   if($insert_rec!=0){
@@ -252,7 +265,7 @@ foreach ($recommendations as $recommendation) {
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="refresh" content="5;URL='http://makeadiff.in/madapp'" />
+        <meta http-equiv="refresh" content="10;URL='http://makeadiff.in/madapp'" />
 
         <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
 
@@ -274,7 +287,8 @@ foreach ($recommendations as $recommendation) {
               <form id="msform" action="preview.php" method="POST" novalidate>
                 <fieldset>
                     <h2 class="fs-title">Response Recorded</h2><hr>
-                    <h3 class="fs-subtitle">Thank You</h3><hr>
+                    <h3 class="fs-subtitle">Thank You. You'll be redirected back to the website shortly.</h3><hr>
+                    <a href="./index.php"><input type="button" value="Click here to Update Responses"></a>
                   </fieldset>
               </form>
           </div>

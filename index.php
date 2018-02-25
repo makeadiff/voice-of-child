@@ -2,6 +2,7 @@
 
   include ('db/config.php');
 
+
   //Find the configuratio files in db/config.php
 ?>
 
@@ -92,7 +93,7 @@
                     </fieldset>
 
                     <!-- Role Compatibility Survey -->
-                    <fieldset>
+                    <fieldset id="continuing1">
                         <h2 class="fs-title">Role Compatibility</h2>
                         <h3 class="fs-subtitle">
                           Self Analysis
@@ -142,7 +143,7 @@
                     </fieldset>
 
                     <!-- SignUp page -->
-                    <fieldset>
+                    <fieldset id="continuing2">
                         <h2 class="fs-title">Sign Up</h2>
                         <h3 class="fs-subtitle">
                           <?php
@@ -255,54 +256,6 @@
                         <input type="button" name="next" class="next action-button" value="Next"/>
                     </fieldset>
 
-                    <!--referral-->
-                    <!-- <fieldset>
-
-                        <h2 class="fs-title">Refer</h2>
-                        <h3 align=left class="fs-subtitle">If you know someone who has the spark to join and Make A Difference, refer them.
-                        </h3><hr>
-                        <h3 class="fs-subtitle">Person 1</h3><hr>
-                        <input type="text" name="referral1_name" placeholder="Full Name" value= "" required=""/>
-                        <input type="email" name="referral1_email" placeholder="Email Address" value="" required=""/>
-                        <input type="text" name="referral1_phone" placeholder="Phone" value = "" required=""/>
-                        <select id ="soflow" name="referral1_sex" value ="f">
-                          <option>Gender</option>
-                          <option value="m">Male</option>
-                          <option value="f">Female</option>
-                          <option value="o">Other</option>
-                        </select>
-                        <br/><br/><br/>
-                        <hr>
-                        <h3 class="fs-subtitle">Person 2</h3><hr>
-                        <input type="text" name="referral2_name" placeholder="Full Name" value= "" required=""/>
-                        <input type="email" name="referral2_email" placeholder="Email Address" value="" required=""/>
-                        <input type="text" name="referral2_phone" placeholder="Phone" value = "" required=""/>
-                        <select id ="soflow" name="referral2_sex" value ="f">
-                          <option>Gender</option>
-                          <option value="m">Male</option>
-                          <option value="f">Female</option>
-                          <option value="o">Other</option>
-                        </select>
-                        <br/><br/><br/>
-                        <hr>
-                        <h3 class="fs-subtitle">Person 3</h3><hr>
-                        <input type="text" name="referral3_name" placeholder="Full Name" value= "" required=""/><hr>
-                        <input type="email" name="referral3_email" placeholder="Email Address" value="" required=""/><hr>
-                        <input type="text" name="referral3_phone" placeholder="Phone" value = "" required=""/><hr>
-                        <select id ="soflow" name="referral3_sex" value ="f">
-                          <option>Gender</option>
-                          <option value="m">Male</option>
-                          <option value="f">Female</option>
-                          <option value="o">Other</option>
-                        </select>
-                        <br/><br/><br/>
-                        <hr>
-                        <br><input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-                        <input type="button" name="next" class="next action-button" value="Next"/>
-                    </fieldset> -->
-                    </fieldset>
-
-
                     <fieldset>
                         <h2 class="fs-title">Submit</h2><hr>
                         <h3 class="fs-subtitle">Thank You For Your Responses. Click on Submit to confirm your application.</h3><hr>
@@ -326,14 +279,21 @@
           document.getElementById('user_group_preference_id').addEventListener('change', function () {
             var style = this.value == 0 ? 'block' : 'none';
             document.getElementById('hidden_div').style.display = style;
+            if(id==''){
+              $('#fellow_prefernece2_id option').removeAttr("hidden");
+              $('#fellow_prefernece3_id option').removeAttr("hidden");
+              $('#fellow_prefernece1_id option').removeAttr("hidden");
+            }
           });
 
           //Disable Values
           document.getElementById('fellow_prefernece1_id').addEventListener('change', function () {
             var id = this.value;
 
-            $('#fellow_prefernece2_id option').removeAttr("hidden");
-            $('#fellow_prefernece3_id option').removeAttr("hidden");
+            if(id==''){
+              $('#fellow_prefernece2_id option').removeAttr("hidden");
+              $('#fellow_prefernece3_id option').removeAttr("hidden");
+            }
 
             $('#fellow_prefernece2_id option[value='+id+']').attr("hidden","hidden");
             $('#fellow_prefernece3_id option[value='+id+']').attr("hidden","hidden");
@@ -343,8 +303,10 @@
           document.getElementById('fellow_prefernece2_id').addEventListener('change', function () {
             var id = this.value;
 
-            $('#fellow_prefernece1_id option').removeAttr("hidden");
-            $('#fellow_prefernece3_id option').removeAttr("hidden");
+            if(id==''){
+              $('#fellow_prefernece2_id option').removeAttr("hidden");
+              $('#fellow_prefernece3_id option').removeAttr("hidden");
+            }
 
             $('#fellow_prefernece1_id option[value='+id+']').attr("hidden","hidden");
             $('#fellow_prefernece3_id option[value='+id+']').attr("hidden","hidden");
@@ -354,8 +316,10 @@
           document.getElementById('fellow_prefernece3_id').addEventListener('change', function () {
             var id = this.value;
 
-            $('#fellow_prefernece2_id option').removeAttr("hidden");
-            $('#fellow_prefernece1_id option').removeAttr("hidden");
+            if(id==''){
+              $('#fellow_prefernece2_id option').removeAttr("hidden");
+              $('#fellow_prefernece3_id option').removeAttr("hidden");
+            }
 
             $('#fellow_prefernece2_id option[value='+id+']').attr("hidden","hidden");
             $('#fellow_prefernece1_id option[value='+id+']').attr("hidden","hidden");

@@ -5,6 +5,7 @@ var current_fs, next_fs, previous_fs; //fieldsets
 var left, opacity, scale; //fieldset properties which we will animate
 var animating; //flag to prevent quick multi-click glitches
 var temp=0;
+var cont=document.getElementById("soflow").value;
 $(".next").click(function(){
 	var form = $("#msform");
 			form.validate({
@@ -41,9 +42,19 @@ $(".next").click(function(){
 				if(document.getElementById("soflow").value=="0"&&temp==0)
 						{ console.log('here');
 							next_fs = $(this).parent().nextAll().eq(2);
+							cont=0;
+							$('#continuing1').attr("disabled","disabled");
+							$('#continuing2').attr("disabled","disabled");
 						temp=1;}
 				else
-						{next_fs = $(this).parent().next();}
+						{
+							if(cont==1){
+								$('#continuing1').removeAttr("disabled");
+								$('#continuing2').removeAttr("disabled");
+							}
+							next_fs = $(this).parent().next();
+
+						}
 				//activate next step on progressbar using the index of next_fs
 				$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
 
@@ -83,7 +94,13 @@ $(".previous").click(function(){
 	animating = true;
 
 	current_fs = $(this).parent();
-	previous_fs = $(this).parent().prev();
+	if(cont==0){
+		previous_fs = $(this).parent().prevAll().eq(2);
+		cont=1;
+		temp=0;
+	}else{
+		previous_fs = $(this).parent().prev();
+	}
 
 	//de-activate current step on progressbar
 	$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
