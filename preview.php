@@ -258,39 +258,46 @@ foreach ($recommendations as $recommendation) {
 
 <!DOCTYPE html>
 <html lang="en" >
+  <head>
+      <meta charset="UTF-8">
+      <title>Retention and Succession Form||Preview</title>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta http-equiv="refresh" content="10;URL='http://makeadiff.in/succession2018'" />
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Retention and Succession Form||Preview</title>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="refresh" content="10;URL='http://makeadiff.in/madapp'" />
+      <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
 
-        <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+      <link rel="stylesheet" href="css/style.css">
 
-        <link rel="stylesheet" href="css/style.css">
+      <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+      <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  </head>
 
-        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-        <link rel="icon" href="/favicon.ico" type="image/x-icon">
-
-
-    </head>
-
-    <body>
-      <div class="container">
-          <h1 class="span12 fs-main-title text-center">Retention and Succession Form</h1>
-      </div>
-      <!-- MultiStep Form -->
-      <div class="row">
-          <div class="col-md-6 col-md-offset-3">
-              <form id="msform" action="preview.php" method="POST" novalidate>
-                <fieldset>
-                    <h2 class="fs-title">Response Recorded</h2><hr>
-                    <h3 class="fs-subtitle">Thank You. You'll be redirected back to the website shortly.</h3><hr>
-                    <a href="./index.php"><input type="button" value="Click here to Update Responses"></a>
-                  </fieldset>
-              </form>
-          </div>
+  <body>
+    <div class="container">
+        <h1 class="span12 fs-main-title text-center">Retention and Succession Form</h1>
+    </div>
+    <!-- MultiStep Form -->
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form id="msform" action="preview.php" method="POST" novalidate>
+              <fieldset>
+                  <h2 class="fs-title">Response Recorded</h2><hr>
+                  <h3 class="fs-subtitle">Thank You. You'll be redirected back to the website shortly.</h3><hr>
+                  <a href="./index.php"><input type="button" value="Click here to Update Responses"></a>
+                </fieldset>
+            </form>
         </div>
-      </body>
+      </div>
+  </body>
+</html>
+
+
+<script>
+  window.intercomSettings = {
+    app_id: "xnngu157"
+  };
+</script>
+<script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/xnngu157';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()
+</script>
