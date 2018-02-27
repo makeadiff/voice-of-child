@@ -1,12 +1,6 @@
 <?php
-
-  include ('db/config.php');
-
-
-  //Find the configuratio files in db/config.php
+include ('db/config.php'); //Find the configuratio files in db/config.php
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en" >
 
@@ -117,8 +111,9 @@
                             }
 
                             $form_input = '<div class="col-sm-12">
-                                            <input type="radio" required="" name="survey_question_'.$qna['question_id'].'" value="'.$qna['answer_id'].'" '.$selected.'>
-                                            <label class="radio-inline">
+                                            <input type="radio" required="" name="survey_question_'.$qna['question_id'].'" id="survey_question_'.$qna['question_id'].'-'.$qna['answer_id'].'" 
+                                              value="'.$qna['answer_id'].'" '.$selected.'>
+                                            <label class="radio-inline" for="survey_question_'.$qna['question_id'].'-'.$qna['answer_id'].'">
                                               '.$qna['answer'].'
                                             </label>
                                            </div>';
@@ -180,7 +175,6 @@
                           <select id ="fellow_prefernece1_id" name="fellow_prefernece1_name" required>
                              <option selected value="" selected>Select Role</option>
                              <?php
-                               dump($role_preference);
                                echo role_options($sql,$user['city_id'],'fellow',$role_preference[1]);
                              ?>
                           </select><br><hr>
