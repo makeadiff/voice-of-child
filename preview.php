@@ -77,12 +77,54 @@ if(!empty($survey_question)) {
 //SignUp user group preference
 
 $user_group_preference    = array();
-$user_group_preference[0] = $_POST['user_group_preference_name'];
+if(isset($_POST['user_group_preference_name'])){
+  $user_group_preference[0] = $_POST['user_group_preference_name'];
 
-for($i=1;$i<=3;$i++){
-  $user_group_preference[$i] = $_POST['fellow_prefernece'.$i.'_name'];
+  for($i=1;$i<=3;$i++){
+    $user_group_preference[$i] = $_POST['fellow_prefernece'.$i.'_name'];
+  }
+
+  $query_user_group_preference_check="SELECT id FROM FAM_UserGroupPreference WHERE user_id=".$user_id;
+
+  $check_data = $sql->getAll($query_user_group_preference_check);
+  $check = array();
+  foreach ($check_data as $data) {
+    $check[] = $data['id'];
+  }
+
+  if(!empty($check)){
+    $delete = $sql->remove('FAM_UserGroupPreference','id IN ('.implode(',',$check).')');
+  }
+
+  if($user_group_preference[0]!=0){
+    $insert_pref = $sql->insert('FAM_UserGroupPreference',array(
+                              'user_id' => $user_id,
+                              'group_id' => $user_group_preference[0],
+                              'preference' => 1,
+                              'taskfolder_link' => ''
+                          ));
+
+    if($insert_pref!=0){
+      $preference_form_check = true;
+    }
+  }
+  else{
+    $insert_array = array();
+    for ($i=1; $i<=3; $i++) {
+      if($user_group_preference[$i]!=''){
+        $insert_pref = $sql->insert('FAM_UserGroupPreference',array(
+                                  'user_id' => $user_id,
+                                  'group_id' => $user_group_preference[$i],
+                                  'preference' => $i,
+                                  'taskfolder_link' => ''
+                              ));
+        if($insert_pref!=0){
+          $preference_form_check = true;
+        }
+      }
+    }
+  }
 }
-
 //SignUp user group preference insert/update in FAM_UserGroupPreference
 
 
@@ -102,46 +144,7 @@ else{
 }
 
 
-$query_user_group_preference_check="SELECT id FROM FAM_UserGroupPreference WHERE user_id=".$user_id;
 
-$check_data = $sql->getAll($query_user_group_preference_check);
-$check = array();
-foreach ($check_data as $data) {
-  $check[] = $data['id'];
-}
-
-if(!empty($check)){
-  $delete = $sql->remove('FAM_UserGroupPreference','id IN ('.implode(',',$check).')');
-}
-
-if($user_group_preference[0]!=0){
-  $insert_pref = $sql->insert('FAM_UserGroupPreference',array(
-                            'user_id' => $user_id,
-                            'group_id' => $user_group_preference[0],
-                            'preference' => 1,
-                            'taskfolder_link' => ''
-                        ));
-
-  if($insert_pref!=0){
-    $preference_form_check = true;
-  }
-}
-else{
-  $insert_array = array();
-  for ($i=1; $i<=3; $i++) {
-    if($user_group_preference[$i]!=''){
-      $insert_pref = $sql->insert('FAM_UserGroupPreference',array(
-                                'user_id' => $user_id,
-                                'group_id' => $user_group_preference[$i],
-                                'preference' => $i,
-                                'taskfolder_link' => ''
-                            ));
-      if($insert_pref!=0){
-        $preference_form_check = true;
-      }
-    }
-  }
-}
 
 
 // var_dump($preference_form_check);
@@ -187,73 +190,6 @@ foreach ($recommendations as $recommendation) {
   }
 }
 
-
-// var_dump($recommendation_form_check);
-
-
-//referral
-// $referrals    = array();
-//
-// for ($i=1;$i<=3;$i++) {
-//   if
-//   $referrals[$i] = array(
-//     'name'  => $_POST['referral'.$i.'_name'],
-//     'email' => $_POST['referral'.$i.'_email'],
-//     'phone' => $_POST['referral'.$i.'_phone'],
-//     'sex' => $_POST['referral'.$i.'_sex']
-//   );
-// }
-//
-// foreach ($referrals as $referral) {
-//   if($referral['name']!=''){
-//     $check = $sql->getOne('SELECT id from User where (email="'.$referral['email'].'" OR mad_email="'.$referral['email'].'" OR phone="'.$referral['phone'].'")');
-//     if($check==''){
-//       $insert = $sql->insert('User',array(
-//         'name' => $referral['name'],
-//         'email' => $referral['email'],
-//         'phone' => $referral['phone'],
-//         'joined_on' => date('Y-m-d H:i:s'),
-//         'sex' => $referral['sex'],
-//         'city_id' => $user_city_id,
-//         'password' => '',
-//         'password_hash' => '',
-//         'photo' => '',
-//         'bio' => '',
-//         'address' => '',
-//         'profile_progress' => 0,
-//         'source' => 'other',
-//         'facebook_id' => '',
-//         'source_other' => 'referral',
-//         'birthday' => '1970-01-01 00:00:00',
-//         'job_status' => 'student',
-//         'left_on' => '1970-01-01 00:00:00',
-//         'verification_status' => '',
-//         'edu_institution' => '',
-//         'company' => '',
-//         'why_mad' => '',
-//         'title' => '',
-//         'reason_for_leaving' => '',
-//         'center_id' => 0,
-//         'city_other' => '',
-//         'subject_id' => 0,
-//         'project_id' => 0,
-//         'consecutive_credit' => 0,
-//         'admin_credit' => 0,
-//         'app_version' => '',
-//       ));
-//
-//       if($insert_ref!=0){
-//         $referral_form_check = true;
-//       }
-//     }
-//     else{
-//       $referral_form_check = true;
-//     }
-//   }
-// }
-
-// var_dump($referral_form_check);
-
 ?>
 
 <!DOCTYPE html>
@@ -264,7 +200,7 @@ foreach ($recommendations as $recommendation) {
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta http-equiv="refresh" content="10;URL='http://makeadiff.in/succession2018'" />
+      <meta http-equiv="refresh" content="10;URL='../../succession2018'" />
 
       <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
 
