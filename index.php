@@ -49,13 +49,13 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                     <fieldset>
                         <h2 class="fs-title">Personal Information</h2>
                         <!-- <h3 class="fs-subtitle"> Verify Your Details</h3><hr> -->
-                        <p>Hello, amazing MADster. <br />
+                        <p align="left" class="fs-subtitle">Hello, amazing MADster. <br />
 							It's time! Gear yourself up for the much awaited Succession 2018. <br />
 							In 2017, you learnt, you invested, you grew. Now it's your time. Take it a step forward. <br />
 							Explore and find your destiny! The role you were made for! The role that speaks to you! <br />
 							Apply away!</p>
 
-							<p>Kindly verify your personal details and move forward</p>
+						<p align="left" class="fs-subtitle">Kindly verify your personal details and move forward...</p>
 
                         <input type='text' name="user_id" class="hidden" value= "<?php echo $user['id'] ?>"/>
                         <input type='text' name="user_city_id" class="hidden" value= "<?php echo $user['city_id'] ?>"/>
@@ -107,7 +107,7 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                           ?>
                         </h3>
 						
-						<p>Let's get started. If you are not likely to answer positively to the first four, being an Alumni might be the best option for you.</p>
+						<p align="left" class="fs-subtitle">Let's get started. If you are not likely to answer positively to the first four, being an Alumni might be the best option for you.</p>
                         <hr>
 
                         <?php
@@ -237,8 +237,8 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                             }
                           ?>
                         </h3><hr>
-                        <p align=left class="fs-subtitle">Throughout this year you would have met some amazing people in your recruitment drives, trainings, weekly sessions, city circles and other MAD events. There is something unique about each of these people. Unique because they didn't just care - they <strong>cared more</strong>. This is your chance to recommend those who should multiply impact and lead the city.</p>
-                        
+                        <p align="left" class="fs-subtitle">Throughout this year you would have met some amazing people in your recruitment drives, trainings, weekly sessions, city circles and other MAD events. There is something unique about each of these people. Unique because they didn't just care - they <strong>cared more</strong>. This is your chance to recommend those who should multiply impact and lead the city.</p>
+
                         <p><strong>Recommend volunteers whom you see potential to be city managers below</strong>.</p><hr>
 
                         <?php
