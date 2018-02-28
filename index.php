@@ -48,7 +48,15 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                     <!-- Verify your details -->
                     <fieldset>
                         <h2 class="fs-title">Personal Information</h2>
-                        <h3 class="fs-subtitle"> Verify Your Details</h3><hr>
+                        <!-- <h3 class="fs-subtitle"> Verify Your Details</h3><hr> -->
+                        <p>Hello, amazing MADster. <br />
+							It's time! Gear yourself up for the much awaited Succession 2018. <br />
+							In 2017, you learnt, you invested, you grew. Now it's your time. Take it a step forward. <br />
+							Explore and find your destiny! The role you were made for! The role that speaks to you! <br />
+							Apply away!</p>
+
+							<p>Kindly verify your personal details and move forward</p>
+
                         <input type='text' name="user_id" class="hidden" value= "<?php echo $user['id'] ?>"/>
                         <input type='text' name="user_city_id" class="hidden" value= "<?php echo $user['city_id'] ?>"/>
 
@@ -97,7 +105,10 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                               echo '<b>You have already filled this section</b>. Update your responses or Click on "Next" to continue.<br/>';
                             }
                           ?>
-                        </h3><hr>
+                        </h3>
+						
+						<p>Let's get started. If you are not likely to answer positively to the first four, being an Alumni might be the best option for you.</p>
+                        <hr>
 
                         <?php
                           $indx=1;
@@ -149,8 +160,14 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                           ?>
                         </h3>
                         <hr>
-                        <img src="img/succession.png" alt="Mountain View" style="width:100%;height:auto;">
-                        <h3 align=left class="fs-subtitle">Dear MADster,<br><br>Having filled the role compatibility questionnaire, we hope you have gotten a better insight into your current interests and prospective commitment you can make to MAD.<br>If majority of your answers were Yes, then we would highly recommend you to apply for the role of a Fellow, Strategist, Wingman or a Mentor as these role require a higher level of ownership and commitment as you would be multiplying the impact on ground.<br><br>If your answers were majorly kind of and a few no, we would recommend you to really think about whether you are ready to invest the time and effort to build the skills with the support we will be providing you as well as understand the expected commitment towards Make A Difference for the upcoming year and make an informed decision to take on Fellowship, Strategist, Wingman, Mentor and volunteering profiles.<br><br>We believe that every person can make a difference and if you have identified that you will not be able to commit to MAD in the expected collective capacity we would recommend you to join our Alumni network and work towards transforming outcomes for children in an individual capacity.<br><br>We are in this journey together and we look hope you choose wisely.</h3><hr>
+                        <img src="img/succession.png" alt="Mountain View" style="width:100%;height:auto;"><br /><br />
+                        <p align="left" class="fs-subtitle">Dear MADster</p>
+
+						<p align="left" class="fs-subtitle">Having filled the role compatibility questionnaire, we hope you have gotten a better insight into your current interests and prospective commitment you can make to MAD.</p>
+
+						<p align="left" class="fs-subtitle">If you selected 'Yes' to 7 or more, then we would highly recommend you to apply for the role of a Fellow, Mentor, or Wingman. These role require a higher level of ownership and commitment and you would be multiplying the impact on ground.</p>
+
+                        <hr>
 
                         <p align=left>What Profile would I be interested to sign up for?</p>
                         <!-- pull roles from user group table -->
@@ -220,8 +237,9 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                             }
                           ?>
                         </h3><hr>
-                        <h3 align=left class="fs-subtitle">This is your opportunity to voice your choice of City Managers (Fellows) for your city for the upcoming year.<br>You've gone through the role compatibility screening and read about what it takes to be a fellow.<br><br>Keeping that in mind, fill in the following.
-                        </h3><hr>
+                        <p align=left class="fs-subtitle">Throughout this year you would have met some amazing people in your recruitment drives, trainings, weekly sessions, city circles and other MAD events. There is something unique about each of these people. Unique because they didn't just care - they <strong>cared more</strong>. This is your chance to recommend those who should multiply impact and lead the city.</p>
+                        
+                        <p><strong>Recommend volunteers whom you see potential to be city managers below</strong>.</p><hr>
 
                         <?php
                           for($i=0;$i<3;$i++){
