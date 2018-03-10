@@ -46,6 +46,7 @@ label.error{
     text-align: center;
     position: relative;
     margin-top: 30px;
+    font-size: 15px !important;
 }
 
 #msform .col-sm-3, #msform .col-sm-2, #msform .col-sm-12{
@@ -151,7 +152,7 @@ label.error{
 /* mainheadings*/
 .fs-main-title {
     font-size: 30px;
-/*    text-transform: uppercase;*/
+    position: relative;
     color: #FFF;
     margin-bottom: 10px;
     letter-spacing: 2px;
@@ -270,8 +271,7 @@ select {
    color: #555;
    font-size: inherit;
    float: left;
-   /* width: 80%; */
-   /*margin: 10px;*/
+   font-size: 15px;
    overflow: hidden;
    padding: 5px 10px;
    text-overflow: ellipsis;

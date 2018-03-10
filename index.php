@@ -11,9 +11,17 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+        <!-- <link href="../../styles/home.css" rel="stylesheet">
+  			<link href="../../styles/style.css" rel="stylesheet"> -->
+        <!-- <link href="../../succession2018/css/internal.css" rel="stylesheet"> -->
         <link rel="shortcut icon" href="/var/www/html/SignUpForm/favicon.png" type="image/png">
         <link rel="stylesheet" href="css/style.css">
         <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+
+        <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:700,400,400italic' rel='stylesheet' type='text/css'>
+  			<link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  			<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Titillium+Web:400,600,700,900|Ubuntu:400,500,700" rel="stylesheet">
+
         <style>
             html{font-size:20pt}
             .choice {
@@ -24,10 +32,27 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
             .choice input {
                 vertical-align: left;
             }
+            header {
+            	font-family: 'Roboto Condensed' !important;
+            }
+
+            header nav a {
+              font-size: 18px;
+              line-height: 40px;
+            }
+            header ul{
+              line-height: 60px !important;
+            }
+            .row{
+              float: none !important
+            }
         </style>
     </head>
 
     <body>
+
+        <?php //include('../../global_nav.php') ?>
+        <?php //include('../../succession2018/subheader.php') ?>
         <div class="container">
             <h1 class="span12 fs-main-title text-center">Retention and Succession Form</h1>
         </div>
@@ -111,7 +136,7 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                             }
 
                             $form_input = '<div class="col-sm-12">
-                                            <input type="radio" required="" name="survey_question_'.$qna['question_id'].'" id="survey_question_'.$qna['question_id'].'-'.$qna['answer_id'].'" 
+                                            <input type="radio" required="" name="survey_question_'.$qna['question_id'].'" id="survey_question_'.$qna['question_id'].'-'.$qna['answer_id'].'"
                                               value="'.$qna['answer_id'].'" '.$selected.'>
                                             <label class="radio-inline" for="survey_question_'.$qna['question_id'].'-'.$qna['answer_id'].'">
                                               '.$qna['answer'].'
