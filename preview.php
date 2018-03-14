@@ -22,7 +22,7 @@ $user_phone    = $_POST['user_phone'];
 $user_sex      = $_POST['user_sex'];
 $user_birthday = $_POST['user_birthday'];
 $user_address  = $_POST['user_address'];
-$cont_status   = $_POST['cont_status'];
+// $cont_status   = $_POST['cont_status'];
 //update user details in User table
 
 $sql->update('User', array(
@@ -128,22 +128,74 @@ if(isset($_POST['user_group_preference_name'])){
 //SignUp user group preference insert/update in FAM_UserGroupPreference
 
 
-$cont_status_id = $sql->getOne('SELECT id FROM UserData WHERE name="continuation_status" AND user_id='.$user_id);
-if($cont_status_id==''){
-  $insert_continuation_status= $sql->insert('UserData',array(
-    'user_id' => $user_id,
-    'name' => 'continuation_status',
-    'value' => $cont_status,
-    'data' => date('Y-m-d H:i:s')
-  ));
-}
-else{
-  $update_continuation_status = $sql->update('UserData',array(
-    'value' => $cont_status
-  ),'id='.$cont_status_id);
-}
+// $cont_status_id = $sql->getOne('SELECT id FROM UserData WHERE name="continuation_status" AND user_id='.$user_id);
+// if($cont_status_id==''){
+//   $insert_continuation_status= $sql->insert('UserData',array(
+//     'user_id' => $user_id,
+//     'name' => 'continuation_status',
+//     'value' => $cont_status,
+//     'data' => date('Y-m-d H:i:s')
+//   ));
+// }
+// else{
+//   $update_continuation_status = $sql->update('UserData',array(
+//     'value' => $cont_status
+//   ),'id='.$cont_status_id);
+// }
 
 
+$email = new Email();
+$email->html = '<html>
+          <head>
+          <title>Acknowledgement Email</title>
+          </head>
+          <body>
+            <table style="width: 960px;margin:0 auto;height: auto;border: 2px solid #f1f1f1;font-family:arial;font-size:20px;">
+              <tr>
+                <td style="vertical-align: top;">
+                  <img style="float:left;margin: 0px;" src="' . $base_url .  'assets/mad-letterhead-left.png' . '"/><img style="margin-left: -70px;" src="' . $base_url . 'assets/mad-letterhead-logo.png' . '"/>
+                  <img style="float:right;margin:0px;" src="' . $base_url . 'assets/mad-letterhead-right.png' . '"/>
+                </td>
+              </tr>
+              <tr>
+                <td style="color:#cc2028;float:right;margin:10px 20px;"> ' . date("d/m/Y") . ' </td>
+              </tr>
+              <tr>
+                <td style="padding:10px 20px;"><strong>Dear ' . $donor_name . ',</strong></td>
+              </tr>
+              <tr>
+                <td style="padding:10px 20px;">Thanks a lot for your contribution of Rs.<strong style="color:#cc2028;"> /-</strong> towards Make A Difference.</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 20px;">This is not a donation receipt. But only an acknowledgement. We will be sending you the e-receipt for the donation within the next 30 days once the amount reaches us.</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 20px;">Please feel free to contact us on <a href="mailto:info@makeadiff.in">info@makeadiff.in</a> for any clarifications.</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 20px;"><i>Little bit about Make A Difference: We are a youth run volunteer organization that  mobilizes young leaders to provide better outcomes to children living in shelter homes across India.</i></td>
+              </tr>
+              <tr>
+                <td style="padding:20px 20px;"><i>You can read more about us @ <a href="http://www.makeadiff.in"> www.makeadiff.in </a> | <a href="http://www.facebook.com/makeadiff"> www.facebook.com/makeadiff </a> | <a href="http://www.twitter.com/makeadiff">www.twitter.com/makeadiff</a></i></td>
+              </tr>
+              <tr>
+                <td style="color:#333231;font-size:16px;padding:0 20px;">First Floor, House no. 16C, MCHS colony, 1st B Main, 14th C Cross,</td>
+              </tr>
+              <tr>
+                <td style="color:#333231;font-size:16px;padding:0 20px;">HSR Layout, Sector 6, Bangalore - 560102.</td>
+              </tr>
+              <tr>
+                <td style="color:#333231;float:right;font-size:16px;margin:0 20px 20px;">http://www.makeadiff.in</td>
+              </tr>
+            </table>
+          </body>
+        </html>';
+$email->to = $user_email;
+$email->from = "Succession, Make A Difference <succession@makeadiff.in>";
+$email->subject = "Donation Acknowledgment";
+$email->images = $images;
+
+$email->send();
 
 
 

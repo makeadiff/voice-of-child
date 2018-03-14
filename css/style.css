@@ -1,5 +1,5 @@
 /*custom font*/
-@import url(https://fonts.googleapis.com/css?family=Montserrat);
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700,700i,800,800i,900,900i');
 
 /*basic reset*/
 * {
@@ -9,13 +9,14 @@
 
 html {
     height: 100%;
-    background: #ED1849; /* fallback for old browsers */
-    background: linear-gradient(135deg, #3f4591 0%,#a5607f 69%,#db766a 100%) fixed;
+
 }
 /*-webkit-*/
 body {
     font-family: montserrat, arial, verdana;
-    background: transparent;
+    background: url('../img/background12.jpg') fixed no-repeat center ;
+    background-color: none;
+    background-size: cover;
 }
 
 p{
@@ -26,6 +27,9 @@ div.row{
   width: 100%;
 }
 
+.madred{
+  color:#ed1849;
+}
 
 input.error{
   border: #ed1849 thin solid;
@@ -41,12 +45,26 @@ label.error{
   padding: 2px;
 }
 
+label{
+  font-weight: 500;
+}
+
 /*form styles*/
 #msform {
     text-align: center;
     position: relative;
     margin-top: 30px;
-    font-size: 15px !important;
+    font-size: 14px !important;
+}
+
+#msform p.form-label{
+  text-align: left !important;
+}
+
+#msform p.form-info{
+  font-size: 13px;
+  color: #555 !important;
+  text-align: left !important;
 }
 
 #msform .col-sm-3, #msform .col-sm-2, #msform .col-sm-12{
@@ -271,7 +289,7 @@ select {
    color: #555;
    font-size: inherit;
    float: left;
-   font-size: 15px;
+   font-size: 14px;
    overflow: hidden;
    padding: 5px 10px;
    text-overflow: ellipsis;
