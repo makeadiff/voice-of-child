@@ -119,22 +119,22 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                           ?>
                         </p>
                         <hr>
+                        <img src="img/succession.png" alt="Mountain View" style="width:100%;height:auto;"><br /><br />
                         <p class="form-label">
                           <strong class="madred">Tick all that apply to you.</strong>
-                        </p>
-
-                        <p class="form-label">
-                          
-                          <input type="checkbox" name="fellowship_self_analysis_2017[]" value="Enthusiastic! Passionate! High Energy">
-                          <input type="checkbox" name="fellowship_self_analysis_2017[]" value="Excited about people! Love working in teams. Love working with different types of people Have great connections in the city">
-                          <input type="checkbox" name="fellowship_self_analysis_2017[]" value="Highly participative! Ready to make time for all MAD events">
-                          <input type="checkbox" name="fellowship_self_analysis_2017[]" value="Experienced on-ground. Great perspective. Ready to present MAD in any forum">
-                          <input type="checkbox" name="fellowship_self_analysis_2017[]" value="Great communicator. Articulate. Love mobilising others">
-                          <input type="checkbox" name="fellowship_self_analysis_2017[]" value="Owns growth and learning. Excited about levelling up">
                         </p>
                         <p class="form-label">
                           (P.S: If you've got less than 4 of these, you may not enjoy the nature of the fellow role very much, and more direct child entered roles such as <strong>Mentorship</strong> or <strong>Wingman</strong> or <strong>Academic Support Volunteer</strong> would be a better option to apply for.
                         </p>
+
+                          <p class="form-label"><input style="text-align:center;" type="checkbox" name="fellowship_self_analysis_2017[]" value="Enthusiastic! Passionate! High Energy"/><label for="fellowship_self_analysis_2017">Enthusiastic! Passionate! High Energy!</label></p>
+                          <p class="form-label"><input type="checkbox" name="fellowship_self_analysis_2017[]" value="Excited about people! Love working in teams. Love working with different types of people Have great connections in the city"/><label for="fellowship_self_analysis_2017">Excited about people! Love working in teams. Love working with different types of people. Have great connections in the city.</label></p>
+                          <p class="form-label"><input type="checkbox" name="fellowship_self_analysis_2017[]" value="Highly participative! Ready to make time for all MAD events"/><label for="fellowship_self_analysis_2017">Highly participative! Ready to make time for all MAD events.</label></p>
+                          <p class="form-label"><input type="checkbox" name="fellowship_self_analysis_2017[]" value="Experienced on-ground. Great perspective. Ready to present MAD in any forum"/><label for="fellowship_self_analysis_2017">Experienced on-ground. Great perspective. Ready to present MAD in any forum!</label></p>
+                          <p class="form-label"><input type="checkbox" name="fellowship_self_analysis_2017[]" value="Great communicator. Articulate. Love mobilising others"/><label for="fellowship_self_analysis_2017">Great communicator. Articulate. Love mobilising others</label></p>
+                          <p class="form-label"><input type="checkbox" name="fellowship_self_analysis_2017[]" value="Owns growth and learning. Excited about levelling up"/><label for="fellowship_self_analysis_2017">Owns growth and learning. Excited about levelling up!</label></p>
+                        </p>
+
                         </h3>
                         <hr>
                           <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
@@ -153,9 +153,9 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                           ?>
                         </h3>
                         <hr>
-                        <img src="img/succession.png" alt="Mountain View" style="width:100%;height:auto;"><br /><br />
-
-            						<p class="form-label">Are you ready to Make Your Choice? Revisit the website <a href="../../succession2018">makeadiff.in/succession2018</a> to know more about each role. Some roles will speak to you more than others either due to your previous experience or innate interest in them. Then go get them!! Point to note : All of our fellowships have few basic characteristics that are common amongst them all. So if you feel you would make a good fellow in one role, you would in the other one too if you are ready to pick up a couple of skills more. Our fellowships are a true learning journey, and while evaluating your application for the fellowship choices you have made, we may recommend a different fellowship altogether for you based on your natural aptitude as tested by the tasks. Make three choices from the list of fellowships available below :</p>
+            						<p class="form-label">Are you ready to Make Your Choice?</p>
+                        <p class="form-label">Revisit the <strong class="madred"><a href="../../succession2018">Website</a></strong> to know more about each role. Some roles will speak to you more than others either due to your previous experience or innate interest in them. Then go get them!! </p>
+                        <p class="form-label"><strong>Point to note</strong>: All of our fellowships have few basic characteristics that are common amongst them all. So if you feel you would make a good fellow in one role, you would in the other one too if you are ready to pick up a couple of skills more. Our fellowships are a true learning journey, and while evaluating your application for the fellowship choices you have made, we may recommend a different fellowship altogether for you based on your natural aptitude as tested by the tasks. Make three choices from the list of fellowships available below.</p>
 
 						            <p class="form-label">Kindly Note : If you choose the CTL or the Foundational Team fellowship as any of your preferences, you will be first evaluated as a candidate for those two teams, and either be selected for those roles, or recommended to take forward your other preferences. Hence we recommend if you are thinking about either of those fellowships, apply to them in your first preference, and then state your next preferences. </p>
 
