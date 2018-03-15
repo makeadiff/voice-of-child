@@ -141,6 +141,7 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                                  '<input class="checkbox" id="check'.$i.'" type="checkbox" name="fellowship_self_analysis_2017[]" value="'.$questions['answer_id'].'"'.$checked.'/>'.
                                  '<label for="check'.$i.'">'.$questions['answer'].'</label>'.
                                  '</p>';
+                            $i++;
                           }
                         ?>
 
