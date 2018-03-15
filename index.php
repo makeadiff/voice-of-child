@@ -88,7 +88,7 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                         <p class="form-label">Personal Email</p>
                         <input type="email" name="user_email" onchange="req(this);" placeholder="Email Address" value="<?php echo $user['email'] ?>" required=""/>
                         <p class="form-label">Phone No.</p>
-                        <input type="text" name="user_phone" onchange="{req(this); validphone(this);}" placeholder="Phone" value = "<?php echo $user['phone'] ?>" required=""/><hr>
+                        <input type="text" name="user_phone" onchange="{req(this); validphone(this);}" placeholder="Phone" value = "<?php echo $user['phone'] ?>" required=""/>
                         <p class="form-label">Sex</p>
                         <select id ="user_sex" name="user_sex" value ="f" onchange="req(this);">
                                  <option >Sex</option>

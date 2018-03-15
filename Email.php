@@ -12,7 +12,7 @@ class Email
     public $images = array();
 
     private $host = 'smtp.gmail.com';
-    private $u = 'succession@makeadiff.in';
+    private $u = 'fellowship@makeadiff.in';
     private $p = 'fellowshipgonemad';
 
     function send() {
