@@ -127,12 +127,23 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                           (P.S: If you've got less than 4 of these, you may not enjoy the nature of the fellow role very much, and more direct child entered roles such as <strong>Mentorship</strong> or <strong>Wingman</strong> or <strong>Academic Support Volunteer</strong> would be a better option to apply for.
                         </p>
 
-                          <p class="form-label"><input style="text-align:center;" type="checkbox" name="fellowship_self_analysis_2017[]" value="Enthusiastic! Passionate! High Energy"/><label for="fellowship_self_analysis_2017">Enthusiastic! Passionate! High Energy!</label></p>
-                          <p class="form-label"><input type="checkbox" name="fellowship_self_analysis_2017[]" value="Excited about people! Love working in teams. Love working with different types of people Have great connections in the city"/><label for="fellowship_self_analysis_2017">Excited about people! Love working in teams. Love working with different types of people. Have great connections in the city.</label></p>
-                          <p class="form-label"><input type="checkbox" name="fellowship_self_analysis_2017[]" value="Highly participative! Ready to make time for all MAD events"/><label for="fellowship_self_analysis_2017">Highly participative! Ready to make time for all MAD events.</label></p>
-                          <p class="form-label"><input type="checkbox" name="fellowship_self_analysis_2017[]" value="Experienced on-ground. Great perspective. Ready to present MAD in any forum"/><label for="fellowship_self_analysis_2017">Experienced on-ground. Great perspective. Ready to present MAD in any forum!</label></p>
-                          <p class="form-label"><input type="checkbox" name="fellowship_self_analysis_2017[]" value="Great communicator. Articulate. Love mobilising others"/><label for="fellowship_self_analysis_2017">Great communicator. Articulate. Love mobilising others</label></p>
-                          <p class="form-label"><input type="checkbox" name="fellowship_self_analysis_2017[]" value="Owns growth and learning. Excited about levelling up"/><label for="fellowship_self_analysis_2017">Owns growth and learning. Excited about levelling up!</label></p>
+                        <?php
+                          $i=1;
+                          echo '<input type="hidden" value="'.$result[0]['question_id'].'" name="survey_question_id"/>';
+                          foreach ($result as $questions) {
+                            if(in_array($questions['answer_id'],$survey_responses)){
+                              $checked = "checked";
+                            }
+                            else{
+                              $checked = "";
+                            }
+                            echo '<p class="form-label">'.
+                                 '<input class="checkbox" id="check'.$i.'" type="checkbox" name="fellowship_self_analysis_2017[]" value="'.$questions['answer_id'].'"'.$checked.'/>'.
+                                 '<label for="check'.$i.'">'.$questions['answer'].'</label>'.
+                                 '</p>';
+                          }
+                        ?>
+
                         </p>
 
                         </h3>
@@ -180,7 +191,7 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
 
 
                         <div id="hidden_div">
-                          <p align=left>What is Fellowship profile first preference?</p>
+                          <p align=left>First Fellowship Preference </p>
                           <select id ="fellow_prefernece1_id" name="fellow_prefernece1_name" required>
                              <option selected value="" selected>Select Role</option>
                              <?php
@@ -188,7 +199,7 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                              ?>
                           </select><br><hr>
 
-                          <p align=left>What is Fellowship profile second preference?</p>
+                          <p align=left>Second Fellowship Preference</p>
                           <select id ="fellow_prefernece2_id" name="fellow_prefernece2_name" value ="">
                             <option selected value="" selected>Select Role</option>
                             <?php
@@ -196,7 +207,7 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                             ?>
                           </select><br><hr>
 
-                          <p align=left>What is Fellowship profile third preference?</p>
+                          <p align=left>Third Fellowship Preference</p>
                           <select id ="fellow_prefernece3_id" name="fellow_prefernece3_name" value ="">
                             <option selected value="" selected>Select Role</option>
                             <?php
@@ -237,11 +248,11 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                             if($i==0){
                               $required = 'required';
                             }
-
-                            echo '<input type="text" id="tags'.($i+1).'" class="auto" name="recommendation'.($i+1).'_name" '.$required.' placeholder=" Potential Fellowship/Mentorship Candidate '.($i+1).'" '.$name.'>
-                            <p align=left>Recommended Profile:</p>
+                            echo '<p class="form-label">Volunteer Name </p>';
+                            echo '<input type="text" id="tags'.($i+1).'" class="auto" name="recommendation'.($i+1).'_name" '.$required.' placeholder="Start typing name of volunteer" '.$name.'>
+                            <p align=left>Recommended Profile</p>
                                 <select id ="recommendation_role'.($i+1).'_id" name="recommendation'.($i+1).'_role_name" '.$required.' value ="">
-                                         <option selected value="">Roles</option>
+                                         <option selected value="">Select Profile</option>
                                           '.$options.'
                                 </select>
                             <br><br><hr>';

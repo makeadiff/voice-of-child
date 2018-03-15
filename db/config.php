@@ -71,18 +71,24 @@
 
   //Query to get all questions and answer from survey table
 
-  $survey_id = $sql->getOne('SELECT id from SS_Survey_Event WHERE (name LIKE "%Retention%" OR name LIKE "%Succession%")');
+  $survey_id = $sql->getOne('SELECT id from SS_Survey_Event WHERE name LIKE "%Fellowship%"');
 
   $survey_entered = false;
 
   //Check for Existing Responses for Survey Form and Update Data
-  $check_survey = $sql->getById('SELECT question_id as id, answer
+  $check_survey = $sql->getAll('SELECT answer
     FROM SS_UserAnswer UA
     INNER JOIN SS_Question Q ON Q.id=UA.question_id
     WHERE user_id='.$user['id'].' AND Q.survey_event_id='.$survey_id);
 
-  if(!empty($check_survey))
+  $survey_responses = array();
+
+  if(!empty($check_survey)){
     $survey_entered = true;
+    foreach ($check_survey as $user_response) {
+      $survey_responses[] = $user_response['answer'];
+    }
+  }
 
   $query_qna="SELECT
                 question_id,
@@ -92,11 +98,10 @@
               FROM SS_Answer
               INNER JOIN SS_Question ON SS_Answer.question_id=SS_Question.id
               WHERE survey_event_id = ".$survey_id."
-              AND question<>'Are you planning to continue with MAD in 2018-19?'
-              ORDER BY question_id,level DESC";
+              ORDER BY question_id,level ASC";
 
   $result = $sql->getAll($query_qna);
-
+  dump($result);
   //Check for Existing Recommentations for the Roles
 
   $recommendation_check = false;
@@ -381,43 +386,4 @@
           	KEY (`user_id`),
           	KEY (`group_id`)
           ) DEFAULT CHARSET=utf8");
-
-    $fam_userEvaluation = $sql->execQuery("CREATE TABLE IF NOT EXISTS `FAM_UserEvaluation` (
-          	`id` INT (11)  unsigned NOT NULL auto_increment,
-          	`user_id` INT (11)  unsigned NOT NULL,
-          	`parameter_id` INT (11)  unsigned NOT NULL,
-          	`score` VARCHAR (100)   NOT NULL,
-          	`comments` VARCHAR (100)   NOT NULL,
-          	PRIMARY KEY (`id`),
-          	KEY (`user_id`),
-          	KEY (`parameter_id`)
-          ) DEFAULT CHARSET=utf8") ;
-
-    $fam_parameters = $sql->execQuery("CREATE TABLE IF NOT EXISTS `FAM_Parameters` (
-          	`id` INT (11)  unsigned NOT NULL auto_increment,
-          	`profile_id` INT (11)  unsigned NOT NULL,
-          	`task_type` ENUM ('personal_interview','kindness_challenge','common','vertical') DEFAULT 'personal_interview'  NOT NULL,
-          	`parameter_name` VARCHAR (100)   NOT NULL,
-          	`status` ENUM ('1','0') DEFAULT '1',
-          	PRIMARY KEY (`id`),
-          	KEY (`profile_id`)
-          ) DEFAULT CHARSET=utf8") ;
-
-    $fam_userstatus = $sql->execQuery("CREATE TABLE IF NOT EXISTS `FAM_UserStatus` (
-        	`id` INT (11)  unsigned NOT NULL auto_increment,
-        	`user_id` INT (11)  unsigned NOT NULL,
-        	`updated_by` VARCHAR (100)   NOT NULL,
-        	`updated_at` DATETIME    NOT NULL,
-        	`status_id` INT (11)  unsigned NOT NULL,
-        	PRIMARY KEY (`id`),
-        	KEY (`user_id`),
-        	KEY (`status_id`)
-        ) DEFAULT CHARSET=utf8");
-
-    $fam_evaluationstatus = $sql->execQuery("CREATE TABLE IF NOT EXISTS `FAM_EvaluationStatus` (
-        	`id` INT (11)  unsigned NOT NULL auto_increment,
-        	`name` VARCHAR (100)   NOT NULL,
-        	`created_at` DATETIME    NOT NULL,
-        	PRIMARY KEY (`id`)
-        ) DEFAULT CHARSET=utf8");
   }

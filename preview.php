@@ -36,25 +36,23 @@ $sql->update('User', array(
 //role compatibility survey
 $survey_question = array();
 
+if(isset($_POST['fellowship_self_analysis_2017'])){
+  $user_self_analysis = array();
+  $user_self_analysis = $_POST['fellowship_self_analysis_2017'];
 
-for($i=6;$i<=18;$i++){
-  if(isset($_POST['survey_question_'.$i]))
-    $survey_question[$i] = $_POST['survey_question_'.$i];
-}
 
-//role compatibility survey add/update in SS_UserAnswer table
-if(!empty($survey_question)) {
-  foreach ($survey_question as $id => $response) {
-    if($response!=''){
-      $query_survey_check = 'SELECT id FROM SS_UserAnswer WHERE user_id='.$user_id.' AND question_id='.$id;
-      $check = $sql->getOne($query_survey_check);
+  $survey_question_id = $_POST['survey_question_id'];
 
-      if($check==''){
+  //role compatibility survey add/update in SS_UserAnswer table
+  if(!empty($user_self_analysis)) {
+    $delete = $sql->remove('SS_UserAnswer','question_id='.$survey_question_id.' AND user_id='.$user_id);
+    foreach ($user_self_analysis as $response) {
+      if($response!=''){
         $insert = $sql->insert('SS_UserAnswer',array(
-                          'question_id' => $id,
+                          'question_id' => $survey_question_id,
                           'user_id' => $user_id,
                           'answer' => $response,
-                          'survey_event_id' => 7,
+                          'survey_event_id' => 9,
                           'comment' => '',
                           'added_on' => date('Y-m-d H:i:s')
                         ));
@@ -62,15 +60,10 @@ if(!empty($survey_question)) {
           $survey_form_check = true;
         }
       }
-      else{
-        $insert = $sql->update('SS_UserAnswer',array(
-          'answer' => $response,
-          'added_on' => date('Y-m-d H:i:s')
-        ),'id='.$check);
-      }
     }
   }
 }
+
 
 // var_dump($survey_form_check);
 
@@ -143,67 +136,6 @@ if(isset($_POST['user_group_preference_name'])){
 //   ),'id='.$cont_status_id);
 // }
 
-
-$email = new Email();
-$email->html = '<html>
-          <head>
-          <title>Acknowledgement Email</title>
-          </head>
-          <body>
-            <table style="width: 960px;margin:0 auto;height: auto;border: 2px solid #f1f1f1;font-family:arial;font-size:20px;">
-              <tr>
-                <td style="vertical-align: top;">
-                  <img style="float:left;margin: 0px;" src="' . $base_url .  'assets/mad-letterhead-left.png' . '"/><img style="margin-left: -70px;" src="' . $base_url . 'assets/mad-letterhead-logo.png' . '"/>
-                  <img style="float:right;margin:0px;" src="' . $base_url . 'assets/mad-letterhead-right.png' . '"/>
-                </td>
-              </tr>
-              <tr>
-                <td style="color:#cc2028;float:right;margin:10px 20px;"> ' . date("d/m/Y") . ' </td>
-              </tr>
-              <tr>
-                <td style="padding:10px 20px;"><strong>Dear ' . $donor_name . ',</strong></td>
-              </tr>
-              <tr>
-                <td style="padding:10px 20px;">Thanks a lot for your contribution of Rs.<strong style="color:#cc2028;"> /-</strong> towards Make A Difference.</td>
-              </tr>
-              <tr>
-                <td style="padding:10px 20px;">This is not a donation receipt. But only an acknowledgement. We will be sending you the e-receipt for the donation within the next 30 days once the amount reaches us.</td>
-              </tr>
-              <tr>
-                <td style="padding:10px 20px;">Please feel free to contact us on <a href="mailto:info@makeadiff.in">info@makeadiff.in</a> for any clarifications.</td>
-              </tr>
-              <tr>
-                <td style="padding:10px 20px;"><i>Little bit about Make A Difference: We are a youth run volunteer organization that  mobilizes young leaders to provide better outcomes to children living in shelter homes across India.</i></td>
-              </tr>
-              <tr>
-                <td style="padding:20px 20px;"><i>You can read more about us @ <a href="http://www.makeadiff.in"> www.makeadiff.in </a> | <a href="http://www.facebook.com/makeadiff"> www.facebook.com/makeadiff </a> | <a href="http://www.twitter.com/makeadiff">www.twitter.com/makeadiff</a></i></td>
-              </tr>
-              <tr>
-                <td style="color:#333231;font-size:16px;padding:0 20px;">First Floor, House no. 16C, MCHS colony, 1st B Main, 14th C Cross,</td>
-              </tr>
-              <tr>
-                <td style="color:#333231;font-size:16px;padding:0 20px;">HSR Layout, Sector 6, Bangalore - 560102.</td>
-              </tr>
-              <tr>
-                <td style="color:#333231;float:right;font-size:16px;margin:0 20px 20px;">http://www.makeadiff.in</td>
-              </tr>
-            </table>
-          </body>
-        </html>';
-$email->to = $user_email;
-$email->from = "Succession, Make A Difference <succession@makeadiff.in>";
-$email->subject = "Donation Acknowledgment";
-$email->images = $images;
-
-$email->send();
-
-
-
-// var_dump($preference_form_check);
-
-
-
-
 //recommendation insert in FAM_Referral table
 
 $recommendations = array();
@@ -244,6 +176,7 @@ foreach ($recommendations as $recommendation) {
 
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en" >
   <head>
@@ -252,7 +185,7 @@ foreach ($recommendations as $recommendation) {
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta http-equiv="refresh" content="10;URL='../../succession2018'" />
+      <!-- <meta http-equiv="refresh" content="10;URL='../../succession2018'" /> -->
 
       <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
 
@@ -281,6 +214,41 @@ foreach ($recommendations as $recommendation) {
   </body>
 </html>
 
+
+<?php
+  $email = new Email();
+  $email->html = '<html>
+            <head>
+            <title>Acknowledgement Email</title>
+            </head>
+            <body>
+              <table style="width: 960px;margin:0 auto;height: auto;border: 2px solid #f1f1f1;font-family:arial;font-size:20px;">
+                <tr>
+                  <td style="vertical-align: top;">
+                    <img style="float:left;margin: 0px;" src=""/>
+                    <img style="margin-left: -70px;" src=""/>
+                    <img style="float:right;margin:0px;" src=""/>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="color:#cc2028;float:right;margin:10px 20px;"> ' . date("d/m/Y") . ' </td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 20px;"><strong>Dear,'.$user_name.'</strong></td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 20px;">Content for Email</td>
+                </tr>
+              </table>
+            </body>
+          </html>';
+  $email->to = $user_email;
+  $email->from = "Succession, Make A Difference <succession@makeadiff.in>";
+  $email->subject = "Donation Acknowledgment";
+
+  $email->send();
+
+?>
 
 <script>
   window.intercomSettings = {
