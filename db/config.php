@@ -101,7 +101,7 @@
               ORDER BY question_id,level ASC";
 
   $result = $sql->getAll($query_qna);
-  dump($result);
+  // dump($result);
   //Check for Existing Recommentations for the Roles
 
   $recommendation_check = false;
