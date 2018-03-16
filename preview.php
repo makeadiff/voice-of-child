@@ -223,9 +223,11 @@ foreach ($recommendations as $recommendation) {
                   <h2 class="fs-title">Response Recorded</h2><hr>
                   <h3 class="fs-subtitle">Thank You! </h3>
                   <h3 class="fs-subtitle">
-                    Check your inbox to get more insights on the fellowship recruitment process.
+                    Excited to know what's coming your way?<br>
+                    Sit tight! You'll hear from us very soon.
+
                   </h3>
-                  <h3 class="fs-subtitle">All the best!
+                  <h3 class="fs-subtitle">All the best :) 
                   </h3><hr>
                   <h3 class="fs-subtitle">Had another bright idea?</h3>
                   <a href="./"><input type="button" id="update" class="previous action-button-previous" value="Update Responses" href="./"></a>
@@ -238,37 +240,37 @@ foreach ($recommendations as $recommendation) {
 
 
 <?php
-  $email = new Email();
-  $email->html = '<html>
-            <head>
-            <title>Acknowledgement Email</title>
-            </head>
-            <body>
-              <table style="width: 960px;margin:0 auto;height: auto;border: 2px solid #f1f1f1;font-family:arial;font-size:20px;">
-                <tr>
-                  <td style="vertical-align: top;">
-                    <img style="float:left;margin: 0px;" src=""/>
-                    <img style="margin-left: -70px;" src=""/>
-                    <img style="float:right;margin:0px;" src=""/>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="color:#cc2028;float:right;margin:10px 20px;"> ' . date("d/m/Y") . ' </td>
-                </tr>
-                <tr>
-                  <td style="padding:10px 20px;"><strong>Dear,'.$user_name.'</strong></td>
-                </tr>
-                <tr>
-                  <td style="padding:10px 20px;">Content for Email</td>
-                </tr>
-              </table>
-            </body>
-          </html>';
-  $email->to = $user_email;
-  $email->from = "Succession, Make A Difference <succession@makeadiff.in>";
-  $email->subject = "Donation Acknowledgment";
+  // $email = new Email();
+  // $email->html = '<html>
+  //           <head>
+  //           <title>Acknowledgement Email</title>
+  //           </head>
+  //           <body>
+  //             <table style="width: 960px;margin:0 auto;height: auto;border: 2px solid #f1f1f1;font-family:arial;font-size:20px;">
+  //               <tr>
+  //                 <td style="vertical-align: top;">
+  //                   <img style="float:left;margin: 0px;" src=""/>
+  //                   <img style="margin-left: -70px;" src=""/>
+  //                   <img style="float:right;margin:0px;" src=""/>
+  //                 </td>
+  //               </tr>
+  //               <tr>
+  //                 <td style="color:#cc2028;float:right;margin:10px 20px;"> ' . date("d/m/Y") . ' </td>
+  //               </tr>
+  //               <tr>
+  //                 <td style="padding:10px 20px;"><strong>Dear,'.$user_name.'</strong></td>
+  //               </tr>
+  //               <tr>
+  //                 <td style="padding:10px 20px;">Content for Email</td>
+  //               </tr>
+  //             </table>
+  //           </body>
+  //         </html>';
+  // $email->to = $user_email;
+  // $email->from = "Succession, Make A Difference <succession@makeadiff.in>";
+  // $email->subject = "Donation Acknowledgment";
 
-  $email->send();
+  // $email->send();
 
 ?>
 
