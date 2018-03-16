@@ -84,7 +84,7 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                           Hello, you amazing person.
                         </p>
                         <p class="form-label">
-                          At MAD, the role of a Fellow is pivotal as Fellows are a key enabler for mentors and volunteers. The roles and responsibilities of a Fellow requires a superstar with passion, drive and experience on ground; willingness to be deeply involved; a history of meaningful participation and leading by example; keenness to collaborate and work with other teams; excited about training and mentoring; good organisation and time management; great communication skills and a love for building teams and mobilising others.
+                          At MAD, the role of a Fellow is pivotal as a Fellow is a key enabler for mentors and volunteers. The roles and responsibilities of a Fellow requires a superstar with passion, drive and experience on ground; willingness to be deeply involved; a history of meaningful participation and leading by example; keenness to collaborate and work with other teams; excited about training and mentoring; good organisation and time management; great communication skills and a love for building teams and mobilising others.
                         </p>
                         <p class="form-label">If this is you, we'd love to get your application!!</p>
                         <hr>
