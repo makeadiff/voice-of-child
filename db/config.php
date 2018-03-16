@@ -259,7 +259,7 @@
         $roles[$i]['name']='Aftercare Fellow';
       }
       else if($role['id']==375 && in_array($current_city_id,$check_ids['foundations_city'])){ //Foundations Fellow - Check
-        $roles[$i]['name']='Foundations Fellow';
+        $roles[$i]['name']='Foundational Programme Fellow';
       }
       else if($role['id']==269 && !in_array($current_city_id,$check_ids['other_roles'])){ //Center Head - Shelter Operations Fellow
         $roles[$i]['name']='Shelter Operations Fellow';

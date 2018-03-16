@@ -6,7 +6,9 @@
 
 include ('db/config.php');
 
-// dump($_POST);
+if(!isset($_POST['user_id'])){
+  header('location:./');
+}
 
 $survey_form_check = false;
 $preference_form_check = false;
@@ -31,6 +33,7 @@ $sql->update('User', array(
                     'phone' => $user_phone,
                     'sex' => $user_sex,
                     'address' => $user_address,
+                    'birthday' => $user_birthday, 
                   ),'id='.$user_id);
 
 //role compatibility survey
@@ -193,11 +196,24 @@ foreach ($recommendations as $recommendation) {
 
       <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
       <link rel="icon" href="/favicon.ico" type="image/x-icon">
+      <meta charset="UTF-8">
+      <title>Fellowship Sign Up Form - Make A Difference</title>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+      <link rel="shortcut icon" href="/var/www/html/SignUpForm/favicon.png" type="image/png">
+      <link rel="stylesheet" href="css/style.css">
+      <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+
+      <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:700,400,400italic' rel='stylesheet' type='text/css'>
+      <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Titillium+Web:400,600,700,900|Ubuntu:400,500,700" rel="stylesheet">
   </head>
 
   <body>
     <div class="container">
-        <h1 class="span12 fs-main-title text-center">Retention and Succession Form</h1>
+        <h1 class="span12 fs-main-title text-center">Fellowship Sign Up</h1>
     </div>
     <!-- MultiStep Form -->
     <div class="row">
@@ -205,8 +221,14 @@ foreach ($recommendations as $recommendation) {
             <form id="msform" action="preview.php" method="POST" novalidate>
               <fieldset>
                   <h2 class="fs-title">Response Recorded</h2><hr>
-                  <h3 class="fs-subtitle">Thank You. You'll be redirected back to the website shortly.</h3><hr>
-                  <a href="./index.php"><input type="button" value="Click here to Update Responses"></a>
+                  <h3 class="fs-subtitle">Thank You! </h3>
+                  <h3 class="fs-subtitle">
+                    Check your inbox to get more insights on the fellowship recruitment process.
+                  </h3>
+                  <h3 class="fs-subtitle">All the best!
+                  </h3><hr>
+                  <h3 class="fs-subtitle">Had another bright idea?</h3>
+                  <a href="./"><input type="button" id="update" class="previous action-button-previous" value="Update Responses" href="./"></a>
                 </fieldset>
             </form>
         </div>

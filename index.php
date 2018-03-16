@@ -55,15 +55,14 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
         </div>
         <!-- MultiStep Form -->
         <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <form id="msform" action="preview.php" method="POST">
+            <div class="col-md-8 col-md-offset-2">
+                <form id="msform" action="preview.php" method="POST" onsubmit="submit_form()">
                     <!-- progressbar -->
                     <ul id="progressbar">
                         <li class="active">Personal Details</li>
                         <li>Self Analysis</li>
                         <li>Sign Up</li>
                         <li>Recommendation</li>
-                        <li>Submit</li>
                         </ul>
                     <!-- fieldsets -->
 
@@ -71,35 +70,44 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                     <fieldset>
 
                         <br>
-                        <p class="form-label">Dear change maker!</p>
+                        <!-- <p class="form-label">Dear <strong><?php //echo $user['name'] ?></strong></p>
                         <p class="form-label">Excited to see you explore MAD's fellowship profile! </p>
                         <p class="form-label">Get ready to lead, mobilise, engage and inspire a team of 100s of volunteer towards making exponential change! </p>
                         <p class="form-label"><strong class="madred">Fellowship 2018</strong>, just for you!</p>
                         <p class="form-label">Sign up for the role(s) that speak to you and get your chance to make the next level of difference in shelters, cities, in MAD.</p>
                         <p class="form-label">Let's kickstart with your personal information, for all communication regarding the fellowship process and onwards will be made to the information given below.</p>
-                        <hr>
+                        <hr> -->
                         <h2 class="fs-title">Personal Information</h2>
-						            <label>Kindly verify your personal details and move forward.</label>
+						            <h3 class="fs-subtitle">Please verify your personal details.</h3>
                         <hr>
+                        <p class="form-label">
+                          Hello, you amazing person.
+                        </p>
+                        <p class="form-label">
+                          At MAD, the role of a Fellow is pivotal as Fellows are a key enabler for mentors and volunteers. The roles and responsibilities of a Fellow requires a superstar with passion, drive and experience on ground; willingness to be deeply involved; a history of meaningful participation and leading by example; keenness to collaborate and work with other teams; excited about training and mentoring; good organisation and time management; great communication skills and a love for building teams and mobilising others.
+                        </p>
+                        <p class="form-label">If this is you, we'd love to get your application!!</p>
+                        <hr>
+                        <p class="required-text">*Required</p>
                         <input type='text' name="user_id" class="hidden" value= "<?php echo $user['id'] ?>"/>
                         <input type='text' name="user_city_id" class="hidden" value= "<?php echo $user['city_id'] ?>"/>
-                        <p class="form-label">Full Name</p>
+                        <p class="form-label">Full Name <span class="required">*</span></p>
                         <input type="text" name="user_name" onchange="req(this);" placeholder="Your Full Name" value= "<?php echo $user['name'] ?>" required=""/>
-                        <p class="form-label">Personal Email</p>
+                        <p class="form-label">Personal Email <span class="required">*</span></p>
                         <input type="email" name="user_email" onchange="req(this);" placeholder="Email Address" value="<?php echo $user['email'] ?>" required=""/>
-                        <p class="form-label">Phone No.</p>
+                        <p class="form-label">Phone No. <span class="required">*</span></p>
                         <input type="text" name="user_phone" onchange="{req(this); validphone(this);}" placeholder="Phone" value = "<?php echo $user['phone'] ?>" required=""/>
-                        <p class="form-label">Sex</p>
+                        <p class="form-label">Sex <span class="required">*</span></p>
                         <select id ="user_sex" name="user_sex" value ="f" onchange="req(this);">
                                  <option >Sex</option>
                                  <option value="m" <?php if($user['sex'] == 'm') echo ' selected="selected"'?>>Male</option>
                                  <option value="f" <?php if($user['sex'] == 'f') echo ' selected="selected"'?>>Female</option>
                                  <option value="o" <?php if($user['sex'] == 'o') echo ' selected="selected"'?>>Other</option>
                         </select><br><br><br>
-                        <p class="form-label">Date of Birth (DD/MM/YYYY)</p>
-                        <input type="date" name="user_birthday" placeholder="birthday" value="<?php echo $user['birthday'] ?>" required="" onchange="req(this);">
-                        <p class="form-label">Address</p>
-                        <input type="text" name="user_address" placeholder="Enter Your Address" value="<?php echo $user['address'] ?>"/><br>
+                        <p class="form-label">Date of Birth (DD/MM/YYYY) <span class="required">*</span></p>
+                        <input type="date" name="user_birthday" placeholder="birthday" value="<?php echo $user['birthday'] ?>" required="" onchange="req(this);" max="2003-01-01">
+                        <p class="form-label">Address <span class="required">*</span></p>
+                        <input type="text" name="user_address" placeholder="Enter Your Address" required="" value="<?php echo $user['address'] ?>"/><br>
 
 
                         <!-- </select><br><br><hr> -->
@@ -108,23 +116,22 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
 
                     <!-- Role Compatibility Survey -->
                     <fieldset id="continuing1">
-                        <h2 class="fs-title">Self Analysis</h2>
-                        <label>Role Compatibility Form</label>
-
-                        <p class="form-info">
+                        <h2 class="fs-title">Were you born to be a fellow?</h2>
+                        <!-- <label>Role Compatibility Form</label> -->
+                        <h3 class="fs-subtitle">
                           <?php
                             if($survey_entered){
                               echo '<b>You have already filled this section</b>. Update your responses or Click on "Next" to continue.';
                             }
                           ?>
-                        </p>
+                        </h3>
                         <hr>
-                        <img src="img/succession.png" alt="Mountain View" style="width:100%;height:auto;"><br /><br />
+                        <!-- <img src="img/succession.png" alt="Mountain View" style="width:100%;height:auto;"><br /><br /> -->
                         <p class="form-label">
-                          <strong class="madred">Tick all that apply to you.</strong>
+                          <strong class="madred">Please tick the boxes hat apply to you.</strong>
                         </p>
                         <p class="form-label">
-                          (P.S: If you've got less than 4 of these, you may not enjoy the nature of the fellow role very much, and more direct child entered roles such as <strong>Mentorship</strong> or <strong>Wingman</strong> or <strong>Academic Support Volunteer</strong> would be a better option to apply for.
+                          P.S: If you've got less than 4 of these, you may not enjoy the nature of the fellow role very much, and more direct child centred roles such as Mentorship or Wingman or Academic Support Volunteer would be a better option to apply for.
                         </p>
 
                         <?php
@@ -159,17 +166,17 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                         <h3 class="fs-subtitle">
                           <?php
                             if($role_preference_check){
-                              echo '<br/><br/>';
                               echo '<b>You have already filled this section</b>. Update your responses or Click on "Next" to continue.<br/>';
                             }
                           ?>
                         </h3>
                         <hr>
-            						<p class="form-label">Are you ready to Make Your Choice?</p>
-                        <p class="form-label">Visit the <strong class="madred"><a href="../../succession2018">Website</a></strong> to know more about each role. Some roles will speak to you more than others either due to your previous experience or innate interest in them. Then go get them!! </p>
-                        <p class="form-label"><strong>Point to note</strong>: All of our fellowships have few basic characteristics that are common amongst them all. So if you feel you would make a good fellow in one role, you would in the other one too if you are ready to pick up a couple of skills more. Our fellowships are a true learning journey, and while evaluating your application for the fellowship choices you have made, we may recommend a different fellowship altogether for you based on your natural aptitude as tested by the tasks. Make three choices from the list of fellowships available below.</p>
+            						<p class="form-label">Need more information to make a choice? </p>
+                        <p class="form-label">Visit the <strong class="madred"><a href="../../fellowship" target="_blank">Website</a></strong> to know more about each role. Some roles will speak to you more than others either due to your previous experience or innate interest in them. Go get them!! </p>
 
-						            <p class="form-label">Kindly Note : If you choose the CTL or the Foundational Team fellowship as any of your preferences, you will be first evaluated as a candidate for those two teams, and either be selected for those roles, or recommended to take forward your other preferences. Hence we recommend if you are thinking about either of those fellowships, apply to them in your first preference, and then state your next preferences. </p>
+                        <!-- <p class="form-label"><strong>Point to note</strong>: All of our fellowships have few basic characteristics that are common amongst them all. So if you feel you would make a good fellow in one role, you would in the other one too if you are ready to pick up a couple of skills more. Our fellowships are a true learning journey, and while evaluating your application for the fellowship choices you have made, we may recommend a different fellowship altogether for you based on your natural aptitude as tested by the tasks. Make three choices from the list of fellowships available below.</p> -->
+
+						            <!-- <p class="form-label">Kindly Note : If you choose the CTL or the Foundational Team fellowship as any of your preferences, you will be first evaluated as a candidate for those two teams, and either be selected for those roles, or recommended to take forward your other preferences. Hence we recommend if you are thinking about either of those fellowships, apply to them in your first preference, and then state your next preferences. </p> -->
 
                         <hr>
 
@@ -192,7 +199,7 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
 
 
                         <div id="hidden_div">
-                          <p align=left>First Fellowship Preference </p>
+                          <p align=left>First Preference <span class="required">*</span></p>
                           <select id ="fellow_prefernece1_id" name="fellow_prefernece1_name" required>
                              <option selected value="" selected>Select Role</option>
                              <?php
@@ -200,7 +207,7 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                              ?>
                           </select><br><hr>
 
-                          <p align=left>Second Fellowship Preference</p>
+                          <p align=left>Second Preference</p>
                           <select id ="fellow_prefernece2_id" name="fellow_prefernece2_name" value ="">
                             <option selected value="" selected>Select Role</option>
                             <?php
@@ -208,7 +215,7 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                             ?>
                           </select><br><hr>
 
-                          <p align=left>Third Fellowship Preference</p>
+                          <p align=left>Third Preference</p>
                           <select id ="fellow_prefernece3_id" name="fellow_prefernece3_name" value ="">
                             <option selected value="" selected>Select Role</option>
                             <?php
@@ -233,22 +240,22 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                             }
                           ?>
                         </h3><hr>
-                        <p class="form-label">Throughout this year you would have met some amazing people in your recruitment drives, trainings, weekly sessions, city circles and other MAD events. There is something unique about each of these people. Unique because they didn't just care - they cared more. They should definitely try their chance at leadership roles! They should believe in their potential as you do. This is your chance to recommend those who should multiply impact and lead the city. Those who you see potential in to lead the city with you!</p>
+                        <!-- <p class="form-label">Throughout this year you would have met some amazing people in your recruitment drives, trainings, weekly sessions, city circles and other MAD events. There is something unique about each of these people. Unique because they didn't just care - they cared more. They should definitely try their chance at leadership roles! They should believe in their potential as you do. This is your chance to recommend those who should multiply impact and lead the city. Those who you see potential in to lead the city with you!</p> -->
 
-                        <p class="form-label"><strong>Recommend volunteers whom you see potential to be city managers below.</strong>.</p><hr>
+                        <p class="form-label"><strong>Recommend volunteers whom you see have the potential to be fellows.</strong>.</p><hr>
 
                         <?php
                           for($i=0;$i<3;$i++){
                             $name = '';
                             $options = role_options($sql,$user['city_id'],'fellow');
-                            if($recommendation_check){
+                            if($recommendation_check && isset($recommendation[$i]['name'])){
                               $name = 'value ="'.$recommendation[$i]['name'].' / '.$recommendation[$i]['id'].'"';
                               $options = role_options($sql,$user['city_id'],'fellow',$recommendation[$i]['group_id']);
                             }
                             $required = '';
-                            if($i==0){
-                              $required = 'required';
-                            }
+                            // if($i==0){
+                            //   $required = 'required';
+                            // }
                             echo '<p class="form-label">Volunteer Name </p>';
                             echo '<input type="text" id="tags'.($i+1).'" class="auto" name="recommendation'.($i+1).'_name" '.$required.' placeholder="Start typing name of volunteer" '.$name.'>
                             <p align=left>Recommended Profile</p>
@@ -261,15 +268,14 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                         ?>
 
                         <br><input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-                        <input type="button" name="next" class="next action-button" value="Next"/>
+                        <input type="submit" name="submit" class="submit action-button" value="Submit" href="preview.php"/>
                     </fieldset>
 
-                    <fieldset>
+                    <!-- <fieldset>
                         <h2 class="fs-title">Submit</h2><hr>
                         <h3 class="fs-subtitle">Thank You For Your Responses. Click on Submit to confirm your application.</h3><hr>
                         <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-                        <input type="submit" name="submit" class="submit action-button" value="Submit" href="preview.php"/>
-                    </fieldset>
+                    </fieldset> -->
                 </form>
             </div>
         </div>
@@ -368,8 +374,8 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
           document.getElementById('hidden_div').style.display = style;
 
 
-          function req(valchange){if (valchange.value=="") window.alert("This field is required");}
-          function validphone(num){if (num.value.match(/\d/g).length!=10) window.alert("Enter a valid phone number");}
+          // function req(valchange){if (valchange.value=="") window.alert("This field is required");}
+          // function validphone(num){if (num.value.match(/\d/g).length!=10) window.alert("Enter a valid phone number");}
 
           $(function() {
             var availableTags =  <?php echo json_encode($volunteer); ?>;

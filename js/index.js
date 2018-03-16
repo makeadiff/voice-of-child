@@ -6,71 +6,120 @@ var left, opacity, scale; //fieldset properties which we will animate
 var animating; //flag to prevent quick multi-click glitches
 // var temp=0;
 // var cont=document.getElementById("soflow").value;
+
+
+function form_validate(form){
+
+	$.validator.addMethod("text_name",
+		function(value, element) {
+      return this.optional(element) || /^[a-zA-Z\s.]*$/i.test(value);
+    }, "Name is invalid: Please enter a valid name.");
+
+	$.validator.addMethod('phone',
+		function(value, element) {
+			return this.optional(element) || /^[0-9]*$/i.test(value);
+		}, "Enter a valid phone number");
+
+	$.validator.addMethod('reco_name',
+		function(value, element) {
+			return this.optional(element) || /^.+\s\/\s\d+$/i.test(value);
+		}, "Enter a valid Volunteer Name");
+
+	form.validate({
+		rules:{
+			user_name: {
+				required: true,
+				maxlength: 30,
+				text_name: true
+			},
+			user_phone:{
+				required: true,
+				maxlength: 10,
+				minlength: 10,
+				phone: true
+			},
+			user_email:{
+				required:true,
+				email:true
+			},
+			recommendation1_name:{
+				minlength: 10,
+				reco_name: true
+			},
+			recommendation2_name:{
+				minlength: 10,
+				reco_name: true
+			},
+			recommendation3_name:{
+				minlength: 10,
+				reco_name: true
+			},
+		},
+		messages: {
+			user_name: {
+				required: "Name required",
+			},
+		  user_phone: {
+				required: "Enter a valid phone number",
+				maxlength: "Enter a valid phone number",
+				minlength: "Enter a valid phone number",
+			},
+			recommendation1_name: {
+				minlength: "Enter a Valid Volunteer Name",
+			},
+			recommendation2_name: {
+				minlength: "Enter a Valid Volunteer Name",
+			},
+			recommendation3_name: {
+				minlength: "Enter a Valid Volunteer Name",
+			}
+		}
+	});
+}
+
+
 $(".next").click(function(){
+
 	var form = $("#msform");
-			form.validate({
-				rules: {
-					user_name: {
-						required: true,
-						maxlength: 30,
-					},
-					user_email:{
-						required:true,
-						email:true
-					},
-					user_phone: {
-					required:true,
-					}
+	form_validate(form);
 
-				},
-				messages: {
-					user_name: {
-						required: "Name required",
-					},
-				  user_phone: {
-						required: "Enter a valid phone number",
-					},
+  if (form.valid() == true){
+		if(animating) return false;
+		animating = true;
+		current_fs = $(this).parent();
+		// next_fs = $(this).parent().next();
+		if(1){
+			next_fs = $(this).parent().next();
+		}
+		$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
 
-				}
-			});
-
- if (form.valid() == true){
-				if(animating) return false;
-				animating = true;
-				current_fs = $(this).parent();
-				// next_fs = $(this).parent().next();
-				if(1){
-					next_fs = $(this).parent().next();
-				}
-				$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-
-				//show the next fieldset
-				next_fs.show();
-				//hide the current fieldset with style
-				current_fs.animate({opacity: 0}, {
-					step: function(now, mx) {
-						//as the opacity of current_fs reduces to 0 - stored in "now"
-						//1. scale current_fs down to 80%
-						// scale = 1 - (1 - now) * 0.2;
-						//2. bring next_fs from the right(50%)
-						left = (now * 50)+"%";
-						//3. increase opacity of next_fs to 1 as it moves in
-						opacity = 1 - now;
-						current_fs.css({
-			        'transform': 'scale('+scale+')',
-			        'position': 'absolute'
-			      });
-						next_fs.css({'left': left, 'opacity': opacity});
-					},
-					duration: 800,
-					complete: function(){
-						current_fs.hide();
-						animating = false;
-					},
-					//this comes from the custom easing plugin
-					easing: 'easeInOutBack'
-				});
-   }
+		//show the next fieldset
+		next_fs.show();
+		//hide the current fieldset with style
+		current_fs.animate({opacity: 0}, {
+			step: function(now, mx) {
+				//as the opacity of current_fs reduces to 0 - stored in "now"
+				//1. scale current_fs down to 80%
+				// scale = 1 - (1 - now) * 0.2;
+				//2. bring next_fs from the right(50%)
+				left = (now * 50)+"%";
+				//3. increase opacity of next_fs to 1 as it moves in
+				opacity = 1 - now;
+				current_fs.css({
+	        'transform': 'scale('+scale+')',
+	        'position': 'absolute'
+	      });
+				next_fs.css({'left': left, 'opacity': opacity});
+			},
+			duration: 800,
+			complete: function(){
+				current_fs.hide();
+				animating = false;
+			},
+			//this comes from the custom easing plugin
+			easing: 'easeInOutBack'
+		});
+  }
 
 });
 
@@ -78,7 +127,6 @@ $(".next").click(function(){
 $(".previous").click(function(){
 	if(animating) return false;
 	animating = true;
-
 	current_fs = $(this).parent();
 	// if(cont==0){
 	// 	previous_fs = $(this).parent().prevAll().eq(2);
@@ -116,3 +164,13 @@ $(".previous").click(function(){
 		easing: 'easeInOutBack'
 	});
 });
+
+function submit_form(){
+	var form = $("#msform");
+	form_validate(form);
+	if (form.valid() == true){
+
+	}else{
+		return false;
+	}
+}
