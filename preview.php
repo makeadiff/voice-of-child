@@ -33,7 +33,7 @@ $sql->update('User', array(
                     'phone' => $user_phone,
                     'sex' => $user_sex,
                     'address' => $user_address,
-                    'birthday' => $user_birthday, 
+                    'birthday' => $user_birthday,
                   ),'id='.$user_id);
 
 //role compatibility survey
@@ -184,7 +184,7 @@ foreach ($recommendations as $recommendation) {
 <html lang="en" >
   <head>
       <meta charset="UTF-8">
-      <title>Retention and Succession Form||Preview</title>
+      <title>Fellowship Signup 2018</title>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
