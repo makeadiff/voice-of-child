@@ -128,7 +128,7 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                         <hr>
                         <!-- <img src="img/succession.png" alt="Mountain View" style="width:100%;height:auto;"><br /><br /> -->
                         <p class="form-label">
-                          <strong class="madred">Please tick the boxes hat apply to you.</strong>
+                          <strong class="madred">Please tick the boxes that apply to you.</strong>
                         </p>
                         <p class="form-label">
                           P.S: If you've got less than 4 of these, you may not enjoy the nature of the fellow role very much, and more direct child centred roles such as Mentorship or Wingman or Academic Support Volunteer would be a better option to apply for.
@@ -242,7 +242,7 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                         </h3><hr>
                         <!-- <p class="form-label">Throughout this year you would have met some amazing people in your recruitment drives, trainings, weekly sessions, city circles and other MAD events. There is something unique about each of these people. Unique because they didn't just care - they cared more. They should definitely try their chance at leadership roles! They should believe in their potential as you do. This is your chance to recommend those who should multiply impact and lead the city. Those who you see potential in to lead the city with you!</p> -->
 
-                        <p class="form-label"><strong>Recommend volunteers whom you see have the potential to be fellows.</strong>.</p><hr>
+                        <p class="form-label">Recommend volunteers whom you see have the potential to be fellows.</p><hr>
 
                         <?php
                           for($i=0;$i<3;$i++){
