@@ -32,7 +32,7 @@ class Email
                 $mime->addHTMLImage($image, finfo_file($finfo, $image));
                 $cid = $mime->_html_images[$index]['cid'];
 	            $this->html = str_replace("%CID-$key%", $cid, $this->html);
-	            print "Replaced '%CID-$key%' with '$cid' - $index\n";
+	            // print "Replaced '%CID-$key%' with '$cid' - $index\n";
 	            $index++;
             }
         }
