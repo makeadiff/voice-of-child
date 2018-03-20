@@ -43,6 +43,9 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
             .row{
               float: none !important
             }
+            #continuing1 p {
+              line-height: normal;
+            }
         </style>
     </head>
 
