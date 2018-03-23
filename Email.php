@@ -60,7 +60,7 @@ class Email
             echo("<p>" . $mail->getMessage() . "</p>");
             return false;
         }
-        echo "Sent successfully";
+        // echo "Sent successfully";
         return true;
     }
 }

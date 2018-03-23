@@ -72,6 +72,8 @@ $user_group_preference    = array();
 if(isset($_POST['user_group_preference_name'])){
   $user_group_preference[0] = $_POST['user_group_preference_name'];
 
+  $new_city_id = $_POST['fellow_move_city_id'];
+
   for($i=1;$i<=3;$i++){
     $user_group_preference[$i] = $_POST['fellow_prefernece'.$i.'_name'];
   }
@@ -93,7 +95,9 @@ if(isset($_POST['user_group_preference_name'])){
                               'user_id' => $user_id,
                               'group_id' => $user_group_preference[0],
                               'preference' => 1,
-                              'taskfolder_link' => ''
+                              'taskfolder_link' => '',
+                              'city_id'   => $new_city_id,
+                              'added_on'  => 'NOW()'
                           ));
 
     if($insert_pref!=0){
@@ -108,7 +112,9 @@ if(isset($_POST['user_group_preference_name'])){
                                   'user_id' => $user_id,
                                   'group_id' => $user_group_preference[$i],
                                   'preference' => $i,
-                                  'taskfolder_link' => ''
+                                  'taskfolder_link' => '',
+                                  'city_id'   => $new_city_id,
+                                  'added_on'  => 'NOW()'
                               ));
         if($insert_pref!=0){
           $preference_form_check = true;
@@ -117,23 +123,6 @@ if(isset($_POST['user_group_preference_name'])){
     }
   }
 }
-//SignUp user group preference insert/update in FAM_UserGroupPreference
-
-
-// $cont_status_id = $sql->getOne('SELECT id FROM UserData WHERE name="continuation_status" AND user_id='.$user_id);
-// if($cont_status_id==''){
-//   $insert_continuation_status= $sql->insert('UserData',array(
-//     'user_id' => $user_id,
-//     'name' => 'continuation_status',
-//     'value' => $cont_status,
-//     'data' => date('Y-m-d H:i:s')
-//   ));
-// }
-// else{
-//   $update_continuation_status = $sql->update('UserData',array(
-//     'value' => $cont_status
-//   ),'id='.$cont_status_id);
-// }
 
 //recommendation insert in FAM_Referral table
 

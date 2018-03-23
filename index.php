@@ -224,8 +224,23 @@ include ('db/config.php'); //Find the configuratio files in db/config.php
                             <?php
                               echo role_options($sql,$user['city_id'],'fellow',$role_preference[3]);
                             ?>
-                          </select><br><hr>
+                          </select><br> 
+
+                        <hr />
+
+                        <p align="left">In case you are <strong>planning to move</strong> to another city, mark your new city here. You'll be applying for positions in that city...</p>
+                          <select id="fellow_move_city_id" name="fellow_move_city_id">
+                            <option value="0" selected>Not Moving</option>
+                            <?php
+                              $all_cities = $sql->getById("SELECT id,name FROM City WHERE type='actual' ORDER BY name");
+
+                              foreach ($all_cities as $city_id => $city_name) {
+                                echo "<option value='$city_id'>$city_name</option>\n";
+                              }
+                            ?>
+                          </select><br><hr />
                         </div>
+
 
                         <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
                         <input type="button" name="next" class="next action-button" value="Next"/>
