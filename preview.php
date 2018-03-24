@@ -227,7 +227,7 @@ foreach ($recommendations as $recommendation) {
                     Sit tight! You'll hear from us very soon.
 
                   </h3>
-                  <h3 class="fs-subtitle">All the best :) 
+                  <h3 class="fs-subtitle">All the best :)
                   </h3><hr>
                   <h3 class="fs-subtitle">Had another bright idea?</h3>
                   <a href="./"><input type="button" id="update" class="previous action-button-previous" value="Update Responses" href="./"></a>

@@ -19,6 +19,10 @@ body {
     background-size: cover;
 }
 
+.nav-collapse, .collapse{
+  display: block !important; 
+}
+
 p{
   line-height: 115%;
 }
