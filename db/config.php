@@ -128,7 +128,6 @@
 
   // ---------------------- Functions -------------------------
 
-
   function role_options($sql,$current_city_id,$type,$selected_id = null){ //Get Role Options Values for Selected Role etc.
     $query_roles_fellow="SELECT * from `Group` WHERE type='fellow' AND group_type='normal' AND status=1";
     $fellow_roles_data = $sql->getAll($query_roles_fellow);
@@ -158,6 +157,50 @@
       '"Trivandrum"',
       '"Vellore"',
       '"Vijayawada"'); //Transition Readiness Fellow Check
+    $check['campaigns_fellow_city'] = array(
+      '"Ahmedabad"',
+      '"Bangalore"',
+      '"Bhopal"',
+      '"Chandigarh"',
+      '"Chennai"',
+      '"Coimbatore"',
+      '"Cochin"',
+      '"Delhi"',
+      '"Dehradun"',
+      '"Gwalior"',
+      '"Guntur"',
+      '"Hyderabad"',
+      '"Lucknow"',
+      '"Mumbai"',
+      '"Mysore"',
+      '"Nagpur"',
+      '"Pune"',
+      '"Trivandrum"',
+      '"Vellore"',
+      '"Vijayawada"',
+      '"Vizag"'); //Campaigns Fellow Check
+    $check['finance_fellow_city'] = array(
+      '"Ahmedabad"',
+      '"Bangalore"',
+      '"Bhopal"',
+      '"Chandigarh"',
+      '"Chennai"',
+      '"Coimbatore"',
+      '"Cochin"',
+      '"Delhi"',
+      '"Dehradun"',
+      '"Gwalior"',
+      '"Guntur"',
+      '"Hyderabad"',
+      '"Lucknow"',
+      '"Mumbai"',
+      '"Mysore"',
+      '"Nagpur"',
+      '"Pune"',
+      '"Trivandrum"',
+      '"Vellore"',
+      '"Vijayawada"',
+      '"Vizag"');  //Finance Fellow Check
     $check['a_fellow_city'] = array(
       '"Bangalore"',
       '"Chennai"',
@@ -247,6 +290,7 @@
         $check_ids[$key][]=$city_id['id'];
       }
     }
+
     $check_ids['other_roles'][0] = 14; //Kolkata Check for Other Roles
 
     foreach ($fellow_roles_data as $role) {
@@ -267,13 +311,13 @@
       else if($role['id']==370 && !in_array($current_city_id,$check_ids['other_roles'])){ //FR Fellow - Fundraising Fellow
         $roles[$i]['name']='Fundraising Fellow';
       }
-      else if($role['id']==15 && !in_array($current_city_id,$check_ids['other_roles'])){ //Finance Controller - Finance Fellow
+      else if($role['id']==15 && in_array($current_city_id,$check_ids['finance_fellow_city'])){ //Finance Controller - Finance Fellow
         $roles[$i]['name']='Finance Fellow';
       }
       else if($role['id']==5 && !in_array($current_city_id,$check_ids['other_roles'])){ //HC Fellow - Human Capital Fellow
         $roles[$i]['name']='Human Capital Fellow';
       }
-      else if($role['id']==11 && !in_array($current_city_id,$check_ids['other_roles'])){ //PR Fellow - Public Relations Fellow
+      else if($role['id']==11 && in_array($current_city_id,$check_ids['campaigns_fellow_city'])){ //PR Fellow - Public Relations Fellow
         $roles[$i]['name']='Campaigns Fellow';
       }
       else if(($role['id']==2 || $role['id']==19 || $role['id']==4) && !in_array($current_city_id,$check_ids['other_roles'])){ //City Team Lead and Ed Support Fellow

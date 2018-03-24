@@ -1,7 +1,3 @@
-
-
-
-
 <?php
 
 include ('db/config.php');
@@ -76,6 +72,8 @@ $user_group_preference    = array();
 if(isset($_POST['user_group_preference_name'])){
   $user_group_preference[0] = $_POST['user_group_preference_name'];
 
+  $new_city_id = $_POST['fellow_move_city_id'];
+
   for($i=1;$i<=3;$i++){
     $user_group_preference[$i] = $_POST['fellow_prefernece'.$i.'_name'];
   }
@@ -97,7 +95,9 @@ if(isset($_POST['user_group_preference_name'])){
                               'user_id' => $user_id,
                               'group_id' => $user_group_preference[0],
                               'preference' => 1,
-                              'taskfolder_link' => ''
+                              'taskfolder_link' => '',
+                              'city_id'   => $new_city_id,
+                              'added_on'  => 'NOW()'
                           ));
 
     if($insert_pref!=0){
@@ -112,7 +112,9 @@ if(isset($_POST['user_group_preference_name'])){
                                   'user_id' => $user_id,
                                   'group_id' => $user_group_preference[$i],
                                   'preference' => $i,
-                                  'taskfolder_link' => ''
+                                  'taskfolder_link' => '',
+                                  'city_id'   => $new_city_id,
+                                  'added_on'  => 'NOW()'
                               ));
         if($insert_pref!=0){
           $preference_form_check = true;
@@ -121,23 +123,6 @@ if(isset($_POST['user_group_preference_name'])){
     }
   }
 }
-//SignUp user group preference insert/update in FAM_UserGroupPreference
-
-
-// $cont_status_id = $sql->getOne('SELECT id FROM UserData WHERE name="continuation_status" AND user_id='.$user_id);
-// if($cont_status_id==''){
-//   $insert_continuation_status= $sql->insert('UserData',array(
-//     'user_id' => $user_id,
-//     'name' => 'continuation_status',
-//     'value' => $cont_status,
-//     'data' => date('Y-m-d H:i:s')
-//   ));
-// }
-// else{
-//   $update_continuation_status = $sql->update('UserData',array(
-//     'value' => $cont_status
-//   ),'id='.$cont_status_id);
-// }
 
 //recommendation insert in FAM_Referral table
 
@@ -177,10 +162,7 @@ foreach ($recommendations as $recommendation) {
   }
 }
 
-?>
-
-
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en" >
   <head>
       <meta charset="UTF-8">
@@ -221,11 +203,10 @@ foreach ($recommendations as $recommendation) {
             <form id="msform" action="preview.php" method="POST" novalidate>
               <fieldset>
                   <h2 class="fs-title">Response Recorded</h2><hr>
-                  <h3 class="fs-subtitle">Thank You! </h3>
+                  <h3 class="fs-subtitle">There you go Champ!<br />
+                    You are all set for the adventure!!</h3>
                   <h3 class="fs-subtitle">
-                    Excited to know what's coming your way?<br>
-                    Sit tight! You'll hear from us very soon.
-
+                    Wondering what's next? Check your inbox.
                   </h3>
                   <h3 class="fs-subtitle">All the best :)
                   </h3><hr>
@@ -240,38 +221,149 @@ foreach ($recommendations as $recommendation) {
 
 
 <?php
-  // $email = new Email();
-  // $email->html = '<html>
-  //           <head>
-  //           <title>Acknowledgement Email</title>
-  //           </head>
-  //           <body>
-  //             <table style="width: 960px;margin:0 auto;height: auto;border: 2px solid #f1f1f1;font-family:arial;font-size:20px;">
-  //               <tr>
-  //                 <td style="vertical-align: top;">
-  //                   <img style="float:left;margin: 0px;" src=""/>
-  //                   <img style="margin-left: -70px;" src=""/>
-  //                   <img style="float:right;margin:0px;" src=""/>
-  //                 </td>
-  //               </tr>
-  //               <tr>
-  //                 <td style="color:#cc2028;float:right;margin:10px 20px;"> ' . date("d/m/Y") . ' </td>
-  //               </tr>
-  //               <tr>
-  //                 <td style="padding:10px 20px;"><strong>Dear,'.$user_name.'</strong></td>
-  //               </tr>
-  //               <tr>
-  //                 <td style="padding:10px 20px;">Content for Email</td>
-  //               </tr>
-  //             </table>
-  //           </body>
-  //         </html>';
-  // $email->to = $user_email;
-  // $email->from = "Succession, Make A Difference <succession@makeadiff.in>";
-  // $email->subject = "Donation Acknowledgment";
+require 'Email.php';
 
-  // $email->send();
+$email = new Email();
+$email->images = [
+                  'header' => 'img/email/header.jpg',
+                  'top' => 'img/email/top.png',
+                  'kc'  => 'img/email/kc.jpg',
+                  'common_tasks'   => 'img/email/common_tasks.jpg',
+                  'vertical' => 'img/email/vertical.jpg',
+                  'pi'  => 'img/email/pi.jpg'
+                ];
+$email->html = <<<END
+<html>
+<head>
+<title>Acknowledgement Email</title>
 
+    <style type="text/css">
+      td {
+        font-family: 'Raleway',Helvetica,Arial,sans-serif;
+        font-size: 13px;
+        border: 0px;
+      }
+      .display-table {
+        border-collapse:collapse;
+        border: 1px solid #000;
+        margin: 0 30px 0 30px;
+      }
+      .display-table td {
+        padding: 5px;
+      }
+
+      p,h2,h3 {
+        text-align:justify;
+        padding:0 30px 0 30px ;
+      }
+
+      span,p{
+        font-family: 'Raleway',Helvetica,Arial,sans-serif;
+        font-size: 13px;
+        line-height: 20px;
+      }
+
+      a,a.visited{
+        text-decoration: none;
+        color:#ed1849;
+      }
+
+      p img{
+        width:100%;
+      }
+
+      h2{
+        color: #569;
+      }
+
+      .color-red{
+        color: #ed1849;
+      }
+
+      strong{
+        font-weight: 700 !important;
+      }
+
+      img{
+        border-radius: 5px;
+      }
+
+      span.caption{
+        font-size: 10px;
+      }
+    </style>
+</head>
+<body>
+<center>
+<table width="590" bgcolor="F5F5F5" style="border-radius:5px; padding:0; margin-top:-10px;">
+<tr><td height="300" bgcolor="#F5F5F5">
+<img src="cid:%CID-header%"><br/>
+
+<p><strong>Hello MADster,</strong></p>
+
+<p>Congratulations on taking the first step towards your journey of transformation! A journey that pushes you out of your comfort zone. Makes a real difference in children's lives. And lets you learn and grow alongside MADsters like you across the country.</p>
+
+<p>We're so excited to have you on board this MAD ride!</p>
+
+<center><img src="cid:%CID-top%" width="400" /></center>
+
+<h2>What's Next?</h2>
+
+<p>The MAD Fellowship recruitment is designed not just for selection, but as an incredible learning experience in itself. There are multiple opportunities for you to grow and level up!  Let's take a closer look at these. </p>
+
+<table class="display-table">
+<tr><td><img src="cid:%CID-kc%" width="300" /></td>
+<td>The <strong>Kindness Challenge</strong>, a MAD tradition, lets you reconnect with the spirit of selfless service and the joy of giving.</td></tr>
+</table>
+
+<p>At this first progression point, apart from your participation in the Kindness Challenge, we'll be taking your overall participation data into consideration. And why? Because over time, we've lost access to some shelters due to inconsistent support to children, for reasons ranging from teacher absenteeism to high substitution. </p>
+
+<p>We keep the child at the centre of all that we do, striving to do whatever it takes, for as long as it takes. This makes availability and meaningful participation core components of continuing to positively impact the children we work with. </p>
+
+<p>As you are primary movers of this goal, it's important that we evaluate your application against your consistency in MAD. If you're selected, you'll be invited to engage with the tasks below. </p>
+
+<table class="display-table"><tr>
+<td>The <strong>Common Tasks</strong> deepen your understanding of our work, while developing your mobilization and presentation skills</td>
+<td><img src="cid:%CID-common_tasks%" width="300" /></td>
+</tr><tr>
+<td><img src="cid:%CID-vertical%" width="300" /></td>
+<td>The <strong>Vertical Task</strong> helps you get a feel for the knowledge, skills, and perspectives you will build through each role. Spot a task that calls out to you? Go for it, and you might surprise yourself with finding your true calling!</td>
+</tr></table>
+
+<p>No matter what role you choose, you'll always be part of a larger team. A family that is co-created by all, for all. Which is why every voice counts! </p>
+
+<p>This year, we'll reach out to the entire volunteer base to build a sharper image of each MADster we're engaging with, including you! Who's the cheerleader that keeps the team going? Who's the quiet doer who always goes the extra mile? What are some things we should know so we can build the best possible teams on ground? </p>
+
+<p>Passed your tasks with flying colours? Then you'll be invited for the final round!</p>
+
+<table class="display-table"><tr>
+<td>Last but not least, your <strong>Personal Interview</strong> is a chance for you to have a mentoring conversation with the Directors, who are not only invested in your growth as a MADster but also as a confident individual beyond MAD :)</td>
+<td><img src="cid:%CID-pi%" width="300" /></td>
+</tr></table>
+
+<p>This process has been carefully crafted to ensure the best mutual fit between you and the role. Put your best foot forward for the tasks, and show us what you've got! Based on your interests and performance, we'll be recommending you level up as a Fellow, Wingman or Mentor. Remember, it's about keeping our vision at the fore, growing into your best self, and optimizing your impact in the MAD collective!</p>
+
+<p>Ready to learn and level up? Raring to go? Watch this space for more updates :) </p>
+
+
+<p>Welcome on board this learning journey <br/>
+All the very best!</p>
+
+<p>For the Succession Planning team,<br />
+Naveen Raj and Bharat Bhaskaran</p>
+
+</td></tr>
+<tr><td class="footer" style="color:#FFF;" height="70" align="center" valign="middle" bgcolor="#333132">&copy; 2017 <a style="color:#FFF" href="http://makeadiff.in">Make a Difference</a> | India </td></tr>
+</table>
+</center>
+</body>
+</html>
+END;
+$email->to = $user_email;
+$email->from = "Succession, Make A Difference <succession@makeadiff.in>";
+$email->subject = "MAD Fellowship Application";
+
+$email->send();
 ?>
 
 <script>
