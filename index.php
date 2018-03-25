@@ -1,7 +1,11 @@
 <?php
 include ('db/config.php'); //Find the configuratio files in db/config.php
-$form_status = true;
+$time =  date('Y-m-d H:i:s');
 
+if($time > '2018-03-26 00:00:00')
+  $form_status = false;
+else
+  $form_status = true;
 ?>
 <!DOCTYPE html>
 <html lang="en" >
