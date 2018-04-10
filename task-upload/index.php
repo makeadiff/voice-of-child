@@ -1,5 +1,5 @@
 <?php
-include ('db/config.php'); //Find the configuratio files in db/config.php
+include ('../db/config.php'); //Find the configuratio files in db/config.php
 $time =  date('Y-m-d H:i:s');
 
 if($time > '2018-03-26 00:00:00')
@@ -18,7 +18,7 @@ else
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
         <link rel="shortcut icon" href="/var/www/html/SignUpForm/favicon.png" type="image/png">
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="../css/style.css">
         <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
 
         <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:700,400,400italic' rel='stylesheet' type='text/css'>
@@ -60,7 +60,7 @@ else
         <?php //include('../../global_nav.php') ?>
         <?php //include('../../succession2018/subheader.php') ?>
         <div class="container">
-            <h1 class="span12 fs-main-title text-center">Fellowship Sign Up</h1>
+            <h1 class="span12 fs-main-title text-center">Fellowship Task Upload</h1>
         </div>
         <!-- MultiStep Form -->
         <div class="row">
@@ -296,11 +296,11 @@ else
                       </fieldset>
                     <?php } else{  ?>
                     <fieldset>
-                        <!-- <h2 class="fs-title">Form is Closed</h2> -->
-                        <h3 class="fs-subtitle">The deadline to fill the form is now over.</h3><hr>
-                        <h2 class="fs-title">Applied already?</h2>
-                        <h3 class="fs-subtitle"> Completed your Tasks?</h3>
-                        <a href="./task-upload/" target="_self"><div class="action-button" style="width:200px; margin:auto;">Upload Tasks</div></a>
+                        <h2 class="fs-title">Hi There!!</h2><hr>
+                        <h3 class="fs-subtitle">Done with your common &amp; first preference tasks already? <strong>That's awesome!</strong></h3>
+                        <h3 class="fs-subtitle">Go ahead and finish the other preferences too. We'll start accepting tasks soon. </h3>
+                        <h3 class="fs-subtitle">Stay Tuned. </h3>
+                        <!-- <input type="submit" name="submit" class="submit action-button-previous" value="Upload Tasks"/> -->
                     </fieldset>
                     <?php }   ?>
                 </form>
@@ -313,7 +313,7 @@ else
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
         <script src='https://code.jquery.com/jquery-1.10.2.js'></script>
         <script src='https://code.jquery.com/ui/1.10.4/jquery-ui.js'></script>
-        <script  src="js/index.js"></script>
+        <script  src="../js/index.js"></script>
         <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
         <script>
