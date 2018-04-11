@@ -1,0 +1,30 @@
+FAM_UserTasks
+	id
+	user_id
+	common_task_url
+	preference_1_group_id
+	preference_1_task_file
+	preference_2_group_id
+	preference_2_task_file
+	preference_3_group_id
+	preference_3_task_file
+
+
+CREATE TABLE IF NOT EXISTS `FAM_UserTask` (
+	`id` INT (11)  unsigned NOT NULL auto_increment,
+	`user_id` INT (11)  unsigned NOT NULL,
+	`common_task_url` VARCHAR (100)   NOT NULL,
+	`preference_1_group_id` INT (11)  unsigned NOT NULL,
+	`preference_1_task_file` VARCHAR (100)   NOT NULL,
+	`preference_2_group_id` INT (11)  unsigned NOT NULL,
+	`preference_2_task_file` VARCHAR (100)   NOT NULL,
+	`preference_3_group_id` INT (11)  unsigned NOT NULL,
+	`preference_3_task_file` VARCHAR (100)   NOT NULL,
+	`added_on` DATETIME    NOT NULL,
+	PRIMARY KEY (`id`),
+	KEY (`user_id`),
+	KEY (`preference_1_group_id`),
+	KEY (`preference_2_group_id`),
+	KEY (`preference_3_group_id`)
+) DEFAULT CHARSET=utf8 ;
+
