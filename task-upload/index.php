@@ -18,7 +18,7 @@ $verticals = [
   '375' => "Foundational Programme",
 ];
 
-$profiles_applied_for = $fam->getApplications(101983); // :DEBUG: should be $user_id
+$profiles_applied_for = $fam->getApplications($user_id); 
 $inserted = 0;
 
 if(i($QUERY, 'action') == 'Submit') {
@@ -31,7 +31,7 @@ if(i($QUERY, 'action') == 'Submit') {
     $group_id = i($QUERY, 'group_id_' . $i);
     if(!$group_id) continue;
 
-    list($file, $error) = upload('task_' . $i, 'uploads', 'doc,docx,txt,rtf');
+    list($file, $error) = upload('task_' . $i, 'uploads', 'doc,docx,txt,rtf,pdf');
     if(!$error) {
       $data['preference_' . $i . '_group_id'] = $group_id;
       $data['preference_' . $i . '_task_file'] = $file;
