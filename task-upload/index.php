@@ -1,44 +1,44 @@
 <?php
 include ('../db/config.php'); //Find the configuratio files in db/config.php
 
-include '../../fam/models/FAM.php';
-$fam = new FAM;
-
-$verticals = [
-  '2'   => "City Team Lead",
-  '19'  => "Ed Support",
-  '378' => "Aftercare",
-  '272' => "Transition Readiness",
-  '370' => "Fundraising",
-  '269' => "Shelter Operations",
-  '4'   => "Shelter Support",
-  '5'   => "Human Capital",
-  '15'  => "Finance",
-  '11'  => "Campaigns and Communications",
-  '375' => "Foundational Programme",
-];
-
-$profiles_applied_for = $fam->getApplications($user_id); 
-$inserted = 0;
-
-if(i($QUERY, 'action') == 'Submit') {
-  $data = [
-    'user_id'           => $user_id,
-    'common_task_url'   => i($QUERY, 'common_task_url'),
-    'added_on'          => 'NOW()'
-  ];
-  for($i = 1; $i <= 3; $i++) {
-    $group_id = i($QUERY, 'group_id_' . $i);
-    if(!$group_id) continue;
-
-    list($file, $error) = upload('task_' . $i, 'uploads', 'doc,docx,txt,rtf,pdf');
-    if(!$error) {
-      $data['preference_' . $i . '_group_id'] = $group_id;
-      $data['preference_' . $i . '_task_file'] = $file;
-    }
-  }
-  $inserted = $sql->insert("FAM_UserTask", $data);
-}
+// include '../../fam/models/FAM.php';
+// $fam = new FAM;
+//
+// $verticals = [
+//   '2'   => "City Team Lead",
+//   '19'  => "Ed Support",
+//   '378' => "Aftercare",
+//   '272' => "Transition Readiness",
+//   '370' => "Fundraising",
+//   '269' => "Shelter Operations",
+//   '4'   => "Shelter Support",
+//   '5'   => "Human Capital",
+//   '15'  => "Finance",
+//   '11'  => "Campaigns and Communications",
+//   '375' => "Foundational Programme",
+// ];
+//
+// $profiles_applied_for = $fam->getApplications($user_id);
+// $inserted = 0;
+//
+// if(i($QUERY, 'action') == 'Submit') {
+//   $data = [
+//     'user_id'           => $user_id,
+//     'common_task_url'   => i($QUERY, 'common_task_url'),
+//     'added_on'          => 'NOW()'
+//   ];
+//   for($i = 1; $i <= 3; $i++) {
+//     $group_id = i($QUERY, 'group_id_' . $i);
+//     if(!$group_id) continue;
+//
+//     list($file, $error) = upload('task_' . $i, 'uploads', 'doc,docx,txt,rtf,pdf');
+//     if(!$error) {
+//       $data['preference_' . $i . '_group_id'] = $group_id;
+//       $data['preference_' . $i . '_task_file'] = $file;
+//     }
+//   }
+//   $inserted = $sql->insert("FAM_UserTask", $data);
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en" >
@@ -98,16 +98,16 @@ if(i($QUERY, 'action') == 'Submit') {
     <div class="col-md-8 col-md-offset-2">
         <form id="msform" method="POST" enctype="multipart/form-data">
             <fieldset style="text-align: left;">
-                <h2 class="fs-title">Hi <?php echo $user['name']; ?>!</h2><hr>
+                <h2 class="fs-title">Hi <?php echo $user['name']; ?>! </h2><hr>
 
-                <?php if($inserted) { ?>
+                <?php /*if($inserted) { ?>
                 <span class="alert alert-success">Your tasks have been submitted. Best of luck!</span>
 
                 <?php } else { ?>
                 Common Task<br />
                 <input type="text" name="common_task_url" placeholder="Link To Video" required="required" />
 
-                <?php 
+                <?php
                 $count = 0;
                 foreach ($profiles_applied_for as $prof) {
                   $count++; ?>
@@ -117,7 +117,16 @@ if(i($QUERY, 'action') == 'Submit') {
                 <?php } ?>
 
                 <input type="submit" value="Submit" name="action" class="btn btn-primary" />
-                <?php } ?>
+                <?php }*/ ?>
+                <h3 class="fs-subtitle">
+                  Done with your task already? You're awesome!!
+                </h3>
+                <h3 class="fs-subtitle">
+                  Go ahead and complete your other preference tasks and make them epic too.
+                </h3>
+                <h3 class="fs-subtitle">
+                  We will be uploading the portal soon.
+                </h3>
             </fieldset>
         </form>
     </div>
