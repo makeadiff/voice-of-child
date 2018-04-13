@@ -124,6 +124,13 @@ $(".next").click(function(){
 });
 
 
+$('input[type="file"]').change(function(e){
+      var fileName = e.target.files[0].name;
+      document.getElementById('task_label_1').innerHTML += fileName;
+  });
+
+
+
 $(".previous").click(function(){
 	if(animating) return false;
 	animating = true;
@@ -173,4 +180,55 @@ function submit_form(){
 	}else{
 		return false;
 	}
+}
+
+function validate_upload(){
+	var common_task_url = document.getElementById('common_task_url').value;
+	var vertical_task_url_1 = document.getElementById('vertical_task_url_1').value;
+	var vertical_task_url_2 = document.getElementById('vertical_task_url_2').value;
+	var vertical_task_url_3 = document.getElementById('vertical_task_url_3').value;
+
+	var valid_ct = ValidURL(common_task_url);
+	var valid_vt1 = ValidURL(vertical_task_url_1);
+	var valid_vt3 = ValidURL(vertical_task_url_2);
+	var valid_vt2 = ValidURL(vertical_task_url_3);
+
+	if(valid_ct == false){
+		console.log('Error');
+		return false;
+	}
+	else if(valid_vt1 == false && vertical_task_url_1!=''){
+		console.log('Error');
+		return false;
+	}
+	else if(valid_vt2 == false && vertical_task_url_2!=''){
+		console.log('Error');
+		return false;
+	}
+	else if(valid_vt3 == false && vertical_task_url_3!=''){
+		console.log('Error');
+		return false;
+	}
+	else{
+		return true;
+	}
+
+	// if(!valid){
+	// 	alert('Incorrect URL for Common Task').
+	// 	return false;
+	// }
+	// else{
+	// 	return true;
+	// }
+
+}
+
+
+function ValidURL(str) {
+  var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+  if(!regex .test(str)) {
+    return false;
+  } else {
+    return true;
+  }
 }

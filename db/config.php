@@ -15,7 +15,7 @@
   }
 
   $user_id = $_SESSION['user_id'];
-  $user_id = 126223;
+  // $user_id = 126223;
   $test = false;
 
   if(isset($_GET['test_city'])){
@@ -437,13 +437,13 @@
           	`common_task_url` MEDIUMTEXT   NOT NULL,
           	`preference_1_group_id` INT (11)  unsigned NOT NULL,
           	`preference_1_task_files` MEDIUMTEXT   NOT NULL,
-            `preference_1_video_files` MEDIUMTEXT   NOT NULL,
+            `preference_1_video_files` MEDIUMTEXT  NULL,
           	`preference_2_group_id` INT (11)  unsigned NOT NULL,
           	`preference_2_task_files` MEDIUMTEXT   NOT NULL,
-            `preference_2_video_files` MEDIUMTEXT   NOT NULL,
+            `preference_2_video_files` MEDIUMTEXT  NULL,
           	`preference_3_group_id` INT (11)  unsigned NOT NULL,
           	`preference_3_task_files` MEDIUMTEXT   NOT NULL,
-            `preference_3_video_files` MEDIUMTEXT   NOT NULL,
+            `preference_3_video_files` MEDIUMTEXT  NULL,
           	`added_on` DATETIME    NOT NULL,
           	PRIMARY KEY (`id`),
           	KEY (`user_id`),

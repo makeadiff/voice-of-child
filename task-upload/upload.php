@@ -31,13 +31,40 @@ $inserted = 0;
 
 // dump($_POST);
 // dump($_FILES);
+// exit;
 
+$group_preference_1 = '';
+$group_preference_2 = '';
+$group_preference_3 = '';
+
+
+$vertical_video_task_url_1 = '';
+$vertical_video_task_url_2 = '';
+$vertical_video_task_url_3 = '';
 
 $common_task_url    = $_POST['common_task_url'];
 
-$group_preference_1 = $_POST['group_id_1'];
-$group_preference_2 = $_POST['group_id_2'];
-$group_preference_3 = $_POST['group_id_3'];
+if(isset($_POST['group_id_1'])){
+  $group_preference_1 = $_POST['group_id_1'];
+}
+if(isset($_POST['group_id_2'])){
+  $group_preference_2 = $_POST['group_id_2'];
+}
+if(isset($_POST['group_id_3'])){
+  $group_preference_3 = $_POST['group_id_3'];
+}
+
+
+
+if(isset($_POST['vertical_task_url_1'])){
+  $vertical_video_task_url_1 = $_POST['vertical_task_url_1'];
+}
+if(isset($_POST['vertical_task_url_2'])){
+  $vertical_video_task_url_2 = $_POST['vertical_task_url_2'];
+}
+if(isset($_POST['vertical_task_url_3'])){
+  $vertical_video_task_url_3 = $_POST['vertical_task_url_3'];
+}
 
 
 $task_files_1 = '';
@@ -48,12 +75,21 @@ $data = [
     'user_id'                     => $user_id,
     'common_task_url'             => $common_task_url,
     'added_on'                    => 'NOW()',
+    'preference_1_group_id'       => $group_preference_1,
     'preference_1_task_files'     => '',
+    'preference_1_video_files'    => $vertical_video_task_url_1,
+    'preference_2_group_id'       => $group_preference_2,
     'preference_2_task_files'     => '',
-    'preference_3_task_files'     => ''
+    'preference_1_video_files'    => $vertical_video_task_url_1,
+    'preference_3_group_id'       => $group_preference_3,
+    'preference_3_task_files'     => '',
+    'preference_1_video_files'    => $vertical_video_task_url_1
   ];
 
 for($j=0;$j<3;$j++){
+  if(!isset($_FILES['task_'.($j+1)])){
+    continue;
+  }
   $totalFiles = count($_FILES["task_".($j+1)]["name"]);
   for($k=0;$k<$totalFiles;$k++){
     if($_FILES["task_".($j+1)]["name"][$k]==''){
@@ -71,18 +107,15 @@ for($j=0;$j<3;$j++){
 
     $uploadOk = 1;
 
+    if($_SERVER['HTTP_HOST'] == 'makeadiff.in'){
+      $parent = 'http://makeadiff.in/apps/fellowship-signup';
+    }
+    else{
+      $parent = 'http://localhost/makeadiff/apps/fellowship-signup';
+    }
+
     if (move_uploaded_file($_FILES["task_".($j+1)]["tmp_name"][$k], $target_file)) {
-        // echo "The file ". basename( $_FILES["task_1"]["name"][$k]). " has been uploaded. <br/>".PHP_EOL;
-
-        for($i = 1; $i <= 3; $i++) {
-          $group_id = i($QUERY, 'group_id_' . $i);
-          if(!$group_id) continue;
-
-          $data['preference_' . $i . '_group_id'] = $group_id;
-          $data['preference_' . $i . '_task_files'] .= $target_file.', ';
-
-        }
-        // $inserted = $sql->insert("FAM_UserTask", $data);
+    $data['preference_' . ($j+1) . '_task_files'] .= $parent.str_replace(' ','%20',str_replace('../','/',$target_file)).', ';
 
     } else {
         echo "Sorry, there was an error uploading your file. <br/>".PHP_EOL;
@@ -90,26 +123,16 @@ for($j=0;$j<3;$j++){
   }
 }
 
-dump($data);
+// dump($data);
+$check_entry = $sql->getOne('SELECT id FROM FAM_UserTask WHERE user_id='.$user_id);
+if($check_entry == ''){
+  $inserted = $sql->insert("FAM_UserTask", $data);
+}
+else{
+  $inserted = $sql->update("FAM_UserTask", $data,'id='.$check_entry);
+}
 
-// if(i($QUERY, 'action') == 'Submit') {
-//   $data = [
-//     'user_id'           => $user_id,
-//     'common_task_url'   => i($QUERY, 'common_task_url'),
-//     'added_on'          => 'NOW()'
-//   ];
-//   for($i = 1; $i <= 3; $i++) {
-//     $group_id = i($QUERY, 'group_id_' . $i);
-//     if(!$group_id) continue;
-//
-//     list($file, $error) = upload('task_' . $i, 'tasks', 'doc,docx,txt,rtf,pdf');
-//     if(!$error) {
-//       $data['preference_' . $i . '_group_id'] = $group_id;
-//       $data['preference_' . $i . '_task_file'] = $file;
-//     }
-//   }
-//   $inserted = $sql->insert("FAM_UserTask", $data);
-// }
+
 ?>
 
 
@@ -118,7 +141,7 @@ dump($data);
 <html lang="en" >
   <head>
       <meta charset="UTF-8">
-      <title>Fellowship Signup 2018</title>
+      <title>Fellowship Task Upload 2018</title>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">

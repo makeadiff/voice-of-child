@@ -79,7 +79,7 @@ $inserted = 0;
 <!-- MultiStep Form -->
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
-        <form id="msform" method="POST" action="./upload.php" enctype="multipart/form-data">
+        <form id="msform" method="POST" action="./upload.php" enctype="multipart/form-data" onsubmit="return validate_upload()">
             <fieldset>
                 <input type='text' name="user_id" class="hidden" value= "<?php echo $user['id'] ?>"/>
                 <h2 class="fs-title">Hi <?php echo $user['name']; ?>! </h2>
@@ -136,7 +136,7 @@ $inserted = 0;
                 <?php } else { ?>
                 <p class="form-label"><strong>Common Task</strong></p>
                 <p class="form-info">Please ensure you correctly paste the link to your Video that you uploaded on Google Drive</p>
-                <input type="text" name="common_task_url" placeholder="Link To Video" required="required" />
+                <input type="text" id="common_task_url" name="common_task_url" placeholder="Link To Video" required="required" />
                 <!-- <input type="submit" value="Save" name="action" class="submit action-button" /> -->
                 <hr>
                 <?php
@@ -145,13 +145,12 @@ $inserted = 0;
                   $count++;
                 ?>
                   <p class="form-label">Fellowship Preference <?php echo $prof['preference'] ?>: <strong><?php echo $verticals[$prof['group_id']]; ?></strong> </p>
-                  <p class="form-label">
+                  <p class="form-label" id="task_label_<?php echo $count ?>">
                     <input type="button" class="action-button-file" id="loadFileXml" value="Select File" onclick="document.getElementById('file_<?php echo $count ?>').click();" />
                   </p>
                   <p class="form-info">Incase your task has a video attachment to it, please copy and paste the link here.</p>
-                  <input type="text" name="vertical_task_<?php echo $count ?>" placeholder="Link To Video" />
-
-                  <input type="file" id="file_<?php echo $count ?>" name="task_<?php echo $count ?>[]" class="file" multiple/>
+                  <input type="file" id="file_<?php echo $count ?>" name="task_<?php echo $count ?>[]" class="file hidden" multiple/>
+                  <input type="text" name="vertical_task_url_<?php echo $count ?>" id="vertical_task_url_<?php echo $count ?>" placeholder="Link To Video" />
                   <input type="hidden" name="group_id_<?php echo $count ?>" value="<?php echo $prof['group_id']; ?>" />
                   <!-- <input type="submit" value="Save" name="action" class="submit action-button" /> -->
                   <hr>
