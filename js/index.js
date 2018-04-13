@@ -125,8 +125,10 @@ $(".next").click(function(){
 
 
 $('input[type="file"]').change(function(e){
-      var fileName = e.target.files[0].name;
-      document.getElementById('task_label_1').innerHTML += fileName;
+		var id = this.id;
+		var count = id.substring(5,6);
+    var fileName = e.target.files[0].name;
+    document.getElementById('file_name_label_'+count).innerHTML += fileName;
   });
 
 

@@ -3,6 +3,8 @@ include ('../db/config.php'); //Find the configuratio files in db/config.php
 
 include '../../fam/models/FAM.php';
 
+
+
 $fam = new FAM;
 
 $verticals = [
@@ -21,6 +23,10 @@ $verticals = [
 
 $profiles_applied_for = $fam->getApplications($user_id);
 $inserted = 0;
+
+
+$selectQuery = ""
+
 ?>
 
 <!DOCTYPE html>
@@ -147,9 +153,10 @@ $inserted = 0;
                   <p class="form-label">Fellowship Preference <?php echo $prof['preference'] ?>: <strong><?php echo $verticals[$prof['group_id']]; ?></strong> </p>
                   <p class="form-label" id="task_label_<?php echo $count ?>">
                     <input type="button" class="action-button-file" id="loadFileXml" value="Select File" onclick="document.getElementById('file_<?php echo $count ?>').click();" />
+                    <span id="file_name_label_<?php echo $count ?>"></span>
                   </p>
                   <p class="form-info">Incase your task has a video attachment to it, please copy and paste the link here.</p>
-                  <input type="file" id="file_<?php echo $count ?>" name="task_<?php echo $count ?>[]" class="file hidden" multiple/>
+                  <input type="file" id="file_<?php echo $count ?>" name="task_<?php echo $count ?>[]" class="file hidden" multiple accept="application/msword,application/msexcel,application/pdf,application/rtf,image/jpeg,image/tiff,image/x-png,text/plain"/>
                   <input type="text" name="vertical_task_url_<?php echo $count ?>" id="vertical_task_url_<?php echo $count ?>" placeholder="Link To Video" />
                   <input type="hidden" name="group_id_<?php echo $count ?>" value="<?php echo $prof['group_id']; ?>" />
                   <!-- <input type="submit" value="Save" name="action" class="submit action-button" /> -->
