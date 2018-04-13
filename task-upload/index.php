@@ -1,56 +1,39 @@
 <?php
 include ('../db/config.php'); //Find the configuratio files in db/config.php
 
-// include '../../fam/models/FAM.php';
-// $fam = new FAM;
-//
-// $verticals = [
-//   '2'   => "City Team Lead",
-//   '19'  => "Ed Support",
-//   '378' => "Aftercare",
-//   '272' => "Transition Readiness",
-//   '370' => "Fundraising",
-//   '269' => "Shelter Operations",
-//   '4'   => "Shelter Support",
-//   '5'   => "Human Capital",
-//   '15'  => "Finance",
-//   '11'  => "Campaigns and Communications",
-//   '375' => "Foundational Programme",
-// ];
-//
-// $profiles_applied_for = $fam->getApplications($user_id);
-// $inserted = 0;
-//
-// if(i($QUERY, 'action') == 'Submit') {
-//   $data = [
-//     'user_id'           => $user_id,
-//     'common_task_url'   => i($QUERY, 'common_task_url'),
-//     'added_on'          => 'NOW()'
-//   ];
-//   for($i = 1; $i <= 3; $i++) {
-//     $group_id = i($QUERY, 'group_id_' . $i);
-//     if(!$group_id) continue;
-//
-//     list($file, $error) = upload('task_' . $i, 'uploads', 'doc,docx,txt,rtf,pdf');
-//     if(!$error) {
-//       $data['preference_' . $i . '_group_id'] = $group_id;
-//       $data['preference_' . $i . '_task_file'] = $file;
-//     }
-//   }
-//   $inserted = $sql->insert("FAM_UserTask", $data);
-// }
+include '../../fam/models/FAM.php';
+
+$fam = new FAM;
+
+$verticals = [
+  '2'   => "City Team Lead",
+  '19'  => "Ed Support",
+  '378' => "Aftercare",
+  '272' => "Transition Readiness",
+  '370' => "Fundraising",
+  '269' => "Shelter Operations",
+  '4'   => "Shelter Support",
+  '5'   => "Human Capital",
+  '15'  => "Finance",
+  '11'  => "Campaigns and Communications",
+  '375' => "Foundational Programme",
+];
+
+$profiles_applied_for = $fam->getApplications($user_id);
+$inserted = 0;
 ?>
+
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 
 <head>
 <meta charset="UTF-8">
-<title>Fellowship Sign Up Form 2018 - Make A Difference</title>
+<title>Fellowship Task Upload Form 2018 - Make A Difference</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
-<link rel="shortcut icon" href="../favicon.png" type="image/png">
+<link rel="shortcut icon" href="../../../favicon.ico" type="image/png">
 <link rel="stylesheet" href="../css/style.css">
 <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
 
@@ -96,37 +79,87 @@ include ('../db/config.php'); //Find the configuratio files in db/config.php
 <!-- MultiStep Form -->
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
-        <form id="msform" method="POST" enctype="multipart/form-data">
-            <fieldset style="text-align: left;">
-                <h2 class="fs-title">Hi <?php echo $user['name']; ?>! </h2><hr>
+        <form id="msform" method="POST" action="./upload.php" enctype="multipart/form-data">
+            <fieldset>
+                <input type='text' name="user_id" class="hidden" value= "<?php echo $user['id'] ?>"/>
+                <h2 class="fs-title">Hi <?php echo $user['name']; ?>! </h2>
+                <hr>
+                <p class="form-label">Hey you, done with your tasks? That’s awesome!  Before you upload your tasks, read the guidelines below!</p>
+                <p class="form-label"><strong>What do you upload?</strong></p>
+                <ul>
+                  <li>
+                    <p class="form-label">
+                      You can upload your common and vertical tasks here at once or at different times. Remember that the Common and 1st preference vertical tasks have to be uploaded by 16th, second by the 19th and third by the 22nd of April.
+                    </p>
+                  </li>
+                  <li>
+                    <p class="form-label">
+                      Example: Initially you can submit your common and first preference task on the 14th and then come back on the 17th for the other preferences.
+                    </p>
+                  </li>
+                  <li>
+                    <p class="form-label">
+                      Accepted formats: Word documents, PDFs, videos and Excel sheets.
+                    </p>
+                  </li>
 
-                <?php /*if($inserted) { ?>
+                  <li>
+                    <p class="form-label">
+                      You can upload multiple files for each section: While selecting the files from your PC, select all the files you want to upload for that particular task.
+                    </p>
+                  </li>
+                </ul>
+
+                <p class="form-label"><strong>How can you upload?</strong></p>
+                <ul>
+                  <li>
+                    <p class="form-label">
+                      For videos, upload them to your google drive or youtube and paste the link on the form! Don’t forget to check the sharing settings to: ‘anyone with link can view’. Or your evaluators can’t access them.
+                    </p>
+                  </li>
+                  <li>
+                    <p class="form-label">
+                      All other formats, you can use the upload button to put up the actual document in the respective sections
+                    </p>
+                  </li>
+                  <li>
+                    <p class="form-label">
+                      Confirm before submitting: Is it the right file? Does the file have the right content? You won’t be able to change your entry once uploaded.
+                    </p>
+                  </li>
+                </ul>
+
+                <hr>
+                <?php if($inserted) { ?>
                 <span class="alert alert-success">Your tasks have been submitted. Best of luck!</span>
 
                 <?php } else { ?>
-                Common Task<br />
+                <p class="form-label"><strong>Common Task</strong></p>
+                <p class="form-info">Please ensure you correctly paste the link to your Video that you uploaded on Google Drive</p>
                 <input type="text" name="common_task_url" placeholder="Link To Video" required="required" />
-
+                <!-- <input type="submit" value="Save" name="action" class="submit action-button" /> -->
+                <hr>
                 <?php
                 $count = 0;
                 foreach ($profiles_applied_for as $prof) {
-                  $count++; ?>
-                  Preference <?php echo $prof['preference'] ?>: <?php echo $verticals[$prof['group_id']]; ?><br />
-                  <input type="file" name="task_<?php echo $count ?>"  required="required" /><br />
+                  $count++;
+                ?>
+                  <p class="form-label">Fellowship Preference <?php echo $prof['preference'] ?>: <strong><?php echo $verticals[$prof['group_id']]; ?></strong> </p>
+                  <p class="form-label">
+                    <input type="button" class="action-button-file" id="loadFileXml" value="Select File" onclick="document.getElementById('file_<?php echo $count ?>').click();" />
+                  </p>
+                  <p class="form-info">Incase your task has a video attachment to it, please copy and paste the link here.</p>
+                  <input type="text" name="vertical_task_<?php echo $count ?>" placeholder="Link To Video" />
+
+                  <input type="file" id="file_<?php echo $count ?>" name="task_<?php echo $count ?>[]" class="file" multiple/>
                   <input type="hidden" name="group_id_<?php echo $count ?>" value="<?php echo $prof['group_id']; ?>" />
+                  <!-- <input type="submit" value="Save" name="action" class="submit action-button" /> -->
+                  <hr>
                 <?php } ?>
 
-                <input type="submit" value="Submit" name="action" class="btn btn-primary" />
-                <?php }*/ ?>
-                <h3 class="fs-subtitle">
-                  Done with your task already? You're awesome!!
-                </h3>
-                <h3 class="fs-subtitle">
-                  Go ahead and complete your other preference tasks and make them epic too.
-                </h3>
-                <h3 class="fs-subtitle">
-                  We will be uploading the portal soon.
-                </h3>
+
+                <?php } ?>
+                <input type="submit" value="Save" name="action" class="submit action-button" />
             </fieldset>
         </form>
     </div>

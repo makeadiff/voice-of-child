@@ -20,7 +20,7 @@ body {
 }
 
 .nav-collapse, .collapse{
-  display: block !important; 
+  display: block !important;
 }
 
 p{
@@ -72,11 +72,13 @@ label{
   text-align: left !important;
 }
 
+
 #msform p.form-info{
-  font-size: 13px;
+  font-size: 14px;
   color: #555 !important;
   text-align: left !important;
-
+  background: #EEE;
+  padding: 5px;
 }
 
 #msform .col-sm-3, #msform .col-sm-2, #msform .col-sm-12{
@@ -143,6 +145,14 @@ span.required {
   margin-right: 20px;
 }
 
+#msform input.file{
+  width: 100% !important;
+  border: none;
+  margin-bottom: none;
+  /* margin-left: 10px; */
+  /* margin-right: 20px; */
+}
+
 #msform input:focus, #msform textarea:focus {
     -moz-box-shadow: none !important;
     -webkit-box-shadow: none !important;
@@ -158,12 +168,12 @@ span.required {
 
 /*buttons*/
 #msform .action-button {
-    width: 100px;
+    width: 150px;
     background: #ed1849;
     font-weight: bold;
     color: white;
     border: 0 none;
-    border-radius: 25px;
+    border-radius: 5px;
     cursor: pointer;
     padding: 10px 5px;
     margin: 10px 5px;
@@ -183,6 +193,23 @@ span.required {
     cursor: pointer;
     padding: 10px 5px;
     margin: 10px 5px;
+}
+
+#msform .action-button-file {
+    width: 150px;
+    background: #FFB74D;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+    text-align: center;
+}
+
+ul{
+  margin-left: 40px;
 }
 
 #msform .action-button-previous#update{

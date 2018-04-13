@@ -24,7 +24,7 @@ class Email
         ];
 
         $mime = new Mail_mime(array('eol' => "\n"));
-        
+
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $index = 0;
         foreach($this->images as $key => $image) {
@@ -43,7 +43,7 @@ class Email
                 $mime->addAttachment($attachment, finfo_file($finfo, $attachment));
             }
         }
-        
+
         $smtp = Mail::factory('smtp', [
             	'host' 		=> $this->smtp_host,
                 'auth' 		=> true,
