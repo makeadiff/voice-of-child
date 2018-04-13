@@ -454,5 +454,5 @@
   }
 
   function getCity($city_id,$sql){
-    return $sql->getOne('SELECT name from CIty where id='.$city_id);
+    return $sql->getOne('SELECT name from City where id='.$city_id);
   }
