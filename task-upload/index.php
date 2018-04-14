@@ -3,12 +3,6 @@ include ('../db/config.php'); //Find the configuratio files in db/config.php
 
 include '../../fam/models/FAM.php';
 
-
-$query_task_show = 'SELECT *
-                    FROM FAM_UserTask
-                    WHERE user_id='.$user_id;
-
-$tasks = $sql->getList($query_task_show);
 // dump($tasks);
 
 $fam = new FAM;
@@ -139,18 +133,30 @@ $selectQuery = ""
                       Confirm before submitting: Is it the right file? Does the file have the right content? You won’t be able to change your entry once uploaded.
                     </p>
                   </li>
+                  <li>
+                    <p class="form-label">
+                      Incase of any queries, reach out to us at <strong>fellowship@makeadiff.in</strong>
+                    </p>
+                  </li>
                 </ul>
 
                 <hr>
                 <?php if($inserted) { ?>
-                <span class="alert alert-success">Your tasks have been submitted. Best of luck!</span>
-
+                  <span class="alert alert-success">Your tasks have been submitted. Best of luck!</span>
                 <?php } else { ?>
-                <p class="form-label"><strong>Common Task</strong></p>
-                <p class="form-info">Please ensure you correctly paste the link to your Video that you uploaded on Google Drive</p>
-                <input type="text" id="common_task_url" name="common_task_url" placeholder="Link To Video" required="required"
-                  <?php if($tasks!='' && $tasks[2]!="") echo 'value="'.$tasks[2].'";'?>
-                />
+                  <p class="form-label"><strong>Common Task</strong></p>
+                <?php if($tasks!='' && $tasks[2]!=""){?>
+                  <div style="width:100%; height:50px; margin-top: 5px; display: block;">
+                    <p class="form-label"><strong>You have successfully uploaded your tasks</strong>. Click on the link below to see what you uploaded.</p>
+                    <p class="form-label link video">
+                      <a target="_blank" href="<?php echo $tasks[2]; ?>">Common Task Video Link</a>
+                    </p>
+                  </div>
+                <?php }else{ ?>
+                  <p class="form-info">Please ensure you correctly paste the link to your Video that you uploaded on Google Drive</p>
+                  <input type="text" id="common_task_url" name="common_task_url" placeholder="Link To Video" required="required"/>
+                <?php }?>
+                <label class="error" id="ct_url" for="common_task_url"></label>
                 <!-- <input type="submit" value="Save" name="action" class="submit action-button" /> -->
                 <hr>
                 <?php
@@ -159,22 +165,44 @@ $selectQuery = ""
                   $count++;
                 ?>
                   <p class="form-label">Fellowship Preference <?php echo $prof['preference'] ?>: <strong><?php echo $verticals[$prof['group_id']]; ?></strong> </p>
+                  <?php
+                    if($tasks!='' && $tasks[($count+1)*2+($count-1)]!=""){
+                  ?>
+                    <!-- <p class="form-label success"></p> -->
+                    <p class="form-label"><strong>You have successfully uploaded your tasks</strong>. Click on the links below to see what you uploaded.</p>
+                    <div style="width:100%; height:40px; display: block;">
+                  <?php
+                      $task_files = explode(', ',$tasks[($count+1)*2+($count-1)]);
+                      foreach($task_files as $key => $t){
+                        if($t!='')
+                        echo '<p class="form-label link">
+                          <a target="_blank" href="'.$t.'">'.$verticals[$prof['group_id']].' Task '.($key+1).'</a></p>';
+                      }
+                  ?>
+                    </div>
+                  <?php
+                    }else{
+                  ?>
                   <p class="form-label" id="task_label_<?php echo $count ?>">
                     <input type="button" class="action-button-file" id="loadFileXml" value="Select File" onclick="document.getElementById('file_<?php echo $count ?>').click();" <?php if($tasks!='' && $tasks[($count+1)*2+($count-1)]!="") echo 'disabled'?> />
                     <span class="file_name_label" id="file_name_label_<?php echo $count ?>"></span>
                   </p>
                   <?php
-                    if($tasks!='' && $tasks[($count+1)*2+($count-1)]!=""){
-                      $task_files = explode(', ',$tasks[($count+1)*2+($count-1)]);
-                      foreach($task_files as $key => $t){
-                        if($t!='')
-                        echo '<p class="form-label link"><a target="_blank" href="'.$t.'">Task File '.($key+1).'</a></p>';
-                      }
                     }
                   ?>
-                  <p class="form-info">Incase your task has a video attachment to it, please copy and paste the link here.</p>
+                  <?php if($tasks!='' && $tasks[($count+1)*2+($count-1)+1]!=""){?>                    
+                    <div style="width:100%; height:50px; margin-top: 5px; display: block;">
+                      <p class="form-label link video">
+                        <a target="_blank" href="<?php echo $tasks[($count+1)*2+($count-1)+1]; ?>"><?php echo $verticals[$prof['group_id']]; ?> Video Link</a>
+                      </p>
+                    </div>
+                  <?php }else{ ?>
+                    <p class="form-info">Incase your task has a video attachment to it, please copy and paste the link here.</p>
+                    <input type="text" name="vertical_task_url_<?php echo $count ?>" id="vertical_task_url_<?php echo $count ?>" placeholder="Link To Video" />
+                  <?php }?>
+
                   <input type="file" id="file_<?php echo $count ?>" name="task_<?php echo $count ?>[]" class="file hidden" multiple accept="application/msword,application/msexcel,application/pdf,application/rtf,image/jpeg,image/tiff,image/x-png,text/plain"/>
-                  <input type="text" name="vertical_task_url_<?php echo $count ?>" id="vertical_task_url_<?php echo $count ?>" placeholder="Link To Video" />
+
                   <input type="hidden" name="group_id_<?php echo $count ?>" value="<?php echo $prof['group_id']; ?>" />
                   <!-- <input type="submit" value="Save" name="action" class="submit action-button" /> -->
                   <hr>

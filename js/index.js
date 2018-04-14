@@ -203,7 +203,8 @@ function validate_upload(){
 	var valid_vt2 = ValidURL(vertical_task_url_3);
 
 	if(valid_ct == false){
-		console.log('Error');
+		$('#common_task_url').addClass('error');
+		document.getElementById('ct_url').innerHTML = "Common Task URL is Invalid";
 		return false;
 	}
 	else if(valid_vt1 == false && vertical_task_url_1!=''){
@@ -219,6 +220,8 @@ function validate_upload(){
 		return false;
 	}
 	else{
+		$('#common_task_url').removeClass('error');
+		document.getElementById('ct_url').innerHTML = "";
 		return true;
 	}
 

@@ -47,7 +47,7 @@ label.error{
   display: inline;
   /* background: #F00; */
   color:#F00;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   float: right;
   padding: 2px;
@@ -73,9 +73,30 @@ label{
 }
 
 #msform p.form-label.link{
-  color: #1E88E5;
+  color: #FFF;
   font-weight: 700;
   font-size: 13px;
+  float: left;
+  background: #1E88E5;
+  padding: 5px 10px;
+  margin-right:8px;  
+  border-radius: 5px;
+}
+
+#msform p.form-label.link.video{
+  background: #039BE5;
+}
+
+#msform p.form-label.success{
+  background: #DCEDC8;
+  color: #333132;
+  text-align: center !important;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#msform p.form-label.link a{
+  color: #FFF;
 }
 
 #msform p.form-info{

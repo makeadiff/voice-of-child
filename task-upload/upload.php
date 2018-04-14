@@ -42,8 +42,11 @@ $vertical_video_task_url_1 = '';
 $vertical_video_task_url_2 = '';
 $vertical_video_task_url_3 = '';
 
-$common_task_url    = $_POST['common_task_url'];
+$common_task_url = '';
 
+if(isset($_POST['common_task_url'])){
+  $common_task_url    = $_POST['common_task_url'];
+}
 if(isset($_POST['group_id_1'])){
   $group_preference_1 = $_POST['group_id_1'];
 }
@@ -74,17 +77,41 @@ $task_files_3 = '';
 $data = [
     'user_id'                     => $user_id,
     'common_task_url'             => $common_task_url,
-    'added_on'                    => 'NOW()',
     'preference_1_group_id'       => $group_preference_1,
     'preference_1_task_files'     => '',
     'preference_1_video_files'    => $vertical_video_task_url_1,
     'preference_2_group_id'       => $group_preference_2,
     'preference_2_task_files'     => '',
-    'preference_1_video_files'    => $vertical_video_task_url_1,
+    'preference_2_video_files'    => $vertical_video_task_url_1,
     'preference_3_group_id'       => $group_preference_3,
     'preference_3_task_files'     => '',
-    'preference_1_video_files'    => $vertical_video_task_url_1
+    'preference_3_video_files'    => $vertical_video_task_url_1,
+    'added_on'                    => 'NOW()'
   ];
+
+if($tasks!=''){
+  if($tasks[2]!=''){
+    $data['common_task_url'] = $tasks[2];
+  }
+  if($tasks[4]!=''){
+    $data['preference_1_task_files'] = $tasks[4];
+  }
+  if($tasks[7]!=''){
+    $data['preference_2_task_files'] = $tasks[7];
+  }
+  if($tasks[10]!=''){
+    $data['preference_3_task_files'] = $tasks[10];
+  }
+  if($tasks[5]!=''){
+    $data['preference_1_video_files'] = $tasks[5];
+  }
+  if($tasks[8]!=''){
+    $data['preference_2_video_files'] = $tasks[8];
+  }
+  if($tasks[11]!=''){
+    $data['preference_3_video_files'] = $tasks[11];
+  }
+}
 
 for($j=0;$j<3;$j++){
   if(!isset($_FILES['task_'.($j+1)])){
