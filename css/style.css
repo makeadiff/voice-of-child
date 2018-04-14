@@ -72,6 +72,11 @@ label{
   text-align: left !important;
 }
 
+#msform p.form-label.link{
+  color: #1E88E5;
+  font-weight: 700;
+  font-size: 13px;
+}
 
 #msform p.form-info{
   font-size: 14px;
@@ -195,9 +200,35 @@ span.required {
     margin: 10px 5px;
 }
 
+span.file_name_label{
+  background: #FFF9C4;
+  padding: 4px;
+  color:#333132;
+  font-style: italic;
+  display: none;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'Raleway',sans-serif;
+}
+
+
+
 #msform .action-button-file {
     width: 150px;
     background: #FFB74D;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+    text-align: center;
+}
+
+#msform .action-button-file:disabled {
+    width: 150px;
+    background: #CCC;
     font-weight: bold;
     color: white;
     border: 0 none;

@@ -127,8 +127,15 @@ $(".next").click(function(){
 $('input[type="file"]').change(function(e){
 		var id = this.id;
 		var count = id.substring(5,6);
-    var fileName = e.target.files[0].name;
-    document.getElementById('file_name_label_'+count).innerHTML += fileName;
+		var fileName = '';
+		for(var i=0;i < e.target.files.length; i++){
+			if(i>0){
+				fileName = fileName + ', ';
+			}
+	    fileName = fileName + e.target.files[i].name;
+		}
+    document.getElementById('file_name_label_' + count).innerHTML = fileName;
+		$('#file_name_label_' + count).show();
   });
 
 

@@ -4,6 +4,12 @@ include ('../db/config.php'); //Find the configuratio files in db/config.php
 include '../../fam/models/FAM.php';
 
 
+$query_task_show = 'SELECT *
+                    FROM FAM_UserTask
+                    WHERE user_id='.$user_id;
+
+$tasks = $sql->getList($query_task_show);
+// dump($tasks);
 
 $fam = new FAM;
 
@@ -90,7 +96,7 @@ $selectQuery = ""
                 <input type='text' name="user_id" class="hidden" value= "<?php echo $user['id'] ?>"/>
                 <h2 class="fs-title">Hi <?php echo $user['name']; ?>! </h2>
                 <hr>
-                <p class="form-label">Hey you, done with your tasks? That’s awesome!  Before you upload your tasks, read the guidelines below!</p>
+                <p class="form-label">Done with your tasks? That’s awesome!  Before you upload your tasks, read the guidelines below!</p>
                 <p class="form-label"><strong>What do you upload?</strong></p>
                 <ul>
                   <li>
@@ -142,7 +148,9 @@ $selectQuery = ""
                 <?php } else { ?>
                 <p class="form-label"><strong>Common Task</strong></p>
                 <p class="form-info">Please ensure you correctly paste the link to your Video that you uploaded on Google Drive</p>
-                <input type="text" id="common_task_url" name="common_task_url" placeholder="Link To Video" required="required" />
+                <input type="text" id="common_task_url" name="common_task_url" placeholder="Link To Video" required="required"
+                  <?php if($tasks!='' && $tasks[2]!="") echo 'value="'.$tasks[2].'";'?>
+                />
                 <!-- <input type="submit" value="Save" name="action" class="submit action-button" /> -->
                 <hr>
                 <?php
@@ -152,9 +160,18 @@ $selectQuery = ""
                 ?>
                   <p class="form-label">Fellowship Preference <?php echo $prof['preference'] ?>: <strong><?php echo $verticals[$prof['group_id']]; ?></strong> </p>
                   <p class="form-label" id="task_label_<?php echo $count ?>">
-                    <input type="button" class="action-button-file" id="loadFileXml" value="Select File" onclick="document.getElementById('file_<?php echo $count ?>').click();" />
-                    <span id="file_name_label_<?php echo $count ?>"></span>
+                    <input type="button" class="action-button-file" id="loadFileXml" value="Select File" onclick="document.getElementById('file_<?php echo $count ?>').click();" <?php if($tasks!='' && $tasks[($count+1)*2+($count-1)]!="") echo 'disabled'?> />
+                    <span class="file_name_label" id="file_name_label_<?php echo $count ?>"></span>
                   </p>
+                  <?php
+                    if($tasks!='' && $tasks[($count+1)*2+($count-1)]!=""){
+                      $task_files = explode(', ',$tasks[($count+1)*2+($count-1)]);
+                      foreach($task_files as $key => $t){
+                        if($t!='')
+                        echo '<p class="form-label link"><a target="_blank" href="'.$t.'">Task File '.($key+1).'</a></p>';
+                      }
+                    }
+                  ?>
                   <p class="form-info">Incase your task has a video attachment to it, please copy and paste the link here.</p>
                   <input type="file" id="file_<?php echo $count ?>" name="task_<?php echo $count ?>[]" class="file hidden" multiple accept="application/msword,application/msexcel,application/pdf,application/rtf,image/jpeg,image/tiff,image/x-png,text/plain"/>
                   <input type="text" name="vertical_task_url_<?php echo $count ?>" id="vertical_task_url_<?php echo $count ?>" placeholder="Link To Video" />

@@ -133,6 +133,11 @@ else{
 }
 
 
+// $query_task_show = 'SELECT *
+//                     FROM FAM_UserTask
+//                     INNER JOIN `Group` WHERE
+//                     WHERE user_id='.$user_id)
+
 ?>
 
 
