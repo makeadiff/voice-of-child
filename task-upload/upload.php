@@ -86,27 +86,27 @@ $data = [
     'added_on'                    => 'NOW()'
   ];
 
-if($tasks!=''){
-  if($tasks[2]!=''){
-    $data['common_task_url'] = $tasks[2];
+if( $tasks){
+  if(i($tasks, 'common_task_url')) {
+    $data['common_task_url'] = $tasks['common_task_url'];
   }
-  if($tasks[4]!=''){
-    $data['preference_1_task_files'] = $tasks[4];
+  if(i($tasks, 'preference_1_task_files')) {
+    $data['preference_1_task_files'] = $tasks['preference_1_task_files'];
   }
-  if($tasks[7]!=''){
-    $data['preference_2_task_files'] = $tasks[7];
+  if(i($tasks, 'preference_2_task_files')) {
+    $data['preference_2_task_files'] = $tasks['preference_2_task_files'];
   }
-  if($tasks[10]!=''){
-    $data['preference_3_task_files'] = $tasks[10];
+  if(i($tasks, 'preference_3_task_files')) {
+    $data['preference_3_task_files'] = $tasks['preference_3_task_files'];
   }
-  if($tasks[5]!=''){
-    $data['preference_1_video_files'] = $tasks[5];
+  if(i($tasks, 'preference_1_video_files')) {
+    $data['preference_1_video_files'] = $tasks['preference_1_video_files'];
   }
-  if($tasks[8]!=''){
-    $data['preference_2_video_files'] = $tasks[8];
+  if(i($tasks, 'preference_2_video_files')) {
+    $data['preference_2_video_files'] = $tasks['preference_2_video_files'];
   }
-  if($tasks[11]!=''){
-    $data['preference_3_video_files'] = $tasks[11];
+  if(i($tasks, 'preference_3_video_files')) {
+    $data['preference_3_video_files'] = $tasks['preference_3_video_files'];
   }
 }
 
