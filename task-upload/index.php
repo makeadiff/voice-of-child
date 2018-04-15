@@ -3,8 +3,6 @@ include ('../db/config.php'); //Find the configuratio files in db/config.php
 
 include '../../fam/models/FAM.php';
 
-// dump($tasks);
-
 $fam = new FAM;
 
 $verticals = [
@@ -21,6 +19,7 @@ $verticals = [
   '375' => "Foundational Programme",
 ];
 
+$user_id = 142156; // :DEBUG:
 $profiles_applied_for = $fam->getApplications($user_id);
 $inserted = 0;
 
@@ -145,11 +144,11 @@ $selectQuery = ""
                   <span class="alert alert-success">Your tasks have been submitted. Best of luck!</span>
                 <?php } else { ?>
                   <p class="form-label"><strong>Common Task</strong></p>
-                <?php if($tasks!='' && $tasks[2]!=""){?>
+                <?php if(i($tasks, 'common_task_url')){?>
                   <div style="width:100%; height:50px; margin-top: 5px; display: block;">
                     <p class="form-label"><strong>You have successfully uploaded your tasks</strong>. Click on the link below to see what you uploaded.</p>
                     <p class="form-label link video">
-                      <a target="_blank" href="<?php echo $tasks[2]; ?>">Common Task Video Link</a>
+                      <a target="_blank" href="<?php echo $tasks['common_task_url']; ?>">Common Task Video Link</a>
                     </p>
                   </div>
                 <?php }else{ ?>
@@ -163,37 +162,36 @@ $selectQuery = ""
                 $count = 0;
                 foreach ($profiles_applied_for as $prof) {
                   $count++;
+                  $task_file = $fam->getTask($user_id, 'vertical', $prof['group_id']);
+                  $task_video = $fam->getTask($user_id, 'vertical_video_task', $prof['group_id']);
                 ?>
-                  <p class="form-label">Fellowship Preference <?php echo $prof['preference'] ?>: <strong><?php echo $verticals[$prof['group_id']]; ?></strong> </p>
+                  <p class="form-label">Fellowship Preference <?php echo $prof['preference'] ?>: 
+                      <strong><?php echo $verticals[$prof['group_id']]; ?></strong> </p>
                   <?php
-                    if($tasks!='' && $tasks[($count+1)*2+($count-1)]!=""){
+                    
+                    if($task_file) {
                   ?>
                     <!-- <p class="form-label success"></p> -->
                     <p class="form-label"><strong>You have successfully uploaded your tasks</strong>. Click on the links below to see what you uploaded.</p>
                     <div style="width:100%; height:40px; display: block;">
-                  <?php
-                      $task_files = explode(', ',$tasks[($count+1)*2+($count-1)]);
-                      foreach($task_files as $key => $t){
-                        if($t!='')
-                        echo '<p class="form-label link">
-                          <a target="_blank" href="'.$t.'">'.$verticals[$prof['group_id']].' Task '.($key+1).'</a></p>';
-                      }
-                  ?>
+                    <p class="form-label link">
+                     <a target="_blank" href="<?php echo $task_file ?>"><?php echo $verticals[$prof['group_id']].' Task '.($count+1); ?></a>
+                    </p>                     
                     </div>
                   <?php
                     }else{
                   ?>
                   <p class="form-label" id="task_label_<?php echo $count ?>">
-                    <input type="button" class="action-button-file" id="loadFileXml" value="Select File" onclick="document.getElementById('file_<?php echo $count ?>').click();" <?php if($tasks!='' && $tasks[($count+1)*2+($count-1)]!="") echo 'disabled'?> />
+                    <input type="button" class="action-button-file" id="loadFileXml" value="Select File" onclick="document.getElementById('file_<?php echo $count ?>').click();" <?php if($task_file) echo 'disabled'?> />
                     <span class="file_name_label" id="file_name_label_<?php echo $count ?>"></span>
                   </p>
                   <?php
                     }
                   ?>
-                  <?php if($tasks!='' && $tasks[($count+1)*2+($count-1)+1]!=""){?>                    
+                  <?php if($task_video){?>
                     <div style="width:100%; height:50px; margin-top: 5px; display: block;">
                       <p class="form-label link video">
-                        <a target="_blank" href="<?php echo $tasks[($count+1)*2+($count-1)+1]; ?>"><?php echo $verticals[$prof['group_id']]; ?> Video Link</a>
+                        <a target="_blank" href="<?php echo $task_video ?>"><?php echo $verticals[$prof['group_id']]; ?> Video Link</a>
                       </p>
                     </div>
                   <?php }else{ ?>

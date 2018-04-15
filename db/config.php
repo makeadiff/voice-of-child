@@ -44,7 +44,7 @@
                       FROM FAM_UserTask
                       WHERE user_id='.$user_id;
 
-  $tasks = $sql->getList($query_task_show);
+  $tasks = $sql->getAssoc($query_task_show);
 
   $user_cont_status = $sql->getOne('SELECT value from UserData WHERE name="continuation_status" and user_id='.$user_id);
 

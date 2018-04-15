@@ -1,7 +1,4 @@
 <?php
-
-
-
 include ('../db/config.php'); //Find the configuratio files in db/config.php
 
 if(!isset($_POST['user_id'])){
@@ -25,6 +22,8 @@ $verticals = [
   '11'  => "Campaigns and Communications",
   '375' => "Foundational Programme",
 ];
+
+$user_id = 142156; // :DEBUG:
 
 $profiles_applied_for = $fam->getApplications($user_id);
 $inserted = 0;
@@ -142,7 +141,7 @@ for($j=0;$j<3;$j++){
     }
 
     if (move_uploaded_file($_FILES["task_".($j+1)]["tmp_name"][$k], $target_file)) {
-    $data['preference_' . ($j+1) . '_task_files'] .= $parent.str_replace(' ','%20',str_replace('../','/',$target_file)).', ';
+    $data['preference_' . ($j+1) . '_task_files'] .= $parent.str_replace(' ','%20',str_replace('../','/',$target_file));
 
     } else {
         echo "Sorry, there was an error uploading your file. <br/>".PHP_EOL;
@@ -166,9 +165,6 @@ else{
 //                     WHERE user_id='.$user_id)
 
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en" >
   <head>
