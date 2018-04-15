@@ -19,7 +19,6 @@ $verticals = [
   '375' => "Foundational Programme",
 ];
 
-$user_id = 142156; // :DEBUG:
 $profiles_applied_for = $fam->getApplications($user_id);
 $inserted = 0;
 
