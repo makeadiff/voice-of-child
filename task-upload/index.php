@@ -25,9 +25,7 @@ $inserted = 0;
 
 $selectQuery = ""
 
-?>
-
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -152,7 +150,7 @@ $selectQuery = ""
                   </div>
                 <?php }else{ ?>
                   <p class="form-info">Please ensure you correctly paste the link to your Video that you uploaded on Google Drive</p>
-                  <input type="text" id="common_task_url" name="common_task_url" placeholder="Link To Video" required="required"/>
+                  <input type="text" id="common_task_url" name="common_task_url" placeholder="Link To Video" />
                 <?php }?>
                 <label class="error" id="ct_url" for="common_task_url"></label>
                 <!-- <input type="submit" value="Save" name="action" class="submit action-button" /> -->

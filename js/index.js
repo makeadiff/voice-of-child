@@ -197,7 +197,8 @@ function validate_upload(){
 	var vertical_task_url_2 = document.getElementById('vertical_task_url_2').value;
 	var vertical_task_url_3 = document.getElementById('vertical_task_url_3').value;
 
-	var valid_ct = ValidURL(common_task_url);
+	var valid_ct = true;
+	if(common_task_url) valid_ct = ValidURL(common_task_url);
 	var valid_vt1 = ValidURL(vertical_task_url_1);
 	var valid_vt3 = ValidURL(vertical_task_url_2);
 	var valid_vt2 = ValidURL(vertical_task_url_3);
