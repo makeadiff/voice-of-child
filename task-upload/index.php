@@ -81,7 +81,7 @@ $selectQuery = ""
 <!-- MultiStep Form -->
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
-        <form id="msform" method="POST" action="./upload.php" enctype="multipart/form-data" onsubmit="return validate_upload()">
+        <form id="msform" method="POST" action="./upload.php<?php if(isset($_GET['user_id'])){echo '?user_id='.$_GET['user_id']; }?>" enctype="multipart/form-data" onsubmit="return validate_upload()">
             <fieldset>
                 <input type='text' name="user_id" class="hidden" value= "<?php echo $user['id'] ?>"/>
                 <h2 class="fs-title">Hi <?php echo $user['name']; ?>! </h2>
@@ -146,7 +146,7 @@ $selectQuery = ""
                     <p class="form-label"><strong>You have successfully uploaded your tasks</strong>. Click on the link below to see what you uploaded.</p>
                     <p class="form-label">
                       <?php
-                        $url = str_replace(',','',str_replace(' ','',$tasks['common_task_url']));
+                        $url = str_replace(' ','',str_replace(', ','',$tasks['common_task_url']));
                         $common_task = explode('http',$url);
                         foreach ($common_task as $c_link) {
                           if($c_link!=''){

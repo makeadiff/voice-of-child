@@ -30,9 +30,9 @@ $inserted = 0;
 // dump($_FILES);
 // exit;
 
-$group_preference_1 = '';
-$group_preference_2 = '';
-$group_preference_3 = '';
+$group_preference_1 = 0;
+$group_preference_2 = 0;
+$group_preference_3 = 0;
 
 
 $vertical_video_task_url_1 = '';
@@ -79,10 +79,10 @@ $data = [
     'preference_1_video_files'    => $vertical_video_task_url_1,
     'preference_2_group_id'       => $group_preference_2,
     'preference_2_task_files'     => '',
-    'preference_2_video_files'    => $vertical_video_task_url_1,
+    'preference_2_video_files'    => $vertical_video_task_url_2,
     'preference_3_group_id'       => $group_preference_3,
     'preference_3_task_files'     => '',
-    'preference_3_video_files'    => $vertical_video_task_url_1,
+    'preference_3_video_files'    => $vertical_video_task_url_3,
     'added_on'                    => 'NOW()'
   ];
 

@@ -27,12 +27,14 @@ a.badge-info{
   background: #1E88E5;
   padding: 7px 10px;
   border-radius: 5px;
+  margin-bottom: 5px;
 }
 
 a.badge-primary{
   background: #039BE5;
   padding: 7px 10px;
   border-radius: 5px;
+  margin-bottom: 5px;
 }
 
 p{
