@@ -5,6 +5,8 @@ if(!isset($_POST['user_id'])){
   header('location:./');
 }
 
+date_default_timezone_set('Asia/Kolkata');
+
 include '../../fam/models/FAM.php';
 
 $fam = new FAM;

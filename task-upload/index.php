@@ -22,6 +22,14 @@ $verticals = [
 $profiles_applied_for = $fam->getApplications($user_id);
 $inserted = 0;
 
+$external_entry = false;
+
+if(isset($_GET['user_id'])){
+  $external_entry = true;
+}
+else{
+  $external_entry = false;
+}
 
 $selectQuery = ""
 
@@ -192,6 +200,12 @@ $selectQuery = ""
                         }
                       }
                       echo '</p>';
+                  ?>
+                    <p class="form-label" id="task_label_<?php echo $count ?>">
+                      <input type="button" class="action-button-file" id="loadFileXml" value="Add More Files" onclick="document.getElementById('file_<?php echo $count ?>').click();" />
+                      <span class="file_name_label" id="file_name_label_<?php echo $count ?>"></span>
+                    </p>
+                  <?php
                     }
                     else{
                   ?>
