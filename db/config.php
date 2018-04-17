@@ -3,19 +3,23 @@
   include ('../../common.php');
   // exit;
   $url =  'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+  if(!isset($_GET['user_id'])){
+    if(!isset($_SESSION['user_id'])){
+      if($_SERVER['HTTP_HOST'] == 'makeadiff.in'){
+        $link = 'http://makeadiff.in/madapp/index.php/auth/login/'.base64_encode($url);
+      }
+      else{
+        $link = 'http://localhost/makeadiff/madapp/index.php/auth/login/' . base64_encode($url);
+      }
+      header('Location:'.$link);
+    }
 
-  if(!isset($_SESSION['user_id'])){
-    if($_SERVER['HTTP_HOST'] == 'makeadiff.in'){
-      $link = 'http://makeadiff.in/madapp/index.php/auth/login/'.base64_encode($url);
-    }
-    else{
-      $link = 'http://localhost/makeadiff/madapp/index.php/auth/login/' . base64_encode($url);
-    }
-    header('Location:'.$link);
+    $user_id = $_SESSION['user_id'];
+    // $user_id = 126223;
   }
-
-  $user_id = $_SESSION['user_id'];
-  // $user_id = 126223;
+  else{
+    $user_id = $_GET['user_id'];
+  }
   $test = false;
 
   if(isset($_GET['test_city'])){

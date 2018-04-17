@@ -144,8 +144,8 @@ $selectQuery = ""
                 <?php if(i($tasks, 'common_task_url')){?>
                   <div style="width:100%; height:50px; margin-top: 5px; display: block;">
                     <p class="form-label"><strong>You have successfully uploaded your tasks</strong>. Click on the link below to see what you uploaded.</p>
-                    <p class="form-label link video">
-                      <a target="_blank" href="<?php echo $tasks['common_task_url']; ?>">Common Task Video Link</a>
+                    <p class="form-label">
+                      <a target="_blank" class="badge badge-primary" href="<?php echo $tasks['common_task_url']; ?>">Common Task Video Link</a>
                     </p>
                   </div>
                 <?php }else{ ?>
@@ -162,21 +162,28 @@ $selectQuery = ""
                   $task_file = $fam->getTask($user_id, 'vertical', $prof['group_id']);
                   $task_video = $fam->getTask($user_id, 'vertical_video_task', $prof['group_id']);
                 ?>
-                  <p class="form-label">Fellowship Preference <?php echo $prof['preference'] ?>: 
+                  <p class="form-label">Fellowship Preference <?php echo $prof['preference'] ?>:
                       <strong><?php echo $verticals[$prof['group_id']]; ?></strong> </p>
                   <?php
-                    
+
                     if($task_file) {
+                      echo '<p class="form-label"><strong>You have successfully uploaded your tasks</strong>. Click on the links below to see what you uploaded.</p>
+                            <p class="form-label">';
+                      $task = explode('http',str_replace(', ','',$task_file));
+                      $i=0;
+                      foreach ($task as $file) {
+                        if($file!=''){
+                          $i++;
+
+
                   ?>
-                    <!-- <p class="form-label success"></p> -->
-                    <p class="form-label"><strong>You have successfully uploaded your tasks</strong>. Click on the links below to see what you uploaded.</p>
-                    <div style="width:100%; height:40px; display: block;">
-                    <p class="form-label link">
-                     <a target="_blank" href="<?php echo $task_file ?>"><?php echo $verticals[$prof['group_id']].' Task '.($count+1); ?></a>
-                    </p>                     
-                    </div>
+                           <a target="_blank" class="badge badge-info" href="<?php echo 'http'.$file ?>"><?php echo $verticals[$prof['group_id']].' Task '.($i); ?></a>
                   <?php
-                    }else{
+                        }
+                      }
+                      echo '</p>';
+                    }
+                    else{
                   ?>
                   <p class="form-label" id="task_label_<?php echo $count ?>">
                     <input type="button" class="action-button-file" id="loadFileXml" value="Select File" onclick="document.getElementById('file_<?php echo $count ?>').click();" <?php if($task_file) echo 'disabled'?> />
@@ -186,11 +193,9 @@ $selectQuery = ""
                     }
                   ?>
                   <?php if($task_video){?>
-                    <div style="width:100%; height:50px; margin-top: 5px; display: block;">
-                      <p class="form-label link video">
-                        <a target="_blank" href="<?php echo $task_video ?>"><?php echo $verticals[$prof['group_id']]; ?> Video Link</a>
-                      </p>
-                    </div>
+                    <p class="form-label">
+                      <a target="_blank" class="badge badge-primary"href="<?php echo $task_video ?>"><?php echo $verticals[$prof['group_id']]; ?> Video Link</a>
+                    </p>
                   <?php }else{ ?>
                     <p class="form-info">Incase your task has a video attachment to it, please copy and paste the link here.</p>
                     <input type="text" name="vertical_task_url_<?php echo $count ?>" id="vertical_task_url_<?php echo $count ?>" placeholder="Link To Video" />

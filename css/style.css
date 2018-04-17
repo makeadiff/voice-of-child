@@ -23,6 +23,18 @@ body {
   display: block !important;
 }
 
+a.badge-info{
+  background: #1E88E5;
+  padding: 7px 10px;
+  border-radius: 5px;
+}
+
+a.badge-primary{
+  background: #039BE5;
+  padding: 7px 10px;
+  border-radius: 5px;
+}
+
 p{
   line-height: 115%;
 }
@@ -79,7 +91,7 @@ label{
   float: left;
   background: #1E88E5;
   padding: 5px 10px;
-  margin-right:8px;  
+  margin-right:8px;
   border-radius: 5px;
 }
 

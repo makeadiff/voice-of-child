@@ -86,7 +86,7 @@ $data = [
     'added_on'                    => 'NOW()'
   ];
 
-if( $tasks){
+if($tasks){
   if(i($tasks, 'common_task_url')) {
     $data['common_task_url'] = $tasks['common_task_url'];
   }
@@ -139,10 +139,21 @@ for($j=0;$j<3;$j++){
     }
 
     if (move_uploaded_file($_FILES["task_".($j+1)]["tmp_name"][$k], $target_file)) {
-    $data['preference_' . ($j+1) . '_task_files'] .= $parent.str_replace(' ','%20',str_replace('../','/',$target_file));
+      $data['preference_' . ($j+1) . '_task_files'] .= $parent.str_replace(' ','%20',str_replace('../','/',$target_file));
+      $data['preference_' . ($j+1) . '_task_files'] .= ', ';
 
-    } else {
-        echo "Sorry, there was an error uploading your file. <br/>".PHP_EOL;
+      $message = '<h2 class="fs-title">Files Uploaded</h2><hr>
+      <h3 class="fs-subtitle">There you go Champ!<br />
+        You are all set for the adventure!!
+      </h3>
+      <h3 class="fs-subtitle">All the best :)
+      </h3><hr>';
+    }
+    else {
+      $message = '<h2 class="fs-title">Oops, Files were not uploaded</h2><hr>
+      <h3 class="fs-subtitle">
+        Try again.
+      </h3>';
     }
   }
 }
