@@ -145,7 +145,17 @@ $selectQuery = ""
                   <div style="width:100%; height:50px; margin-top: 5px; display: block;">
                     <p class="form-label"><strong>You have successfully uploaded your tasks</strong>. Click on the link below to see what you uploaded.</p>
                     <p class="form-label">
-                      <a target="_blank" class="badge badge-primary" href="<?php echo $tasks['common_task_url']; ?>">Common Task Video Link</a>
+                      <?php
+                        $url = str_replace(',','',str_replace(' ','',$tasks['common_task_url']));
+                        $common_task = explode('http',$url);
+                        foreach ($common_task as $c_link) {
+                          if($c_link!=''){
+                      ?>
+                            <a target="_blank" class="badge badge-primary" href="<?php echo 'http'.$c_link ?>">Common Task Video Link</a>
+                      <?php
+                          }
+                        }
+                      ?>
                     </p>
                   </div>
                 <?php }else{ ?>
