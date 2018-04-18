@@ -65,6 +65,7 @@ else{
   $group_preference_3 = 0;
 }
 
+
 if(isset($_POST['vertical_task_url_1'])){
   $vertical_video_task_url_1 = $_POST['vertical_task_url_1'];
 }
@@ -81,7 +82,7 @@ $task_files_2 = '';
 $task_files_3 = '';
 
 $data = [
-    'user_id'                     => $user_id,
+    'user_id'                     => $_POST['user_id'],
     'common_task_url'             => $common_task_url,
     'preference_1_group_id'       => $group_preference_1,
     'preference_1_task_files'     => '',
@@ -94,6 +95,9 @@ $data = [
     'preference_3_video_files'    => $vertical_video_task_url_3,
     'added_on'                    => 'NOW()'
   ];
+
+// dump($data);
+// exit;
 
 if($tasks){
   if(i($tasks, 'common_task_url')) {
