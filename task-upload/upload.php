@@ -29,7 +29,7 @@ $profiles_applied_for = $fam->getApplications($user_id);
 $inserted = 0;
 
 // dump($_POST);
-// dump($_FILES);
+dump($_FILES);
 // exit;
 
 
@@ -76,6 +76,9 @@ if(isset($_POST['vertical_task_url_3'])){
 }
 
 $user_id = $_POST['user_id'];
+$query_user= "SELECT * FROM User WHERE id = ".$user_id;
+$user = $sql->getAll($query_user);
+$user = $user[0];
 
 $task_files_1 = '';
 $task_files_2 = '';
@@ -96,8 +99,21 @@ $data = [
     'added_on'                    => 'NOW()'
   ];
 
-// dump($data);
+
+$query_task_show = 'SELECT *
+                FROM FAM_UserTask
+                WHERE user_id='.$user_id;
+
+$tasks = $sql->getAssoc($query_task_show);
+// dump($tasks);
 // exit;
+
+$message = '<h2 class="fs-title">Tasks Submitted</h2><hr>
+<h3 class="fs-subtitle">There you go Champ!<br />
+  You are all set for the adventure!!
+</h3>
+<h3 class="fs-subtitle">All the best :)
+</h3><hr>';
 
 if($tasks){
   if(i($tasks, 'common_task_url')) {
@@ -184,7 +200,7 @@ if(isset($_POST['group_id_3'])){
 
 
 
-// dump($data);
+dump($data);
 $check_entry = $sql->getOne('SELECT id FROM FAM_UserTask WHERE user_id='.$user_id);
 if($check_entry == ''){
   $inserted = $sql->insert("FAM_UserTask", $data);
