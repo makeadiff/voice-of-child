@@ -15,7 +15,7 @@
     }
 
     $user_id = $_SESSION['user_id'];
-    $user_id = 126223;
+    // $user_id = 126223;
   }
   else{
     $user_id = $_GET['user_id'];
