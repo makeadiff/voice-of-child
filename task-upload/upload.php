@@ -75,13 +75,14 @@ if(isset($_POST['vertical_task_url_3'])){
   $vertical_video_task_url_3 = $_POST['vertical_task_url_3'];
 }
 
+$user_id = $_POST['user_id'];
 
 $task_files_1 = '';
 $task_files_2 = '';
 $task_files_3 = '';
 
 $data = [
-    'user_id'                     => $_POST['user_id'],
+    'user_id'                     => $user_id,
     'common_task_url'             => $common_task_url,
     'preference_1_group_id'       => $group_preference_1,
     'preference_1_task_files'     => '',
@@ -152,7 +153,6 @@ for($j=0;$j<3;$j++){
 
     if (move_uploaded_file($_FILES["task_".($j+1)]["tmp_name"][$k], $target_file)) {
       $data['preference_' . ($j+1) . '_task_files'] .= $parent.str_replace(' ','%20',str_replace('../','/',$target_file));
-      $data['preference_' . ($j+1) . '_task_files'] .= ', ';
 
       $message = '<h2 class="fs-title">Files Uploaded</h2><hr>
       <h3 class="fs-subtitle">There you go Champ!<br />
@@ -239,12 +239,7 @@ else{
         <div class="col-md-6 col-md-offset-3">
             <form id="msform" action="preview.php" method="POST" novalidate>
               <fieldset>
-                  <h2 class="fs-title">Files Uploaded</h2><hr>
-                  <h3 class="fs-subtitle">There you go Champ!<br />
-                    You are all set for the adventure!!
-                  </h3>
-                  <h3 class="fs-subtitle">All the best :)
-                  </h3><hr>
+                  <?php echo $message; ?>
                   <!-- <a href="./"><input type="button" id="update" class="previous action-button-previous" value="Update Responses" href="./"></a> -->
                 </fieldset>
             </form>
