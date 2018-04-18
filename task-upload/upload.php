@@ -29,7 +29,7 @@ $profiles_applied_for = $fam->getApplications($user_id);
 $inserted = 0;
 
 // dump($_POST);
-dump($_FILES);
+// dump($_FILES);
 // exit;
 
 
@@ -200,7 +200,7 @@ if(isset($_POST['group_id_3'])){
 
 
 
-dump($data);
+// dump($data);
 $check_entry = $sql->getOne('SELECT id FROM FAM_UserTask WHERE user_id='.$user_id);
 if($check_entry == ''){
   $inserted = $sql->insert("FAM_UserTask", $data);
