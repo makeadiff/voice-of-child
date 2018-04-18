@@ -33,8 +33,6 @@ $inserted = 0;
 // exit;
 
 
-$group_preference_2 = 0;
-$group_preference_3 = 0;
 
 
 $vertical_video_task_url_1 = '';
@@ -46,6 +44,7 @@ $common_task_url = '';
 if(isset($_POST['common_task_url'])){
   $common_task_url    = $_POST['common_task_url'];
 }
+
 if(isset($_POST['group_id_1'])){
   $group_preference_1 = $_POST['group_id_1'];
 }
@@ -170,6 +169,20 @@ for($j=0;$j<3;$j++){
     }
   }
 }
+
+if(isset($_POST['group_id_1'])){
+  $data['preference_1_group_id'] = $_POST['group_id_1'];
+}
+
+if(isset($_POST['group_id_2'])){
+  $data['preference_2_group_id'] = $_POST['group_id_2'];
+}
+
+if(isset($_POST['group_id_3'])){
+  $data['preference_3_group_id'] = $_POST['group_id_3'];
+}
+
+
 
 // dump($data);
 $check_entry = $sql->getOne('SELECT id FROM FAM_UserTask WHERE user_id='.$user_id);
