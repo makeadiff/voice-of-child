@@ -176,6 +176,9 @@ $selectQuery = ""
                 <?php
                 $count = 0;
                 foreach ($profiles_applied_for as $prof) {
+                  if($prof['group_id']==0){
+                    continue;
+                  }
                   $count++;
                   $task_file = $fam->getTask($user_id, 'vertical', $prof['group_id']);
                   $task_video = $fam->getTask($user_id, 'vertical_video_task', $prof['group_id']);
@@ -225,7 +228,7 @@ $selectQuery = ""
                     <input type="text" name="vertical_task_url_<?php echo $count ?>" id="vertical_task_url_<?php echo $count ?>" placeholder="Link To Video" />
                   <?php }?>
 
-                  <input type="file" id="file_<?php echo $count ?>" name="task_<?php echo $count ?>[]" class="file hidden" multiple accept="application/msword,application/msexcel,application/pdf,application/rtf,image/jpeg,image/tiff,image/x-png,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
+                  <input type="file" id="file_<?php echo $count ?>" name="task_<?php echo $count ?>[]" class="file hidden" multiple accept="application/msword,application/msexcel,application/pdf,application/rtf,image/jpeg,image/tiff,image/x-png,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"/>
 
                   <input type="hidden" name="group_id_<?php echo $count ?>" value="<?php echo $prof['group_id']; ?>" />
                   <!-- <input type="submit" value="Save" name="action" class="submit action-button" /> -->

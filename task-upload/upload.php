@@ -32,7 +32,7 @@ $inserted = 0;
 // dump($_FILES);
 // exit;
 
-$group_preference_1 = 0;
+
 $group_preference_2 = 0;
 $group_preference_3 = 0;
 
@@ -49,14 +49,21 @@ if(isset($_POST['common_task_url'])){
 if(isset($_POST['group_id_1'])){
   $group_preference_1 = $_POST['group_id_1'];
 }
+else{
+  $group_preference_1 = 0;
+}
 if(isset($_POST['group_id_2'])){
   $group_preference_2 = $_POST['group_id_2'];
+}
+else{
+  $group_preference_2 = 0;
 }
 if(isset($_POST['group_id_3'])){
   $group_preference_3 = $_POST['group_id_3'];
 }
-
-
+else{
+  $group_preference_3 = 0;
+}
 
 if(isset($_POST['vertical_task_url_1'])){
   $vertical_video_task_url_1 = $_POST['vertical_task_url_1'];
