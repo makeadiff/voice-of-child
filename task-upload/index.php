@@ -154,7 +154,7 @@ $selectQuery = ""
                     <p class="form-label"><strong>You have successfully uploaded your tasks</strong>. Click on the link below to see what you uploaded.</p>
                     <p class="form-label">
                       <?php
-                        $url = str_replace(' ','',str_replace(', ','',$tasks['common_task_url']));
+                        $url = str_replace(' ','',str_replace(', ','',str_replace('#','%23',$tasks['common_task_url'])));
                         $common_task = explode('http',$url);
                         foreach ($common_task as $c_link) {
                           if($c_link!=''){
@@ -190,7 +190,7 @@ $selectQuery = ""
                     if($task_file) {
                       echo '<p class="form-label"><strong>You have successfully uploaded your tasks</strong>. Click on the links below to see what you uploaded.</p>
                             <p class="form-label">';
-                      $task = explode('http',str_replace(', ','',$task_file));
+                      $task = explode('http',str_replace(', ','',str_replace('#','%23',$task_file)));
                       $i=0;
                       foreach ($task as $file) {
                         if($file!=''){
@@ -221,7 +221,7 @@ $selectQuery = ""
                   ?>
                   <?php if($task_video){?>
                     <p class="form-label">
-                      <a target="_blank" class="badge badge-primary"href="<?php echo $task_video ?>"><?php echo $verticals[$prof['group_id']]; ?> Video Link</a>
+                      <a target="_blank" class="badge badge-primary"href="<?php echo str_replace('#','%23',$task_video) ?>"><?php echo $verticals[$prof['group_id']]; ?> Video Link</a>
                     </p>
                   <?php }else{ ?>
                     <p class="form-info">Incase your task has a video attachment to it, please copy and paste the link here.</p>
