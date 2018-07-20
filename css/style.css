@@ -14,14 +14,11 @@ html {
 /*-webkit-*/
 body {
     font-family: montserrat, arial, verdana;
-    background: url('../img/background12.jpg') fixed no-repeat center ;
+    /*  Add background Here*/
     background-color: none;
     background-size: cover;
 }
 
-.nav-collapse, .collapse{
-  display: block !important;
-}
 
 a.badge-info{
   background: #1E88E5;
@@ -52,8 +49,15 @@ p{
   line-height: 115%;
 }
 
+.tab-pane{
+  padding-top: 10px;
+}
+
 div.row{
   width: 100%;
+  margin-bottom: 10px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 .madred{
@@ -87,14 +91,14 @@ label{
 
 /*form styles*/
 #msform {
-    text-align: center;
     position: relative;
     margin-top: 30px;
-    font-size: 14px !important;
+    font-size: 13px !important;
 }
 
 #msform p.form-label{
   text-align: left !important;
+  font-weight: 700;
 }
 
 #msform p.form-label.link{
@@ -154,9 +158,9 @@ label{
     box-sizing: border-box;
     width: 80%;
     margin: 0 10%;
-
     /*stacking fieldsets above each other*/
     position: relative;
+    margin-top: 80px;
 }
 
 /*Hide all except first fieldset*/
@@ -176,7 +180,7 @@ span.required {
 
 /*inputs*/
 #msform input, #msform textarea {
-    padding: 15px;
+    padding: 8px;
     border: 1px solid #ccc;
     border-radius: 0px;
     margin-bottom: 10px;
@@ -442,13 +446,14 @@ select {
    border: 1px solid #AAA;
    color: #555;
    font-size: inherit;
-   float: left;
    font-size: 14px;
    overflow: hidden;
    padding: 5px 10px;
-   text-overflow: ellipsis;
+   text-align: left !important;
    white-space: nowrap;
    width: 300px;
+   clear: both;
+   margin-bottom: 20px;
 }
 
 @media only screen and (max-width: 500px){
@@ -470,4 +475,58 @@ select {
 
 .indented{
   padding-left: 40px;
+}
+
+div.click-box{
+  background: #CCC;
+  border-radius: 5px;
+  width: 100%;
+  margin-left: 10%;
+}
+
+div.donor_info{
+  background: #FAFAFA;
+  border-bottom: #DDD thin solid;
+}
+
+div.name-list{
+  padding: 5px 15px;
+}
+
+div.name-list p.name{
+  font-size: 14px;
+}
+
+div.name-list p.phone{
+  font-size: 10px;
+
+}
+
+input.radio-button-left{
+  width: 30px !important;
+  margin-left: 10px;
+}
+
+div.hidden_div{
+  display: none;
+}
+
+p.more_details{
+  color:#1976D2;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.center {
+  text-align: center;
+}
+
+/* ----------Navbar Style------------ */
+
+.navbar-brand > img{
+  float: left;
+}
+
+nav{
+  margin-bottom: 30px;
 }

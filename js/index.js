@@ -181,6 +181,30 @@ $(".previous").click(function(){
 	});
 });
 
+var more_details = false;
+
+$(".more_details").click(function(){
+	if(more_details == false){
+		$('.hidden_div').show();
+		more_details = true;
+		this.innerHTML = "- Hide Details";
+	}
+	else {
+		$('.hidden_div').hide();
+		more_details = false;
+		this.innerHTML = "- Add More Details";
+	}
+});
+
+
+$('.pledge').click(function(){
+	type = this.id;
+	$('.pledged').removeClass('active');
+	$('.pledge#'+type).addClass('active');
+	$('.hidden_div').hide();
+	$('.hidden_div.'+type).show();
+})
+
 function submit_form(){
 	var form = $("#msform");
 	form_validate(form);
