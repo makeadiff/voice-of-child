@@ -90,7 +90,7 @@ $time =  date('Y-m-d H:i:s');
                 <div class="hidden_div online">
 
                   <p class="form-label">Follow Up Date <span class="required">*</span></p>
-                  <input type="date" name="follow_up_on" /><br>
+                  <input type="date" name="follow_up_on" min="<?php echo date('Y-m-d');?>" /><br>
 
                 </div>
 
