@@ -199,7 +199,10 @@ $(".more_details").click(function(){
 
 $('.pledge').click(function(){
 	type = this.id;
-	$('.pledged').removeClass('active');
+	//Remove Active class
+	$('button.pledge').removeClass('active');
+	$('#pledge_type').val(type);
+
 	$('.pledge#'+type).addClass('active');
 	$('.hidden_div').hide();
 	$('.hidden_div.'+type).show();

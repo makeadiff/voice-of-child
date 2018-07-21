@@ -66,8 +66,7 @@
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-              <li><a href="#">Link</a></li>
+              <li><a href="<?php echo $config['site_home'] ?>">Home</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Actions <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -79,7 +78,7 @@
                   <li role="separator" class="divider"></li>
                   <li><a href="#">One more separated link</a></li> -->
                 </ul>
-              </li>
+              </li>              
             </ul>
           </div>
         </div>
@@ -97,7 +96,7 @@
     <script  src="js/index.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
-    <script>      
+    <script>
     </script>
 
 

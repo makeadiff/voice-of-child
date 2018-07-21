@@ -13,9 +13,13 @@ $time =  date('Y-m-d H:i:s');
 ?>
 
 
+<!-- TODO : Add number of months field for NACH
+    Description under Donor Email, reciepts will be sent to this email.
+-->
+
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
-        <form id="msform" action="insert_network_info.php" method="POST" onsubmit="submit_form()">
+        <form id="msform" action="add_donor_pledge.php" method="POST" onsubmit="submit_form()">
           <!-- progressbar -->
           <?php if($form_status){ ?>
 
@@ -28,7 +32,7 @@ $time =  date('Y-m-d H:i:s');
 
                 <h2 class="fs-title">Pledge from: <?php echo $network_info['name']; ?></h2>
                 <hr>
-
+                <p class="form-label">Select the type of Pledge <span class="required">*</span></p>
                 <div class="btn-group btn-group-justified" role="group" aria-label="...">
                   <div class="btn-group" role="group">
                     <button type="button" id="nach" class="btn pledge btn-default">NACH</button>
@@ -47,75 +51,54 @@ $time =  date('Y-m-d H:i:s');
                 <input type='text' name="user_id" class="hidden" value= "<?php echo $user['id'] ?>"/>
 
                 <p class="form-label">Pledged Amount <span class="required">*</span></p>
-                <input type="text" name="donor_phone" onchange="{req(this);}" placeholder="" required=""/>
+                <input type="text" name="pledged_amount" onchange="{req(this);}" placeholder="" required value="<?php echo $network_info['pledged_amount']; ?>"/>
 
                 <hr>
 
-                <div class="hidden_div nach">
+                <div class="hidden_div nach cash-cheque">
 
                   <p class="form-label">Form Collection <span class="required">*</span> </p>
-                  <?php echo create_select($collection, 'nach_collection',true) ?>
+                  <?php echo create_select($collection, 'collection_by',$network_info['collection_by']) ?>
 
                   <p class="form-label">Donor Email <span class="required">*</span></p>
-                  <input type="email" name="donor_email" onchange="req(this);" placeholder="roxxxx@xxxx.com" required/>
+                  <input type="email" name="donor_email" onchange="req(this);" placeholder="roxxxx@xxxx.com" value="<?php echo $network_info['email']; ?>"/>
+
+                  <?php
+                    $address = '';
+                    $pin     = '';
+                    if($network_info['address']!=""){
+                      $value = explode(' PIN: ',$network_info['address']);
+                      $address = $value[0];
+                      $pin     = $value[1];
+                    }
+                  ?>
 
                   <p class="form-label">Donor Address <span class="required">*</span></p>
-                  <input type="text" name="donor_address" placeholder="Enter Donor Address"  required/><br>
+                  <input type="text" name="donor_address" placeholder="Enter Donor Address"  value="<?php echo $address; ?>"/><br>
 
                   <p class="form-label">Donor Pin Code <span class="required">*</span></p>
-                  <input type="text" name="donor_pincode" placeholder="Enter Donor Pin Code"  required/><br>
+                  <input type="text" name="donor_pincode" placeholder="Enter Donor Pin Code"  value="<?php echo $pin; ?>" /><br>
 
                   <p class="form-label">Collection Date <span class="required">*</span></p>
-                  <input type="date" name="collect_on"  required/><br>
-                  <!-- <input type="text" name="user_address" placeholder="Reason"  /><br> -->
-
-                  <!-- <input type="text" name="user_address" placeholder="Reason"  /><br> -->
-
-                  <!-- <p class="form-label">Giving Likelihood </p> -->
-                  <!-- <input type="text" name="donor_address" placeholder="Enter Your Address"  /><br> -->
-                  <!-- <input type="text" name="user_address" placeholder="Reason"  /><br> -->
+                  <input type="date" name="collect_on" min="<?php echo date('Y-m-d');?>" value="<?php
+                      if($network_info['collect_on']!=NULL)
+                      echo date('Y-m-d',strtotime($network_info['collect_on']));
+                  ?>"/><br>
                 </div>
 
 
                 <div class="hidden_div online">
 
-                  <p class="form-label">Donor Address </p>
-                  <input type="text" name="donor_address" placeholder="Enter Your Address"  /><br>
-                  <!-- <input type="text" name="user_address" placeholder="Reason"  /><br> -->
+                  <p class="form-label">Follow Up Date <span class="required">*</span></p>
+                  <input type="date" name="follow_up_on" /><br>
 
-                  <!-- <input type="text" name="user_address" placeholder="Reason"  /><br> -->
-
-                  <!-- <p class="form-label">Giving Likelihood </p> -->
-                  <!-- <input type="text" name="donor_address" placeholder="Enter Your Address"  /><br> -->
-                  <!-- <input type="text" name="user_address" placeholder="Reason"  /><br> -->
-                </div>
-
-                <div class="hidden_div cash-cheque">
-                  <p class="form-label">Age Bracket </p>
-
-
-                  <p class="form-label">Monthly Giving Potential </p>
-                  <?php echo create_radio($nach_potential, 'nach_potential') ?>
-
-                  <p class="form-label">Onetime Donation Potential </p>
-                  <?php echo create_select($otd_potential, 'otd_potential') ?>
-
-                  <p class="form-label">Donor Address </p>
-                  <input type="text" name="donor_address" placeholder="Enter Your Address"  /><br>
-                  <!-- <input type="text" name="user_address" placeholder="Reason"  /><br> -->
-
-                  <!-- <input type="text" name="user_address" placeholder="Reason"  /><br> -->
-
-                  <!-- <p class="form-label">Giving Likelihood </p> -->
-                  <!-- <input type="text" name="donor_address" placeholder="Enter Your Address"  /><br> -->
-                  <!-- <input type="text" name="user_address" placeholder="Reason"  /><br> -->
                 </div>
 
 
-
-                <!-- </select><br><br><hr> -->
-                <input type="submit" name="submit" class="action-button" value="Save"/>
-                <input type="submit" name="submit" class="action-button" value="Save & Add New"/>
+                <div class="center">
+                  <input type="submit" name="submit" class="action-button" value="Save"/>
+                  <input type="submit" name="submit" class="action-button" value="Save & Add New"/>
+                </div>
             </fieldset>
 
 

@@ -12,17 +12,22 @@
 
   if(isset($_POST['address']))  $data['address'] = $_POST['address'];
 
-  
+
 
   $data['donor_status'] = 'lead';
   $data['added_on'] = date('Y-m-d H:i:s');
 
   $insert_id = $fraise->insert_network_info($data);
 
-
+  if($_POST['submit']=="Save"){
+    header('location: index.php?success='.$insert_id);
+  }
+  else{
+    header('location: add_donor.php?success='.$insert_id);
+  }
 
 
   $additional_details = array();
-  // if(isset($_POST['age_bracket']))  $data['age_bracket'] = $_POST['age_bracket'];
-  // if(isset($_POST['nach_potential']))  $data['nach_potential'] = $_POST['nach_potential'];
-  // if(isset($_POST['otd_potential']))  $data['otd_potential'] = $_POST['otd_potential'];
+  if(isset($_POST['age_bracket']))  $additional_details['age_bracket'] = $_POST['age_bracket'];
+  if(isset($_POST['nach_potential']))  $additional_details['nach_potential'] = $_POST['nach_potential'];
+  if(isset($_POST['otd_potential']))  $$additional_details['otd_potential'] = $_POST['otd_potential'];

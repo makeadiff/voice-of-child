@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `Donut_Network` (
 	`email` VARCHAR (100)  NULL,
 	`phone` VARCHAR (100)   NOT NULL,
 	`relationship` ENUM ('parent','sibling','acquaintance','friend','relative','other') DEFAULT NULL  NULL,
-	`donor_status` ENUM ('lead','pitched','disagreed','donated') DEFAULT 'lead'  NOT NULL,
+	`donor_status` ENUM ('lead','pledged','disagreed','donated') DEFAULT 'lead'  NOT NULL,
 	`pledged_amount` VARCHAR (100)    NULL,
 	`pledge_type` ENUM ('nach','cash/cheque','online','other') DEFAULT NULL  NULL,
 	`collection_by` ENUM ('self','handover_to_mad') DEFAULT 'self'   NULL,

@@ -59,7 +59,7 @@
 
   // ---------------------- Functions -------------------------
 
-  function create_select($array,$name, $req = false){
+  function create_select($array,$name,$response=null, $req = false){
 
     if($req)
       $output = '<select name='.$name.' id="select" required>';
@@ -67,7 +67,13 @@
       $output = '<select name='.$name.' id="select">';
 
     foreach ($array as $key => $value) {
-      $output .= '<option value='.$key.'>';
+      if($key==$response){
+        $selected = 'selected';
+      }
+      else{
+        $selected = '';
+      }
+      $output .= '<option value='.$key.' '.$selected.'>';
       $output .= $value;
       $output .= '</option>';
     }

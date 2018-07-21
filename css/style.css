@@ -291,6 +291,9 @@ span.file_name_label{
 ul{
   margin-left: 40px;
 }
+ul.nav{
+  margin-left: 0px;
+}
 
 #msform .action-button-previous#update{
     width: 200px;
@@ -328,11 +331,12 @@ ul{
 /*headings*/
 .fs-title {
     font-size: 18px;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     color: #2C3E50;
     margin-bottom: 10px;
     letter-spacing: 2px;
     font-weight: bold;
+    text-align: center;
 }
 
 .fs-subtitle {
@@ -481,7 +485,10 @@ div.click-box{
   background: #CCC;
   border-radius: 5px;
   width: 100%;
-  margin-left: 10%;
+}
+
+div.add_donor{
+  padding: 2px 20px;
 }
 
 div.donor_info{
@@ -489,17 +496,33 @@ div.donor_info{
   border-bottom: #DDD thin solid;
 }
 
+div.donor_info.pledged{
+  background: #FFF8E1;
+}
+
+div.donor_info.disagreed{
+  background: #FFEBEE;
+}
+
+div.donor_info.donated{
+  background: #F1F8E9;
+}
+
 div.name-list{
   padding: 5px 15px;
 }
 
-div.name-list p.name{
+div.name-list p.name, p.action{
   font-size: 14px;
+  padding: 10px 0 0 10px;
 }
+/*
+p.name{
+
+} */
 
 div.name-list p.phone{
   font-size: 10px;
-
 }
 
 input.radio-button-left{
@@ -519,6 +542,18 @@ p.more_details{
 
 .center {
   text-align: center;
+}
+.lead p{
+  font-size: 13px;
+}
+
+button.pledge.active, button.pledge:hover, button.pledge.active:hover{
+  background: #FFA726;
+  color: #FFF;
+}
+
+button.add-button{
+  width: 100%;
 }
 
 /* ----------Navbar Style------------ */

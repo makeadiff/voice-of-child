@@ -26,6 +26,17 @@ $time =  date('Y-m-d H:i:s');
             <fieldset>
                 <br>
 
+                <?php
+                  if(isset($added_donor)){
+                ?>
+                  <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong><?php echo $added_donor['name'] ?></strong> was successfully added to your network.
+                  </div>
+                <?php
+                  }
+                ?>
+
                 <h2 class="fs-title">Add Potential Donor</h2>
 		            <!-- <h3 class="fs-subtitle">Please verify your personal details.</h3> -->
                 <hr>
@@ -78,23 +89,17 @@ $time =  date('Y-m-d H:i:s');
 
 
                 <!-- </select><br><br><hr> -->
-                <input type="submit" name="submit" class="action-button" value="Save"/>
-                <input type="submit" name="submit" class="action-button" value="Save & Add New"/>
+                <div class="center">
+                  <input type="submit" name="submit" class="action-button" value="Save"/>
+                  <input type="submit" name="submit" class="action-button" value="Save & Add New"/>
+                </div>
             </fieldset>
 
 
 
 
 
-          <?php } else{  ?>
-          <fieldset>
-              <!-- <h2 class="fs-title">Form is Closed</h2> -->
-              <h3 class="fs-subtitle">The deadline to fill the form is now over.</h3><hr>
-              <h2 class="fs-title">Applied already?</h2>
-              <h3 class="fs-subtitle"> Completed your Tasks?</h3>
-              <a href="./task-upload/" target="_self"><div class="action-button" style="width:200px; margin:auto;">Upload Tasks</div></a>
-          </fieldset>
-          <?php }   ?>
+          <?php } ?>
         </form>
     </div>
 </div>
