@@ -1,7 +1,7 @@
 
 <!-- MultiStep Form -->
 <div class="row">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="form-class col-md-6 col-md-offset-3">
         <form id="msform" action="preview.php" method="POST" onsubmit="submit_form()">
           <fieldset>
               <br>
@@ -32,7 +32,7 @@
                 <div class="add_donor col-md-4 col-md-offset-4">
                   <a href="./add_donor.php">
                     <button type="button" class="add-button btn btn-default btn-lg">
-                      <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add Network
+                      <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> <br>Add Donor
                     </button>
                   </a>
                 </div>
@@ -51,86 +51,96 @@
                 <div class="tab-content">
                     <!-- My Network -->
                     <div class="tab-pane fade in active" id="my_network">
-                      <?php
-                        foreach ($network_data as $key => $value) {
-                      ?>
-                        <div class="row donor_info <?php echo $value['donor_status']?>">
-                          <div class="name-list col-md-6 col-xs-6">
-                            <p class="name"><?php echo $value['name'] ?></p>
-                            <!-- <p class="phone"><a href="tel:<?php //echo $value['phone'] ?>"><?php //echo $value['phone'] ?></a></p> -->
-                          </div>
-
-                          <div class="name-list col-md-2 col-xs-2">
-                            <p class=""><a href="tel:<?php echo $value['phone']?>">
-                              <img src="<?php echo $config['site_home'] ?>img/call.png" width="30px"/>
-                            </a></p>
-                          </div>
-
-                          <div class="name-list col-md-2 col-xs-2">
-                            <p class="action"><a href="<?php echo $config['site_home']?>pledge.php?network_id=<?php echo $value['id'] ?>">
-                              <?php
-                                if($value['pledged_amount']!=''){
-                                  echo '&#8377;'.$value['pledged_amount'];
-                                }
-                                else{
-                              ?>
-                              Pledge
-                              <?php
-                                }
-                              ?>
-                            </a></p>
-                          </div>
-
-                          <div class="name-list col-md-2 col-xs-2">
-                            <!-- <p class="name"><?php echo $value['name'] ?></p> -->
-                          </div>
-
-                        </div>
-                      <?php
-                        }
-                      ?>
+                      <table width=100%>
+                        <thead>
+                          <tr class="table_header">
+                            <td width="60%">Name</td>
+                            <td width="20%">Pledge Status</td>
+                            <td width="20%">Actions</td>
+                          </tr>
+                        </thead>
+                        <?php
+                          foreach ($network_data as $key => $value) {
+                        ?>
+                          <tr class="network_entries <?php echo $value['donor_status']; ?>">
+                            <td>
+                              <p class="name">
+                                <a href="tel:<?php echo $value['phone']?>">
+                                  <img src="<?php echo $config['site_home'] ?>img/call.png" height="25px"/>
+                                </a>
+                                <a href="<?php echo $config['site_home']?>/add_donor.php?network_id=<?php echo $value['id'];?>"><?php echo $value['name'] ?></a></p>
+                            </td>
+                            <td>
+                              <p class="action"><a href="<?php echo $config['site_home']?>pledge.php?network_id=<?php echo $value['id'] ?>">
+                                <?php
+                                  if($value['pledged_amount']!=''){
+                                    echo '&#8377;'.$value['pledged_amount'];
+                                  }
+                                  else{
+                                ?>
+                                Pledge
+                                <?php
+                                  }
+                                ?>
+                              </a></p>
+                            </td>
+                            <td>
+                              <p class="image-icon"><a href="<?php $config['site_home']?>delete_donor.php?network_id=<?php echo $value['id'] ?>">
+                                <img src="<?php echo $config['site_home'] ?>img/delete.png" height="15px"/>
+                              </a></p>
+                            </td>
+                          </tr>
+                        <?php
+                          }
+                        ?>
+                      </table>
                     </div>
                     <!-- Pending Collection -->
                     <div class="tab-pane fade" id="pledged">
-                      <?php
-                        foreach ($network_data as $key => $value) {
-                          if($value['donor_status']=='pledged'){
-                      ?>
-                        <div class="row donor_info">
-                          <div class="name-list col-md-6 col-xs-6">
-                            <p class="name"><?php echo $value['name'] ?></p>
-                          </div>
-
-                          <div class="name-list col-md-2 col-xs-2">
-                            <p class=""><a href="tel:<?php echo $value['phone']?>">
-                              <img src="<?php echo $config['site_home'] ?>img/call.png" width="30px"/>
-                            </a></p>
-                          </div>
-
-                          <div class="name-list col-md-2 col-xs-2">
-                            <p class="action"><a href="<?php echo $config['site_home']?>pledge.php?network_id=<?php echo $value['id'] ?>">
-                              <?php
-                                if($value['pledged_amount']!=''){
-                                  echo '&#8377;'.$value['pledged_amount'];
-                                }
-                                else{
-                              ?>
-                              Pledge
-                              <?php
-                                }
-                              ?>
-                            </a></p>
-                          </div>
-
-                          <div class="name-list col-md-2 col-xs-2">
-                            <!-- <p class="name"><?php echo $value['name'] ?></p> -->
-                          </div>
-
-                        </div>
-                      <?php
+                      <table width=100%>
+                        <thead>
+                          <tr class="table_header">
+                            <td width="60%">Name</td>
+                            <td width="20%">Pledge Status</td>
+                            <td width="20%">Actions</td>
+                          </tr>
+                        </thead>
+                        <?php
+                          foreach ($network_data as $key => $value) {
+                            if($value['donor_status']=='pledged'){
+                        ?>
+                          <tr class="network_entries <?php echo $value['donor_status']; ?>">
+                            <td>
+                              <p class="name">
+                                <a href="tel:<?php echo $value['phone']?>">
+                                  <img src="<?php echo $config['site_home'] ?>img/call.png" height="25px"/>
+                                </a>
+                                <a href="<?php echo $config['site_home']?>/add_donor.php?network_id=<?php echo $value['id'];?>"><?php echo $value['name'] ?></a></p>
+                            </td>
+                            <td>
+                              <p class="action"><a href="<?php echo $config['site_home']?>pledge.php?network_id=<?php echo $value['id'] ?>">
+                                <?php
+                                  if($value['pledged_amount']!=''){
+                                    echo '&#8377;'.$value['pledged_amount'];
+                                  }
+                                  else{
+                                ?>
+                                Pledge
+                                <?php
+                                  }
+                                ?>
+                              </a></p>
+                            </td>
+                            <td>
+                              <p class="image-icon"><a href="<?php $config['site_home']?>delete_donor.php?network_id=<?php echo $value['id'] ?>">
+                                <img src="<?php echo $config['site_home'] ?>img/delete.png" height="15px"/>
+                              </a></p>
+                            </td>
+                          </tr>
+                        <?php
+                            }
                           }
-                        }
-                      ?>
+                        ?>
                     </div>
                     <div class="tab-pane fade" id="tab3default">Default 3</div>
                 </div>

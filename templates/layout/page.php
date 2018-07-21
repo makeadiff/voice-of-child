@@ -66,11 +66,11 @@
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-              <li><a href="<?php echo $config['site_home'] ?>">Home</a></li>
+              <li><a href="<?php echo $config['site_home'] ?>"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Actions <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="<?php echo $config['site_home'] ?>add_donor.php">Add Donor</a></li>
+                  <li><a href="<?php echo $config['site_home'] ?>add_donor.php"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Donor</a></li>
                   <!-- <li><a href="#">Another action</a></li>
                   <li><a href="#">Something else here</a></li>
                   <li role="separator" class="divider"></li>
@@ -78,7 +78,8 @@
                   <li role="separator" class="divider"></li>
                   <li><a href="#">One more separated link</a></li> -->
                 </ul>
-              </li>              
+              </li>
+              <li><a href="<?php echo $config['site_url'] ?>madapp/index.php/auth/logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a></li>
             </ul>
           </div>
         </div>

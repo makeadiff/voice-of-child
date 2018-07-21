@@ -16,7 +16,7 @@ $time =  date('Y-m-d H:i:s');
 
 
 <div class="row">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="form-class col-md-6 col-md-offset-3">
         <form id="msform" action="insert_network_info.php" method="POST" onsubmit="submit_form()">
           <!-- progressbar -->
           <?php if($form_status){ ?>
@@ -37,6 +37,14 @@ $time =  date('Y-m-d H:i:s');
                   }
                 ?>
 
+                <?php
+                  if(isset($donor_id)){
+                ?>
+                  <input type="hidden" name="insert_id" value="<?php echo $donor_id; ?>" />
+                <?php
+                  }
+                ?>
+
                 <h2 class="fs-title">Add Potential Donor</h2>
 		            <!-- <h3 class="fs-subtitle">Please verify your personal details.</h3> -->
                 <hr>
@@ -49,44 +57,64 @@ $time =  date('Y-m-d H:i:s');
                 <input type='text' name="user_id" class="hidden" value= "<?php echo $user['id'] ?>"/>
 
                 <p class="form-label">Donor Full Name <span class="required">*</span></p>
-                <input type="text" name="donor_name" onchange="req(this);" required=""/>
+                <input type="text" name="donor_name" onchange="req(this);" required="" value="<?php echo form_value($network_info,'name');?>"/>
 
                 <p class="form-label">Donor Phone <span class="required">*</span></p>
-                <input type="text" name="donor_phone" onchange="{req(this); validphone(this);}" placeholder="Eg. 81XXXXXX03 or +1-8XX-XXX-XX03" required=""/>
+                <input type="text" name="donor_phone" onchange="{req(this); validphone(this);}" placeholder="Eg. 81XXXXXX03 or +1-8XX-XXX-XX03" required="" value="<?php echo form_value($network_info,'phone');?>"/>
 
                 <p class="form-label">Donor Email</p>
-                <input type="email" name="donor_email" onchange="req(this);" placeholder="roxxxx@xxxx.com" />
+                <input type="email" name="donor_email" onchange="req(this);" placeholder="roxxxx@xxxx.com" value="<?php echo form_value($network_info,'email');?>"/>
 
                 <p class="form-label">Relationship <span class="required">*</span></p>
-                <?php echo create_radio($relationship, 'relationship') ?>
+                <?php echo create_radio($relationship, 'relationship',form_value($network_info,'relationship')) ?>
 
-                <hr>
+                <hr class="light">
 
-                <div class="hidden_div">
+                <div class="hidden_div" <?php if($addition_details) echo 'style="display:block;"' ?>>
                   <p class="form-label">Age Bracket </p>
-                  <?php echo create_select($age_bracket, 'age_bracket') ?>
+                  <?php echo create_select($age_bracket, 'age_bracket',form_value($network_info,'age_bracket')) ?>
 
                   <p class="form-label">Monthly Giving Potential </p>
-                  <?php echo create_radio($nach_potential, 'nach_potential') ?>
+                  <?php echo create_radio($nach_potential, 'nach_potential',form_value($network_info,'nach_potential')) ?>
 
                   <p class="form-label">Onetime Donation Potential </p>
-                  <?php echo create_select($otd_potential, 'otd_potential') ?>
+                  <?php echo create_select($otd_potential, 'otd_potential',form_value($network_info,'otd_potential')) ?>
 
-                  <p class="form-label">Giving Likelihood </p>
-                  <input type="text" name="donor_address" placeholder="Enter Your Address"  /><br>
-                  <!-- <input type="text" name="user_address" placeholder="Reason"  /><br> -->
+                  <hr class="light"/>
 
-                  <p class="form-label">Giving Likelihood </p>
-                  <input type="text" name="giving_address" placeholder="Enter Your Address"  /><br>
-                  <!-- <input type="text" name="user_address" placeholder="Reason"  /><br> -->
+                  <p class="form-label">Giving Likelihood & Reason</p>
+                  <p class="note">Ex: High - Because they're wealthy, likes to help people and always supports whatever I want to do.</p>
+                  <?php echo create_radio($giving_likelihood, 'giving_likelihood', form_value($network_info,'giving_likelihood')) ?>
+                  <input type="text" name="giving_likelihood_reason" placeholder="Reason"  value="<?php echo form_value($network_info,'giving_likelihood_reason')?>" />
 
-                  <!-- <p class="form-label">Giving Likelihood </p> -->
-                  <!-- <input type="text" name="donor_address" placeholder="Enter Your Address"  /><br> -->
-                  <!-- <input type="text" name="user_address" placeholder="Reason"  /><br> -->
+                  <hr class="light"/>
+
+                  <p class="form-label">NACH Likelihood & Reason</p>
+                  <p class="note">Ex. High - I'm sure they'll consider it if we can make it easy | Medium - Should be able to understand the need and value | Low - Nervous about sharing bank account details</p>
+                  <?php echo create_radio($giving_likelihood, 'nach_likelihood',form_value($network_info,'nach_likelihood')) ?>
+                  <input type="text" name="nach_likelihood_reason" placeholder="Reason" value="<?php echo form_value($network_info,'nach_likelihood_reason')?>" /><br>
+
+                  <hr class="light"/>
+
+                  <p class="form-label">Online Payment Likelihood & Reason</p>
+                  <p class="note">Example: High - Does everything on their mobile | Low - Isn't tech savvy</p>
+                  <?php echo create_radio($giving_likelihood, 'online_likelihood',form_value($network_info,'online_likelihood')) ?>
+                  <input type="text" name="nach_likelihood_reason" placeholder="Reason" value="<?php echo form_value($network_info,'online_likelihood_reason')?>" /><br>
+
                 </div>
 
-                <p class="more_details">+ Add More Details</p>
-
+                <?php
+                  if($addition_details){
+                ?>
+                  <p class="more_details">- Hide Details</p>
+                <?php
+                  }
+                  else{
+                ?>
+                  <p class="more_details">- Add More Details</p>
+                <?php
+                  }
+                ?>
 
                 <!-- </select><br><br><hr> -->
                 <div class="center">

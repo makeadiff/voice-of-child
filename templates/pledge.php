@@ -18,7 +18,7 @@ $time =  date('Y-m-d H:i:s');
 -->
 
 <div class="row">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="form-class col-md-6 col-md-offset-3">
         <form id="msform" action="add_donor_pledge.php" method="POST" onsubmit="submit_form()">
           <!-- progressbar -->
           <?php if($form_status){ ?>

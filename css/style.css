@@ -19,6 +19,10 @@ body {
     background-size: cover;
 }
 
+hr.light{
+  margin-top: 10px;
+}
+
 
 a.badge-info{
   background: #1E88E5;
@@ -101,6 +105,12 @@ label{
   font-weight: 700;
 }
 
+#msform p.note{
+  text-align: left !important;
+  font-weight: 400;
+  font-size: 12px;
+}
+
 #msform p.form-label.link{
   color: #FFF;
   font-weight: 700;
@@ -153,7 +163,7 @@ label{
     background: white;
     border: 0 none;
     border-radius: 0px;
-    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.2);
     padding: 20px 30px;
     box-sizing: border-box;
     width: 80%;
@@ -474,6 +484,16 @@ select {
   #msform fieldset{
     width: 100%;
     margin: 0%;
+    margin-top: -20px;
+    padding: 15px 20px;
+  }
+
+  .form-class{
+    padding:0px;
+  }
+
+  button.add-button{
+    margin-bottom: 20px;
   }
 }
 
@@ -496,23 +516,11 @@ div.donor_info{
   border-bottom: #DDD thin solid;
 }
 
-div.donor_info.pledged{
-  background: #FFF8E1;
-}
-
-div.donor_info.disagreed{
-  background: #FFEBEE;
-}
-
-div.donor_info.donated{
-  background: #F1F8E9;
-}
-
 div.name-list{
   padding: 5px 15px;
 }
 
-div.name-list p.name, p.action{
+div.name-list p.name, p.action,p.image-icon{
   font-size: 14px;
   padding: 10px 0 0 10px;
 }
@@ -555,6 +563,39 @@ button.pledge.active, button.pledge:hover, button.pledge.active:hover{
 button.add-button{
   width: 100%;
 }
+
+/* -----------Table Style------------- */
+
+tr.table_header td{
+  background: #37474F;
+  color: #FFF;
+  padding: 5px;
+}
+
+tr.network_entries{
+  background: #FAFAFA;
+  padding: 10px 5px;
+  border-bottom: #FFF solid 2px;
+  border-top: #FFF solid 2px;
+}
+
+tr.network_entries td{
+  padding: 8px 5px;
+}
+
+tr.network_entries.pledged{
+  background: #FFF8E1;
+}
+
+tr.network_entries.disagreed{
+  background: #FFEBEE;
+}
+
+tr.network_entries.donated{
+  background: #F1F8E9;
+}
+
+
 
 /* ----------Navbar Style------------ */
 

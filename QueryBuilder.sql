@@ -53,3 +53,11 @@ CREATE TABLE IF NOT EXISTS `Donut_NetworkData` (
 	PRIMARY KEY (`id`),
 	KEY (`donut_network_id`)
 ) DEFAULT CHARSET=utf8 ;
+
+
+
+select
+	count(distinct User.id) from
+		User
+		inner join UserGroup UG on UG.user_id = User.id
+		inner join `Group` G on G.id = UG.group_id where G.type = "volunteer" and G.group_type = "normal" and UG.year = 2017 and User.status = 1 and User.user_type <> "alumni"

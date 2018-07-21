@@ -42,6 +42,14 @@
     '100000+' => 'More than &#8377;1 Lakh '
   ];
 
+  $giving_likelihood = [
+    'high' => 'High',
+    'medium' => 'Medium',
+    'low' => 'Low',
+    'not-likely' => 'Not Likely'
+  ];
+
+
   $collection = [
     'self' => 'By Myself',
     'handover_to_mad' => 'Handover collection to MAD',
@@ -82,11 +90,17 @@
     return $output;
   }
 
-  function create_radio($array,$name, $req = false){
+  function create_radio($array,$name,$response=null, $req = false){
 
     $output = '<p class="form-label">';
     foreach ($array as $key => $value) {
-      $output .= '<input class="radio-button-left" type="radio" id="'.$name.$key.'" name='.$name.' value="'.$key.'"/>';
+      if($key==$response){
+        $checked = 'checked';
+      }
+      else{
+        $checked = '';
+      }
+      $output .= '<input class="radio-button-left" type="radio" id="'.$name.$key.'" name='.$name.' value="'.$key.'" '.$checked.'/>';
       $output .= '<label for="'.$name.$key.'">';
       $output .= $value;
       $output .= '</label>';
@@ -95,4 +109,13 @@
     $output .= '</p>';
 
     return $output;
+  }
+
+  function form_value($array,$key){
+    if(isset($array[$key])){
+      return $array[$key];
+    }
+    else{
+      return '';
+    }
   }

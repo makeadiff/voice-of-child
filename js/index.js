@@ -192,9 +192,10 @@ $(".more_details").click(function(){
 	else {
 		$('.hidden_div').hide();
 		more_details = false;
-		this.innerHTML = "- Add More Details";
+		this.innerHTML = "+ Add More Details";
 	}
 });
+
 
 
 $('.pledge').click(function(){

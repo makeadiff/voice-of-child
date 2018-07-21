@@ -22,6 +22,6 @@
 
   dump($data);
 
-  $insert_id = $fraise->update_pledge_info($id,$data);
+  $fraise->update_pledge_info($id,$data);
 
   header('location: ./index.php');
