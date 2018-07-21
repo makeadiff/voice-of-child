@@ -142,6 +142,7 @@
 
     function deleteAll($network_id){
       $this->sql->remove('Donut_Network','id='.$network_id);
+      $this->sql->remove('Donut_NetworkData','donut_network_id='.$network_id);
     }
 
     function update_additional_details($data){
