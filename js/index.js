@@ -183,41 +183,41 @@ $(".previous").click(function(){
 
 var more_details = false;
 
-$(".more_details").click(function(){
-	if(more_details == false){
-		$('.hidden_div').show();
-		more_details = true;
-		this.innerHTML = "- Hide Details";
-	}
-	else {
-		$('.hidden_div').hide();
-		more_details = false;
-		this.innerHTML = "+ Add More Details";
-	}
+
+$('#add_questions').click(function(){
+
+	var content = '<hr/>';
+	content +=  '<div class="q'+(question_count)+'"><p class="form-label">';
+	content +=  '<p class="form-label">';
+	content +=  'Question '+(question_count+1)+' Type';
+	content +=  '</p>';
+	content += 	'Question '+(question_count+1);
+	content += 	'</p>';
+	content += 	'<input type="text" name="question_'+(question_count)+'" placeholder="Eg. How does the child percieve ed support classes"/>';
+	content += 	'<p class="form-label">';
+	content += 	'Answer '+(question_count+1);
+	content += 	'</p>';
+	content += 	'<textarea name="answer_'+(question_count)+'" placeholder="Eg. The classes are really good and helpful. The volunteers come on time and cover the topics really well."></textarea></div>';
+
+	question_count++;
+
+	document.getElementById('additional_questions').innerHTML += content;
+
+	$('#remove_questions').removeClass('hidden');
+
 });
 
 
 
-$('.pledge').click(function(){
-	type = this.id;
-	//Remove Active class
-	$('button.pledge').removeClass('active');
-	$('#pledge_type').val(type);
-
-	$('.pledge#'+type).addClass('active');
-	$('.hidden_div').hide();
-	$('.hidden_div.'+type).show();
-})
-
-function submit_form(){
-	var form = $("#msform");
-	form_validate(form);
-	if (form.valid() == true){
-
-	}else{
-		return false;
+$('#remove_questions').click(function(){
+	$('div.q'+(question_count-1)).detach();
+	question_count--;
+	if(question_count==1){
+		$('#remove_questions').addClass('hidden');
 	}
-}
+
+});
+
 
 function validate_upload(){
 	var common_task_url = document.getElementById('common_task_url').value;

@@ -202,6 +202,11 @@ span.required {
     background: none;
 }
 
+
+textarea{
+  height: 200px !important;
+}
+
 #msform input.checkbox{
   width: auto !important;
   float: left;
@@ -605,4 +610,12 @@ tr.network_entries.donated{
 
 nav{
   margin-bottom: 30px;
+}
+
+ul.dropdown-menu li a{
+  line-height: 2;
+}
+
+ul.dropdown-menu {
+  font-size: 13px;
 }

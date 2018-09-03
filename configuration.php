@@ -5,4 +5,4 @@ $config = $config_data + array(
 	'db_database'	=> 'makeadiff_madapp',
 	'site_title'	=> 'FRaise',
 );
-$config['site_home'] = $config_data['site_home'] . 'apps/fraise/';
+$config['site_home'] = $config_data['site_home'] . 'apps/voice-of-child/';

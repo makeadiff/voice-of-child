@@ -3,78 +3,65 @@
   $user_info = check_user();
   $user_id = $user_info['user_id'];
 
-  $fraise = new FRaise;
+  if(!is_fellow($user_id,$year,$sql)){
+    header('location: error.php');
+  }
+
+  $voc = new VOC;
 
   // $fraise->getenumValues('Donut_Network','relationship');
 
   $query_user= "SELECT * FROM User WHERE id = ".$user_id;
 
-  //Array of Drop Downs
-
-  $relationship = [
-    'parent' => 'Parent',
-    'sibling' => 'Sibling',
-    'relative' => 'Relative',
-    'friend' => 'Friend',
-    'acquaintance' => 'Acquaintance',
-    'other' => 'Other'
-  ];
-
-  $age_bracket = [
-    '0-25' => 'Under 25',
-    '25-40' => '25 to 40',
-    '40+' => '40 +',
-  ];
-
-  $nach_potential = [
-    '200-500' => '&#8377;200-500',
-    '500-1000' => '&#8377;500-1,000',
-    '1000-5000' => '&#8377;1,000-5,000',
-    '5000+' => 'More than &#8377;5,000 '
-  ];
-
-  $otd_potential = [
-    '500-1000' => '&#8377;500-1,000',
-    '1000-5000' => '&#8377;1,000-5,000',
-    '5000-10000' => '&#8377;5,000-10000',
-    '10000-50000' => '&#8377;10,000-50,000 ',
-    '50000-100000' => '&#8377;50,000-1 Lakh ',
-    '100000+' => 'More than &#8377;1 Lakh '
-  ];
-
-  $giving_likelihood = [
-    'high' => 'High',
-    'medium' => 'Medium',
-    'low' => 'Low',
-    'not-likely' => 'Not Likely'
-  ];
-
-
-  $collection = [
-    'self' => 'By Myself',
-    'handover_to_mad' => 'Handover collection to MAD',
-  ];
-
   $user = $sql->getAll($query_user);
   $user = $user[0];
 
-  $query_task_show = 'SELECT *
-                      FROM FAM_UserTask
-                      WHERE user_id='.$user_id;
 
-  $tasks = $sql->getAssoc($query_task_show);
+
+  $question_type = array(
+    'volunteer_into' => 'Volunteer Information',
+    'shelter_into' => 'Shelter Information',
+    'programme_info' => 'Programme Information',
+    'escalation' => 'Escalation',
+    'inform' => 'Inform',
+    'other' => 'Other'    
+  );
+
 
 
   // ---------------------- Functions -------------------------
 
+
+  function is_fellow($user_id,$year,$sql){
+    $check_q = 'SELECT DISTINCT G.type
+                FROM UserGroup UG
+                INNER JOIN `Group` G ON G.id = UG.group_id
+                WHERE UG.user_id ='.$user_id.'
+                AND UG.year='.$year;
+
+    $groups = $sql->getList($check_q);
+    if(in_array('fellow',$groups) || in_array('national',$groups) || in_array('strat',$groups)){
+      return true;
+    }
+    else{
+      return false;
+    }
+
+  }
+
   function create_select($array,$name,$response=null, $req = false){
 
     if($req)
-      $output = '<select name='.$name.' id="select" required>';
+      $output = '<select name='.$name.' id="'.$name.'" required>';
     else
-      $output = '<select name='.$name.' id="select">';
+      $output = '<select name='.$name.' id="'.$name.'">';
+
+
 
     foreach ($array as $key => $value) {
+      if(isset($value['name'])){
+        $value=$value['name'];
+      }
       if($key==$response){
         $selected = 'selected';
       }
