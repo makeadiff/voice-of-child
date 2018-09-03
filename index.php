@@ -1,9 +1,7 @@
 <?php
   require 'common.php';
 
-  $shelter_list = $voc->get_shelter_list($user['city_id']);
-
-  $child_list = $voc->get_child_list($user['city_id']);
+  $all_comments = $voc->get_all_comments($user['id']);
 
   render();
 ?>

@@ -186,11 +186,9 @@ var more_details = false;
 
 $('#add_questions').click(function(){
 
-	var content = '<hr/>';
-	content +=  '<div class="q'+(question_count)+'"><p class="form-label">';
+	var content =  '<div class="q'+(question_count)+'"><p class="form-label">';
+	content += 	'<hr/>';
 	content +=  '<p class="form-label">';
-	content +=  'Question '+(question_count+1)+' Type';
-	content +=  '</p>';
 	content += 	'Question '+(question_count+1);
 	content += 	'</p>';
 	content += 	'<input type="text" name="question_'+(question_count)+'" placeholder="Eg. How does the child percieve ed support classes"/>';
@@ -198,9 +196,31 @@ $('#add_questions').click(function(){
 	content += 	'Answer '+(question_count+1);
 	content += 	'</p>';
 	content += 	'<textarea name="answer_'+(question_count)+'" placeholder="Eg. The classes are really good and helpful. The volunteers come on time and cover the topics really well."></textarea></div>';
+	content += 	'<p class="form-label">';
+	content +=  'Question '+(question_count+1)+' Type';
+	content +=  '</p>';
+	content +=  '<select name="question_type_'+(question_count)+'" id="question_type" required>';
+	for (i in question_type){
+		content += '<option value="'+i+'">'+question_type[i]+'</option>';
+	}
+	content +=  '</select>';
 
+	content += 	'<p class="form-label">';
+	content += 	'Tags';
+	content +=  '</p>';
+	content +=	'<input type="text" name="question_tag_'+(question_count)+'" placeholder="Eg. #EdSupport #Operations"/>';
+	content += 	'<p class="form-label">';
+	content += 	'Actionable';
+	content +=	'</p>';
+
+	content +=  '<select name="actionable_'+(question_count)+'" id="actionable_" required>';
+	for (j in actionable){
+		content += '<option value="'+j+'">'+actionable[j]+'</option>';
+	}
+	content +=  '</select>';
 	question_count++;
 
+	$('#question_count').val(question_count);
 	document.getElementById('additional_questions').innerHTML += content;
 
 	$('#remove_questions').removeClass('hidden');
@@ -215,7 +235,7 @@ $('#remove_questions').click(function(){
 	if(question_count==1){
 		$('#remove_questions').addClass('hidden');
 	}
-
+	$('#question_count').val(question_count);
 });
 
 

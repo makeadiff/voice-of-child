@@ -19,12 +19,22 @@
 
 
   $question_type = array(
-    'volunteer_into' => 'Volunteer Information',
-    'shelter_into' => 'Shelter Information',
-    'programme_info' => 'Programme Information',
-    'escalation' => 'Escalation',
-    'inform' => 'Inform',
-    'other' => 'Other'    
+    'operations' => 'Operations',
+    'foundational_programme' => 'Foundational Programme',
+    'ed_support' => 'Ed Support',
+    'transition_readiness' => 'Transition Readiness',
+    'shelter' => 'Shelter Related',
+    'personal' => 'Personal',
+    'school' => 'School Related',
+    'volunteer' => 'Volunteer Related',
+    'other' => 'Other'
+  );
+
+  $actionable = array(
+    'inform' => 'Information/Documentation',
+    // 'citylevel' => 'Requires Plan'
+    'caution' => 'Caution/Warning',
+    'escalate' => 'Escalate',
   );
 
 
