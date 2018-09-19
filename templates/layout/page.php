@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="shortcut icon" href="<?php echo $config['site_home'] ?>favicon.png" type="image/png">
         <link rel="stylesheet" href="<?php echo $config['site_home'] ?>css/style.css">
+        <link rel="stylesheet" href="<?php echo $config['site_home'] ?>css/jquery.tagsinput.css">
         <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
 
         <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:700,400,400italic' rel='stylesheet' type='text/css'>
@@ -95,10 +96,16 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
     <script src='https://code.jquery.com/jquery-1.10.2.js'></script>
     <script src='https://code.jquery.com/ui/1.10.4/jquery-ui.js'></script>
-    <script  src="js/index.js"></script>
+    <script src="<?php echo $config['site_home'] ?>js/index.js"></script>
+    <script src="<?php echo $config['site_home'] ?>js/jquery.tagsinput.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
     <script>
+      $('#tags').tagsInput();
+
+      $('#tags').tagsInput({
+        autocomplete_url:'http://myserver.com/api/autocomplete'
+      });
     </script>
 
 

@@ -186,16 +186,17 @@ var more_details = false;
 
 $('#add_questions').click(function(){
 
-	var content =  '<div class="q'+(question_count)+'"><p class="form-label">';
+	var content =  '<div class="q'+(question_count)+'">';
+	content += 	'<p class="form-label">';
 	content += 	'<hr/>';
 	content +=  '<p class="form-label">';
 	content += 	'Question '+(question_count+1);
 	content += 	'</p>';
-	content += 	'<input type="text" name="question_'+(question_count)+'" placeholder="Eg. How does the child percieve ed support classes"/>';
+	content += 	'<input required type="text" name="question_'+(question_count)+'" placeholder="Eg. How does the child percieve ed support classes"/>';
 	content += 	'<p class="form-label">';
 	content += 	'Answer '+(question_count+1);
 	content += 	'</p>';
-	content += 	'<textarea name="answer_'+(question_count)+'" placeholder="Eg. The classes are really good and helpful. The volunteers come on time and cover the topics really well."></textarea></div>';
+	content += 	'<textarea required  name="answer_'+(question_count)+'" placeholder="Eg. The classes are really good and helpful. The volunteers come on time and cover the topics really well."></textarea>';
 	content += 	'<p class="form-label">';
 	content +=  'Question '+(question_count+1)+' Type';
 	content +=  '</p>';
@@ -208,7 +209,7 @@ $('#add_questions').click(function(){
 	content += 	'<p class="form-label">';
 	content += 	'Tags';
 	content +=  '</p>';
-	content +=	'<input type="text" name="question_tag_'+(question_count)+'" placeholder="Eg. #EdSupport #Operations"/>';
+	content +=	'<input required type="text" id="tags'+(question_count)+'" name="question_tag_'+(question_count)+'" placeholder="Eg. #EdSupport #Operations"/>';
 	content += 	'<p class="form-label">';
 	content += 	'Actionable';
 	content +=	'</p>';
@@ -218,12 +219,18 @@ $('#add_questions').click(function(){
 		content += '<option value="'+j+'">'+actionable[j]+'</option>';
 	}
 	content +=  '</select>';
+	content += 	'</div>';
 	question_count++;
 
 	$('#question_count').val(question_count);
 	document.getElementById('additional_questions').innerHTML += content;
 
 	$('#remove_questions').removeClass('hidden');
+	$('#tags'+(question_count-1)).tagsInput();
+
+	$('#tags'+(question_count-1)).tagsInput({
+		autocomplete_url:'http://myserver.com/api/autocomplete'
+	});
 
 });
 

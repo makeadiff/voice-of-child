@@ -9,8 +9,8 @@
 
 <div class="row">
     <div class="form-class col-md-8 col-md-offset-2">
-        <form id="msform" action="insert-comment.php" method="POST" onsubmit="submit_form()">
-          <fieldset>              
+        <form id="msform" action="insert-comment.php" method="POST" onsubmit="return submit_form()">
+          <fieldset>
               <p class="form-label">
 
               </p>
@@ -35,11 +35,11 @@
                 <p class="form-label">
                   Question 1
                 </p>
-                <input type="text" name="question_0" placeholder="Eg. How does the child percieve ed support classes"/>
+                <input type="text" name="question_0" required placeholder="Eg. How does the child percieve ed support classes"/>
                 <p class="form-label">
                   Answer 1
                 </p>
-                <textarea name="answer_0" placeholder="Eg. The classes are really good and helpful. The volunteers come on time and cover the topics really well."></textarea>
+                <textarea name="answer_0" required placeholder="Eg. The classes are really good and helpful. The volunteers come on time and cover the topics really well."></textarea>
 
                 <p class="form-label">
                   Question 1 Type
@@ -48,7 +48,7 @@
                 <p class="form-label">
                   Tags
                 </p>
-                <input type="text" name="question_tag_0" placeholder="Eg. #EdSupport #Operations"/>
+                <input type="text" name="question_tag_0" id="tags" required placeholder="Eg. #EdSupport #Operations"/>
                 <p class="form-label">
                   Actionable
                 </p>

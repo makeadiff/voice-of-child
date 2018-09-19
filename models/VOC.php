@@ -40,9 +40,11 @@
       return $this->sql->getByID($q);
     }
 
-    function get_child_list($city_id){
+    function get_child_list($city_id,$center_id = null){
       $q = 'SELECT S.* FROM Student S
             INNER JOIN Center C ON C.id = S.center_id
+            INNER JOIN StudentLevel SL ON SL.student_id = S.id
+            INNER JOIN Level L ON L.id = SL.level_id
             WHERE C.city_id ='.$city_id.'
             AND S.status=1
             AND C.status=1';

@@ -37,7 +37,7 @@
     'escalate' => 'Escalate',
   );
 
-
+  $is_director = false;
 
   // ---------------------- Functions -------------------------
 
@@ -52,6 +52,10 @@
     $groups = $sql->getList($check_q);
     if(in_array('fellow',$groups) || in_array('national',$groups) || in_array('strat',$groups)){
       return true;
+    }
+    if(in_array('national',$groups)){
+      $is_director = true;
+      return false;
     }
     else{
       return false;
