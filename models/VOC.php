@@ -41,7 +41,7 @@
     }
 
     function get_child_list($city_id,$center_id = null){
-      $q = 'SELECT S.* FROM Student S
+      $q = 'SELECT S.id as id, CONCAT(S.name," | ",L.grade,L.name) as name FROM Student S
             INNER JOIN Center C ON C.id = S.center_id
             INNER JOIN StudentLevel SL ON SL.student_id = S.id
             INNER JOIN Level L ON L.id = SL.level_id
