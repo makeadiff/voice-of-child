@@ -245,6 +245,41 @@ $('#remove_questions').click(function(){
 	$('#question_count').val(question_count);
 });
 
+$('#city_id').change(function(){
+	if(this.value!=''){
+		$.ajax({
+			url: "get-shelter.php?city_id="+this.value,
+			cache: false,
+			success: function(data){
+				data = JSON.parse(data);
+				content = '';
+				for (j in data){
+					content += '<option value="'+j+'">'+data[j]['name']+'</option>';
+				}
+				$('#shelter_id').html(content);
+				$('#shelter_id').trigger('change');
+			}
+		});
+	}
+})
+
+$('#shelter_id').change(function(){
+	if(this.value!=''){
+		$.ajax({
+			url: "get-children.php?shelter_id="+this.value,
+			cache: false,
+			success: function(data){
+				data = JSON.parse(data);
+				content = '';
+				for (j in data){
+					content += '<option value="'+j+'">'+data[j]+'</option>';
+				}
+				$('#child_id').html(content);
+			}
+		});
+	}
+})
+
 
 function validate_upload(){
 	var common_task_url = document.getElementById('common_task_url').value;

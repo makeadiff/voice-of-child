@@ -40,6 +40,14 @@
       return $this->sql->getByID($q);
     }
 
+    function get_city_list(){
+      $q = 'SELECT * FROM City
+            WHERE id<=26
+            ORDER BY name';
+
+      return $this->sql->getByID($q);
+    }
+
     function get_child_list($city_id,$center_id = null){
       $q = 'SELECT S.id as id, CONCAT(S.name," | ",L.grade,L.name) as name FROM Student S
             INNER JOIN Center C ON C.id = S.center_id
@@ -48,7 +56,17 @@
             WHERE C.city_id ='.$city_id.'
             AND S.status=1
             AND C.status=1';
+      return $this->sql->getByID($q);
+    }
 
+    function get_child_list_shelter($center_id){
+      $q = 'SELECT S.id as id, CONCAT(S.name," | ",L.grade,L.name) as name FROM Student S
+            INNER JOIN Center C ON C.id = S.center_id
+            INNER JOIN StudentLevel SL ON SL.student_id = S.id
+            INNER JOIN Level L ON L.id = SL.level_id
+            WHERE C.id ='.$center_id.'
+            AND S.status=1
+            AND C.status=1';
       return $this->sql->getByID($q);
     }
 

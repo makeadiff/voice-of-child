@@ -3,6 +3,8 @@
   $user_info = check_user();
   $user_id = $user_info['user_id'];
 
+  $is_director = false;
+
   if(!is_fellow($user_id,$year,$sql)){
     header('location: error.php');
   }
@@ -15,8 +17,6 @@
 
   $user = $sql->getAll($query_user);
   $user = $user[0];
-
-
 
   $question_type = array(
     'operations' => 'Operations',
@@ -37,8 +37,6 @@
     'escalate' => 'Escalate',
   );
 
-  $is_director = false;
-
   // ---------------------- Functions -------------------------
 
 
@@ -48,19 +46,17 @@
                 INNER JOIN `Group` G ON G.id = UG.group_id
                 WHERE UG.user_id ='.$user_id.'
                 AND UG.year='.$year;
-
     $groups = $sql->getList($check_q);
-    if(in_array('fellow',$groups) || in_array('national',$groups) || in_array('strat',$groups)){
+    if(in_array('national',$groups)){
+      $GLOBALS['is_director'] = true;
       return true;
     }
-    if(in_array('national',$groups)){
-      $is_director = true;
-      return false;
+    else if(in_array('fellow',$groups) || in_array('national',$groups) || in_array('strat',$groups)){
+      return true;
     }
     else{
       return false;
     }
-
   }
 
   function create_select($array,$name,$response=null, $req = false){

@@ -95,6 +95,7 @@
     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
     <script src='https://code.jquery.com/jquery-1.10.2.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
     <script src='https://code.jquery.com/ui/1.10.4/jquery-ui.js'></script>
     <script src="<?php echo $config['site_home'] ?>js/index.js"></script>
     <script src="<?php echo $config['site_home'] ?>js/jquery.tagsinput.js"></script>

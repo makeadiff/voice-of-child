@@ -1,6 +1,7 @@
 
 <!-- MultiStep Form -->
 
+
 <script type="text/javascript">
   var question_count = 1;
   var question_type = <?php echo json_encode($question_type); ?>;
@@ -20,6 +21,16 @@
               <input type="hidden" name="question_count" id="question_count" value="1"/>
               <input type="hidden" name="added_by_user_id" value="<?php echo $user['id'] ?>" />
               <div class="row">
+                <?php
+                  if($is_director){
+                ?>
+                  <p class="form-label">
+                    Select City
+                  </p>
+                  <?php echo create_select($city_list,'city_id',$user['city_id']);?>
+                <?php
+                  }
+                ?>
                 <p class="form-label">
                   Select Shelter
                 </p>
