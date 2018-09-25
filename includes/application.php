@@ -47,7 +47,7 @@
                 WHERE UG.user_id ='.$user_id.'
                 AND UG.year='.$year;
     $groups = $sql->getList($check_q);
-
+    dump($groups);
     if(in_array('national',$groups)){
       $GLOBALS['is_director'] = true;
       // return true;
