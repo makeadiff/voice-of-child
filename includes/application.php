@@ -45,15 +45,15 @@
                 FROM UserGroup UG
                 INNER JOIN `Group` G ON G.id = UG.group_id
                 WHERE UG.user_id ='.$user_id.'
+                AND G.type <> "volunteer"
                 AND UG.year='.$year;
-    $groups = $sql->getList($check_q);
-    dump($groups);
+    $groups = $sql->getCol($check_q);
     if(in_array('national',$groups)){
       $GLOBALS['is_director'] = true;
       // return true;
     }
 
-    if(in_array('fellow',$groups) || in_array('strat',$groups)){
+    if(in_array('fellow',$groups) || in_array('strat',$groups) || in_array('national',$groups) || in_array('executive',$groups)){
       return true;
     }
     else{
