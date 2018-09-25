@@ -235,7 +235,6 @@ $('#add_questions').click(function(){
 });
 
 
-
 $('#remove_questions').click(function(){
 	$('div.q'+(question_count-1)).detach();
 	question_count--;
@@ -261,7 +260,7 @@ $('#city_id').change(function(){
 			}
 		});
 	}
-})
+});
 
 $('#shelter_id').change(function(){
 	if(this.value!=''){
@@ -278,7 +277,7 @@ $('#shelter_id').change(function(){
 			}
 		});
 	}
-})
+});
 
 
 function validate_upload(){
