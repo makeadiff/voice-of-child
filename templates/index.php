@@ -13,6 +13,16 @@
             <div class="row">
               <br>
 
+              <?php
+                if($success==true){
+              ?>
+              <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>Sucess!</strong> Data Saved Successfully!
+              </div>
+              <?php
+                }
+              ?>
 
               <h2 class="fs-title">Hi, <?php echo $user['name'];?></h2>
 	            <!-- <h3 class="fs-subtitle">Please verify your personal details.</h3> -->
@@ -28,9 +38,13 @@
 
             <?php
               if(!empty($all_comments)){
+                foreach ($all_comments as $comments) {
             ?>
-            
+              <!-- <div class="row">
+                <p><?php //echo $comments['student_name']; ?></p>
+              </div> -->
             <?php
+                }
               }
             ?>
 

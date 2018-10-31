@@ -21,6 +21,6 @@
     $insert_id = $voc->insert_comment($data);
   }
 
-  header('location: index.php');
+  header('location: index.php?success=1');
 
 ?>

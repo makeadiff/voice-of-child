@@ -14,10 +14,10 @@
           `id` INT (11)  unsigned NOT NULL auto_increment,
           `added_by_user_id` INT (11)  unsigned NOT NULL,
           `student_id` INT (11)  unsigned NOT NULL,
-          `question` VARCHAR (100)   NOT NULL,
+          `question` MEDIUMTEXT   NOT NULL,
           `type` VARCHAR(100) NOT NULL,
           `tags` VARCHAR(100)  NULL,
-          `answer` VARCHAR (100)   NOT NULL,
+          `answer` TEXT   NOT NULL,
           `priority` VARCHAR (100)   NULL,
           `actionable` VARCHAR (100) NOT NULL,
           `escalation_status` ENUM ('open','closed','none') DEFAULT 'none'  NOT NULL,
@@ -88,7 +88,7 @@
 
     function insert_comment($data){
       $id = $this->sql->insert('VoiceOfChild_Comment',$data);
-      return $id;
+      return $id;      
     }
 
 
