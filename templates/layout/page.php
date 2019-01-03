@@ -72,7 +72,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Actions <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="<?php echo $config['site_home'] ?>add-comment.php"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Comment</a></li>
-                  <li><a href="<?php echo $config['site_home'] ?>view-comment.php"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View Comments</a></li>
+                  <li><a href="<?php echo $config['site_home'] ?>index.php"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View Comments</a></li>
                   <!-- <li><a href="#">Another action</a></li>
                   <li><a href="#">Something else here</a></li>
                   <li role="separator" class="divider"></li>
@@ -95,7 +95,8 @@
     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
     <script src='https://code.jquery.com/jquery-1.10.2.js'></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src='https://code.jquery.com/ui/1.10.4/jquery-ui.js'></script>
     <script src="<?php echo $config['site_home'] ?>js/index.js"></script>
     <script src="<?php echo $config['site_home'] ?>js/jquery.tagsinput.js"></script>
@@ -107,6 +108,16 @@
       $('#tags').tagsInput({
         autocomplete_url:'http://myserver.com/api/autocomplete'
       });
+
+
+      // List JS for Pagination on UL LI Lists
+
+      var commentList = new List('vocList', {
+        valueNames: ['student_name'],
+        page: 3,
+        pagination: true
+      });
+
     </script>
 
 

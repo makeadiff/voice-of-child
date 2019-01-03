@@ -38,17 +38,77 @@
 
             <?php
               if(!empty($all_comments)){
+                echo '<hr/>';
+            ?>
+              <div class="row" id="filterSearch">
+                <div class="col-md-6 col-md-offset-6">
+                  <input class="formInput" id="filerVOC" type="text" placeholder="Search..">
+                </div>
+              </div>
+              <div class="row">
+                <?php
+                  if($is_director){
+                ?>
+                  <div class="col-md-4">
+                    <p class="form-label">
+                      Select City
+                    </p>
+                    <?php echo create_select($city_list,'city_id',$user['city_id']);?>
+                  </div>
+                <?php
+                  }
+                ?>
+
+                <div class="col-md-4">
+                  <p class="form-label">
+                    Select Shelter
+                  </p>
+                  <?php echo create_select($shelter_list,'shelter_id');?>
+                </div>
+
+                <div class="col-md-4">
+                  <p class="form-label">
+                    Select Question Type
+                  </p>
+                  <?php echo create_select($question_type,'question_type_0');?>
+                </div>
+
+                <!-- <div class="col-md-3">
+                  <p class="form-label">
+                    Select Child
+                  </p>
+                  <?php //echo create_select($child_list,'child_id');?>
+                </div>
+
+                <div class="col-md-3">
+                  <p class="form-label">
+                    Select Actionable
+                  </p>
+                  <?php //echo create_select($actionable,'actionable');?>
+                </div> -->
+
+              </div>
+              <div id="vocList">
+                <ul class="voc_data list" id="contentVOC">
+            <?php
                 foreach ($all_comments as $comments) {
             ?>
-              <!-- <div class="row">
-                <p><?php //echo $comments['student_name']; ?></p>
-              </div> -->
+                  <li>
+                    <a href="./child.php?child_id=<?php echo $comments['student_id'];?>"><h3 class="student_name"><?php echo $comments['student_name'].' ('.$comments['count'].')'; ?></h3></a>
+                    <p class="shelter_name"><?php echo $comments['center_name'].', '.$comments['city_name']; ?></p>
+                    <p class="question"><strong><?php echo $comments['question']; ?></strong></p>
+                    <p class="answer"><?php echo substr($comments['answer'],0,100).'...'; ?></p>
+                  </li>
+
             <?php
                 }
+            ?>
+                </ul>
+                <div class="center"><ul class="pagination"></ul></div>
+              </div>
+            <?php
               }
             ?>
-
-
 
             </div>
           </fieldset>

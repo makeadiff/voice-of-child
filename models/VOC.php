@@ -70,25 +70,55 @@
       return $this->sql->getByID($q);
     }
 
-    function get_all_comments($user_id){
+    function get_all_comments($user_id,$is_director=false){
+
+      if(!$is_director){
+        $where = 'WHERE added_by_user_id = '.$user_id;
+      }
+      else{
+        $where = '';
+      }
+
+      $q = 'SELECT VOC.*, S.name as student_name, CT.name as center_name, C.name as city_name, COUNT(VOC.id) as count
+            FROM VoiceOfChild_Comment VOC
+            INNER JOIN Student S ON S.id = VOC.student_id
+            INNER JOIN Center CT ON CT.id = S.center_id
+            INNER JOIN City C ON C.id = CT.city_id '.$where.'
+            GROUP BY student_id
+            ORDER BY VOC.added_on DESC';
+
+      return $this->sql->getAll($q);
+    }
+
+    function get_all_comments_child($user_id,$child_id){
       $q = 'SELECT VOC.*, S.name as student_name, CT.name as center_name, C.name as city_name
             FROM VoiceOfChild_Comment VOC
             INNER JOIN Student S ON S.id = VOC.student_id
             INNER JOIN Center CT ON CT.id = S.center_id
             INNER JOIN City C ON C.id = CT.city_id
-            WHERE added_by_user_id = '.$user_id.'
-            GROUP BY student_id';
+            WHERE VOC.student_id = '.$child_id.'
+            ORDER BY VOC.added_on DESC';
 
       return $this->sql->getAll($q);
     }
 
+    function get_child_info($child_id){
+      $q = 'SELECT S.*, CT.name as center,C.name as city
+            FROM Student S
+            INNER JOIN Center CT ON CT.id = S.center_id
+            INNER JOIN City C ON C.id = CT.city_id
+            WHERE S.id = '.$child_id;
+
+      $child_info = $this->sql->getAll($q);
+      return $child_infop[0];
+    }
 
 
     //Insert/Update/Delete Functions
 
     function insert_comment($data){
       $id = $this->sql->insert('VoiceOfChild_Comment',$data);
-      return $id;      
+      return $id;
     }
 
 

@@ -280,51 +280,12 @@ $('#shelter_id').change(function(){
 });
 
 
-function validate_upload(){
-	var common_task_url = document.getElementById('common_task_url').value;
-	var vertical_task_url_1 = document.getElementById('vertical_task_url_1').value;
-	var vertical_task_url_2 = document.getElementById('vertical_task_url_2').value;
-	var vertical_task_url_3 = document.getElementById('vertical_task_url_3').value;
-
-	var valid_ct = true;
-	if(common_task_url) valid_ct = ValidURL(common_task_url);
-	var valid_vt1 = ValidURL(vertical_task_url_1);
-	var valid_vt3 = ValidURL(vertical_task_url_2);
-	var valid_vt2 = ValidURL(vertical_task_url_3);
-
-	if(valid_ct == false){
-		$('#common_task_url').addClass('error');
-		document.getElementById('ct_url').innerHTML = "Common Task URL is Invalid";
-		return false;
-	}
-	else if(valid_vt1 == false && vertical_task_url_1!=''){
-		console.log('Error');
-		return false;
-	}
-	else if(valid_vt2 == false && vertical_task_url_2!=''){
-		console.log('Error');
-		return false;
-	}
-	else if(valid_vt3 == false && vertical_task_url_3!=''){
-		console.log('Error');
-		return false;
-	}
-	else{
-		$('#common_task_url').removeClass('error');
-		document.getElementById('ct_url').innerHTML = "";
-		return true;
-	}
-
-	// if(!valid){
-	// 	alert('Incorrect URL for Common Task').
-	// 	return false;
-	// }
-	// else{
-	// 	return true;
-	// }
-
-}
-
+$("#filerVOC").on("keyup", function() {
+  var value = $(this).val().toLowerCase();
+  $("#contentVOC li").filter(function() {
+    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+  });
+});
 
 function ValidURL(str) {
   var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;

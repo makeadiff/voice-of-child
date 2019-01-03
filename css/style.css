@@ -13,7 +13,7 @@ html {
 }
 /*-webkit-*/
 body {
-    font-family: montserrat, arial, verdana;
+    font-family: Montserrat, arial, verdana;
     /*  Add background Here*/
     background-color: none;
     background-size: cover;
@@ -189,14 +189,14 @@ span.required {
 }
 
 /*inputs*/
-#msform input, #msform textarea {
+#msform input, #msform textarea, input.formInput {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 0px;
     margin-bottom: 10px;
     width: 100%;
     box-sizing: border-box;
-    font-family: montserrat;
+    font-family: Montserrat;
     color: #2C3E50;
     font-size: 13px;
     background: none;
@@ -470,7 +470,8 @@ select {
    padding: 5px 10px;
    text-align: left !important;
    white-space: nowrap;
-   width: 300px;
+   width: 100%;
+   max-width: 300px;
    clear: both;
    margin-bottom: 20px;
 }
@@ -601,6 +602,64 @@ tr.network_entries.donated{
 }
 
 
+/* Voice of Child Dashboard View */
+
+ul.voc_data{
+  margin-left: 0px;
+  padding: 0px;
+}
+
+ul.voc_data,ul.voc_data li{
+  list-style: none;
+  margin-left: 0px;
+}
+
+
+ul.voc_data li{
+  background: #EEE;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  padding: 10px 20px 10px 20px;
+}
+
+.row#filterSearch, .row#filterSearch .col-md-6{
+  padding-right: 0px;
+}
+
+
+.student_name{
+  color:#1976D2;
+}
+
+.shelter_name{
+  color:#1A237E;
+  font-size: 15px;
+}
+
+.question{
+  color: #333132;
+}
+
+.answer{
+  color: #555;
+}
+
+span.tag{
+  background: #00695C;
+  color: #FFF;
+  padding: 5px;
+  font-size: 13px;
+  border-radius: 2px;
+}
+
+span.added_on{
+  background: #FFF176;
+  color: #333132;
+  padding: 3px;
+  font-size: 11px;
+  border-radius: 2px;
+  margin-bottom: 5px;
+}
 
 /* ----------Navbar Style------------ */
 
