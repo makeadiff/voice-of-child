@@ -90,12 +90,9 @@
       <?php include($GLOBALS['template']->template); ?>
 
     </body>
-
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
-    <script src='https://code.jquery.com/jquery-1.10.2.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src='https://code.jquery.com/ui/1.10.4/jquery-ui.js'></script>
     <script src="<?php echo $config['site_home'] ?>js/index.js"></script>
@@ -112,11 +109,52 @@
 
       // List JS for Pagination on UL LI Lists
 
-      var commentList = new List('vocList', {
+      var options = {
         valueNames: ['student_name'],
-        page: 3,
+        page: 4,
         pagination: true
-      });
+      }
+
+      var commentList = new List('vocList', options);
+
+      function resetList(){
+      	commentList.search();
+      	commentList.filter();
+      	commentList.update();
+      	// $(".filter-all").prop('checked', true);
+      	// $('.filter').prop('checked', false);
+      	$('.search').val('');
+      	//console.log('Reset Successfully!');
+      };
+
+      function updateList(){
+        // var values_gender = $("input[name=gender]:checked").val();
+      	// var values_address = $("input[name=address]:checked").val();
+      	// console.log(values_gender, values_address);
+
+      	userList.filter(function (item) {
+      		var genderFilter = false;
+      		var addressFilter = false;
+
+      		if(values_gender == "all")
+      		{
+      			genderFilter = true;
+      		} else {
+      			genderFilter = item.values().gender == values_gender;
+
+      		}
+      		if(values_address == null)
+      		{
+      			addressFilter = true;
+      		} else {
+      			addressFilter = item.values().address.indexOf(values_address) >= 0;
+      		}
+      		return addressFilter && genderFilter
+      	});
+      	userList.update();
+      	//console.log('Filtered: ' + values_gender);
+      }
+
 
     </script>
 

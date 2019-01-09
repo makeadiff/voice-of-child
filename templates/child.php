@@ -36,10 +36,15 @@
               </div>
             </div>
 
+
             <?php
+              // dump($child_info);
               if(!empty($all_comments_child)){
                 echo '<hr/>';
             ?>
+              <h2>Child/ Name: <?php echo $child_info['name']; ?></h2>
+              <h2>Shelter Name: <?php echo $child_info['center'].', '.$child_info['city']; ?></h2>
+
               <div class="row" id="filterSearch">
                 <div class="col-md-6 col-md-offset-6">
                   <input class="formInput" id="filerVOC" type="text" placeholder="Search..">
@@ -52,9 +57,9 @@
                   if($comments['question']!=''){
             ?>
                 <li>
-                  <a href=""><h3 class="student_name"><?php echo $comments['question']; ?></h3></a>
-                  <!-- <p class="shelter_name"><?php echo $comments['center_name'].', '.$comments['city_name']; ?></p> -->
-                  <p class="answer"><?php echo $comments['answer']; ?></p>
+                  <a href=""><h3 class="question"><?php echo ucfirst($comments['question']); ?></h3></a>
+                  <p><span class="added_on">Added On: <?php echo date('F j, Y, g:i a',strtotime($comments['added_on'])); ?><span></p>
+                  <p class="answer"><?php echo ucfirst($comments['answer']); ?></p>
                   <p class="tags">
                     <?php
                       if(count($tags)!=0){
@@ -66,7 +71,6 @@
                       }
                     ?>
                   </p>
-                  <p><span class="added_on">Added On: <?php echo date('F j, Y, g:i a',strtotime($comments['added_on'])); ?><span></p>
                 </li>
             <?php
                   }

@@ -70,14 +70,18 @@
       return $this->sql->getByID($q);
     }
 
-    function get_all_comments($user_id,$is_director=false){
+    function get_all_comments($user_id,$is_director=false,$city_id=0,$shelter_id=0){
 
       if(!$is_director){
         $where = 'WHERE added_by_user_id = '.$user_id;
       }
       else{
-        $where = '';
+        $where = 'WHERE 1';
       }
+
+      if($city_id!=0){ $where .= ' AND C.id ='.$city_id; }
+      if($shelter_id!=0){ $where .= ' AND CT.id ='.$shelter_id; }
+
 
       $q = 'SELECT VOC.*, S.name as student_name, CT.name as center_name, C.name as city_name, COUNT(VOC.id) as count
             FROM VoiceOfChild_Comment VOC
@@ -86,6 +90,8 @@
             INNER JOIN City C ON C.id = CT.city_id '.$where.'
             GROUP BY student_id
             ORDER BY VOC.added_on DESC';
+
+
 
       return $this->sql->getAll($q);
     }
@@ -107,10 +113,12 @@
             FROM Student S
             INNER JOIN Center CT ON CT.id = S.center_id
             INNER JOIN City C ON C.id = CT.city_id
+            INNER JOIN StudentLevel SL ON SL.student_id = S.id
+            INNER JOIN Level L ON L.id = SL.level_id
             WHERE S.id = '.$child_id;
 
       $child_info = $this->sql->getAll($q);
-      return $child_infop[0];
+      return $child_info[0];
     }
 
 

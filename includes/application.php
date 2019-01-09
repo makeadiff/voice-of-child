@@ -61,14 +61,16 @@
     }
   }
 
-  function create_select($array,$name,$response=null, $req = false){
+  function create_select($array,$name,$response=null, $req = false,$empty=true){
 
     if($req)
       $output = '<select name='.$name.' id="'.$name.'" required>';
     else
       $output = '<select name='.$name.' id="'.$name.'">';
 
-
+    if($empty){
+      $output .= '<option value=0>-- Select -- </option>';
+    }
 
     foreach ($array as $key => $value) {
       if(isset($value['name'])){

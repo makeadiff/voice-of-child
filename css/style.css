@@ -640,8 +640,13 @@ ul.voc_data li{
   color: #333132;
 }
 
-.answer{
+p.answer{
   color: #555;
+  margin-bottom: 15px;    
+}
+
+p.tags{
+  margin-bottom: 15px;
 }
 
 span.tag{
@@ -653,8 +658,8 @@ span.tag{
 }
 
 span.added_on{
-  background: #FFF176;
-  color: #333132;
+  background: #FAFAFA;
+  color: #555;
   padding: 3px;
   font-size: 11px;
   border-radius: 2px;
