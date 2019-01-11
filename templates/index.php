@@ -52,7 +52,7 @@
                   ?>
                     <div class="col-md-3">
                       <p class="form-label">
-                        Select City
+                        City
                       </p>
                       <?php echo create_select($city_list,'city_id',$data['city_id']);?>
                     </div>
@@ -62,7 +62,7 @@
 
                   <div class="col-md-3">
                     <p class="form-label">
-                      Select Shelter
+                      Shelter
                     </p>
                     <?php echo create_select($shelter_list,'shelter_id',$data['shelter_id']);?>
                   </div>
@@ -70,14 +70,14 @@
 
                   <div class="col-md-3">
                     <p class="form-label">
-                      Select Question Type
+                      Question Type
                     </p>
                     <?php echo create_select($question_type,'question_type',$data['question_type']);?>
                   </div>
 
                   <div class="col-md-3">
                     <p class="form-label">
-                      Select Actionable
+                      Actionable
                     </p>
                     <?php echo create_select($actionable,'actionable',$data['actionable']);?>
                   </div>

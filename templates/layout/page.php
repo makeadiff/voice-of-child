@@ -6,7 +6,7 @@
         <title>Voice of Child</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="shortcut icon" href="<?php echo $config['site_home'] ?>favicon.png" type="image/png">
@@ -61,12 +61,14 @@
                 <ul class="dropdown-menu">
                   <li><a href="<?php echo $config['site_home'] ?>add-comment.php"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Comment</a></li>
                   <li><a href="<?php echo $config['site_home'] ?>index.php"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View Comments</a></li>
-                  <!-- <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
+                  <li><a href="<?php echo $config['site_home'] ?>index.php"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Dashboard</a></li>
+
+                  <!-- <li><a href="#">Something else here</a></li>
                   <li role="separator" class="divider"></li>
                   <li><a href="#">Separated link</a></li>
                   <li role="separator" class="divider"></li>
                   <li><a href="#">One more separated link</a></li> -->
+
                 </ul>
               </li>
               <li><a href="<?php echo $config['site_url'] ?>madapp/index.php/auth/logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a></li>
@@ -92,7 +94,7 @@
 
       $('#tags').tagsInput({
         autocomplete_url:'http://myserver.com/api/autocomplete'
-      });    
+      });
     </script>
 
 

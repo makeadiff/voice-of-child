@@ -348,10 +348,11 @@ ul.nav{
   font-size: 18px;
   /* text-transform: uppercase; */
   color: #2C3E50;
-  margin-bottom: 10px;
+  margin: 0px;
   letter-spacing: 2px;
   font-weight: bold;
   text-align: center;
+  line-height: 1.5;
 }
 
 .left{
@@ -359,10 +360,12 @@ ul.nav{
 }
 
 .fs-subtitle {
-    font-weight: normal;
-    font-size: 12px;
-    color: #777;
-    margin-bottom: 20px;
+  font-weight: normal;
+  font-size: 15px;
+  color: #777;
+  margin: 0px;
+  margin-bottom: 20px;
+  line-height: 1.5;
 }
 
 
@@ -483,6 +486,7 @@ select {
 @media only screen and (max-width: 500px){
   select{
     width: 100%;
+    max-width: 100%;
   }
 
   body{
@@ -630,6 +634,18 @@ ul.voc_data li{
   border: thin solid #CCC;
 }
 
+ul.voc_data li.escalate{
+  border-left: 4px #e53935 solid;
+}
+
+ul.voc_data li.inform{
+  border-left: 4px #1E88E5 solid;
+}
+
+ul.voc_data li.caution{
+  border-left: 4px #FFB300 solid;
+}
+
 .student_name{
   color:#1976D2;
 }
@@ -657,6 +673,7 @@ span.tag{
   color: #FFF;
   padding: 5px;
   font-size: 13px;
+  margin-left: 3px;
   border-radius: 2px;
 }
 

@@ -40,7 +40,7 @@
                 <p class="form-label">
                   Select Child
                 </p>
-                <?php echo create_select($child_list,'child_id');?>
+                <?php echo create_select($child_list,'child_id',$child_id);?>
                 <hr/>
 
                 <p class="form-label">

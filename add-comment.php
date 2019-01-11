@@ -6,5 +6,9 @@
 
   $child_list = $voc->get_child_list($user['city_id']);
 
+
+  $child_id = i($QUERY,'child_id',0);
+
+
   render();
 ?>
