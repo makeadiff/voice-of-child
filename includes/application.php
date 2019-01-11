@@ -69,7 +69,7 @@
       $output = '<select name='.$name.' id="'.$name.'">';
 
     if($empty){
-      $output .= '<option value=0>-- Select -- </option>';
+      $output .= '<option value="">-- Select -- </option>';
     }
 
     foreach ($array as $key => $value) {

@@ -9,10 +9,14 @@
     $success = true;
   }
 
-  $shelter_id = i($QUERY,'shelter_id',0);
-  $city_id = i($QUERY,'city_id',0);
+  $data = array();
+  $data['shelter_id'] = i($QUERY,'shelter_id','');
+  $data['city_id'] = i($QUERY,'city_id','');
 
-  $all_comments = $voc->get_all_comments($user['id'],$is_director,$city_id,$shelter_id);
+  $data['question_type'] = i($QUERY,'question_type','');
+  $data['actionable'] = i($QUERY,'actionable','');
+
+  $all_comments = $voc->get_all_comments($user['id'],$is_director,$data);
 
   $shelter_list = $voc->get_shelter_list($user['city_id']);
   $child_list = $voc->get_child_list($user['city_id']);

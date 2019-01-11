@@ -42,7 +42,7 @@
 
     function get_city_list(){
       $q = 'SELECT * FROM City
-            WHERE id<=26
+            WHERE type="actual"
             ORDER BY name';
 
       return $this->sql->getByID($q);
@@ -70,17 +70,19 @@
       return $this->sql->getByID($q);
     }
 
-    function get_all_comments($user_id,$is_director=false,$city_id=0,$shelter_id=0){
+    function get_all_comments($user_id,$is_director=false,$data=array()){
 
       if(!$is_director){
         $where = 'WHERE added_by_user_id = '.$user_id;
       }
       else{
-        $where = 'WHERE 1';
+        $where = 'WHERE C.type = "actual"';
       }
 
-      if($city_id!=0){ $where .= ' AND C.id ='.$city_id; }
-      if($shelter_id!=0){ $where .= ' AND CT.id ='.$shelter_id; }
+      if(isset($data['city_id']) && $data['city_id']!='') { $where .= ' AND C.id ='.$data['city_id']; }
+      if(isset($data['shelter_id']) && $data['shelter_id']!='') { $where .= ' AND CT.id ='.$data['shelter_id']; }
+      if(isset($data['actionable']) && $data['actionable']!='') { $where .= ' AND VOC.actionable ="'.$data['actionable'].'"';}
+      if(isset($data['question_type']) && $data['question_type']!='') { $where .= ' AND VOC.type ="'.$data['question_type'].'"'; }
 
 
       $q = 'SELECT VOC.*, S.name as student_name, CT.name as center_name, C.name as city_name, COUNT(VOC.id) as count
@@ -91,18 +93,26 @@
             GROUP BY student_id
             ORDER BY VOC.added_on DESC';
 
-
-
       return $this->sql->getAll($q);
     }
 
-    function get_all_comments_child($user_id,$child_id){
+    function get_all_comments_child($user_id,$child_id,$data=array()){
+
+
+      $where = '';
+
+
+      if(isset($data['city_id']) && $data['city_id']!='') { $where .= ' AND C.id ='.$data['city_id']; }
+      if(isset($data['shelter_id']) && $data['shelter_id']!='') { $where .= ' AND CT.id ='.$data['shelter_id']; }
+      if(isset($data['actionable']) && $data['actionable']!='') { $where .= ' AND VOC.actionable ="'.$data['actionable'].'"';}
+      if(isset($data['question_type']) && $data['question_type']!='') { $where .= ' AND VOC.type ="'.$data['question_type'].'"'; }
+
       $q = 'SELECT VOC.*, S.name as student_name, CT.name as center_name, C.name as city_name
             FROM VoiceOfChild_Comment VOC
             INNER JOIN Student S ON S.id = VOC.student_id
             INNER JOIN Center CT ON CT.id = S.center_id
             INNER JOIN City C ON C.id = CT.city_id
-            WHERE VOC.student_id = '.$child_id.'
+            WHERE VOC.student_id = '.$child_id.$where.'
             ORDER BY VOC.added_on DESC';
 
       return $this->sql->getAll($q);

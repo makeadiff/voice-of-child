@@ -37,7 +37,7 @@
             </div>
 
             <?php
-              if(!($city_id==0 && $shelter_id==0 && empty($all_comments))){
+              if(!($data['city_id']==0 && $data['shelter_id']==0 && empty($all_comments))){
             ?>
                 <hr/>
                 <div class="row" id="filterSearch">
@@ -45,60 +45,55 @@
                     <input class="search" id="filerVOC" type="text" placeholder="Search..">
                   </div>
                 </div>
-                <div class="row">
+                <!-- <p class="filters"> </p>-->
+                <div class="row more-filters">
                   <?php
                     if($is_director){
                   ?>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                       <p class="form-label">
                         Select City
                       </p>
-                      <?php echo create_select($city_list,'city_id',$city_id,false,false);?>
+                      <?php echo create_select($city_list,'city_id',$data['city_id']);?>
                     </div>
                   <?php
                     }
                   ?>
 
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <p class="form-label">
                       Select Shelter
                     </p>
-                    <?php echo create_select($shelter_list,'shelter_id',$shelter_id);?>
+                    <?php echo create_select($shelter_list,'shelter_id',$data['shelter_id']);?>
                   </div>
 
-                  <div class="col-md-4">
-                    <p class="form-label">
-                      <!-- Select Shelter -->
-                    </p>
-                    <input type="submit" name="submit" class="action-button" value="Filter"/>
-                  </div>
 
-                  <!-- <div class="col-md-4">
+                  <div class="col-md-3">
                     <p class="form-label">
                       Select Question Type
                     </p>
-                    <?php //echo create_select($question_type,'question_type_0');?>
-                  </div> -->
-
-                  <!-- <div class="col-md-3">
-                    <p class="form-label">
-                      Select Child
-                    </p>
-                    <?php //echo create_select($child_list,'child_id');?>
+                    <?php echo create_select($question_type,'question_type',$data['question_type']);?>
                   </div>
 
                   <div class="col-md-3">
                     <p class="form-label">
                       Select Actionable
                     </p>
-                    <?php //echo create_select($actionable,'actionable');?>
-                  </div> -->
+                    <?php echo create_select($actionable,'actionable',$data['actionable']);?>
+                  </div>
+
+                  <div class="col-md-12">
+                    <p class="center">
+                      <input type="submit" name="submit" class="action-button" value="Filter"/>
+                    </p>
+                  </div>
+
+
                 </div>
             <?php
               }
 
               if(!empty($all_comments)){
-                echo '<hr/>';
             ?>
 
             <?php
@@ -113,9 +108,20 @@
                 <ul class="voc_data list" id="contentVOC">
             <?php
                 foreach ($all_comments as $comments) {
+
+                  $url = './child.php?child_id='.$comments['student_id'];
+                  // if(isset($data)){
+                  //   foreach ($data as $key => $value) {
+                  //     if($value!=''){
+                  //       $url .= '&'.$key.'='.$value;
+                  //     }
+                  //   }
+                  // }
+                  $url .= '&data='.str_replace('"','\'',json_encode($data));
+
             ?>
                   <li>
-                    <h3 class="student_name"><a href="./child.php?child_id=<?php echo $comments['student_id'];?>"><?php echo $comments['student_name'].' ('.$comments['count'].')'; ?></a></h3>
+                    <h3 class="student_name"><a href="<?php echo $url;?>"><?php echo $comments['student_name'].' ('.$comments['count'].')'; ?></a></h3>
                     <p class="shelter_name"><?php echo $comments['center_name'].', '.$comments['city_name']; ?></p>
                     <p class="question"><strong><?php echo ucfirst($comments['question']); ?></strong></p>
                     <p class="answer"><?php echo ucfirst(substr($comments['answer'],0,100)).'...'; ?></p>
@@ -125,6 +131,7 @@
                 }
             ?>
                 </ul>
+                <div class="no-result">No Results</div>
                 <div class="center"><ul class="pagination"></ul></div>
               </div>
             <?php

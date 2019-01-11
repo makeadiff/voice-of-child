@@ -19,7 +19,7 @@
   			<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Titillium+Web:400,600,700,900|Ubuntu:400,500,700" rel="stylesheet">
 
         <style>
-            html{font-size:20pt}
+
             .choice {
                 float: right;
                 display: inline;
@@ -28,23 +28,11 @@
             .choice input {
                 vertical-align: left;
             }
-            header {
-            	font-family: 'Roboto Condensed' !important;
-            }
 
-            header nav a {
-              font-size: 18px;
-              line-height: 40px;
-            }
-            header ul{
-              line-height: 60px !important;
-            }
             .row{
               float: none !important
             }
-            #continuing1 p {
-              line-height: normal;
-            }
+
         </style>
     </head>
 
@@ -104,58 +92,7 @@
 
       $('#tags').tagsInput({
         autocomplete_url:'http://myserver.com/api/autocomplete'
-      });
-
-
-      // List JS for Pagination on UL LI Lists
-
-      var options = {
-        valueNames: ['student_name'],
-        page: 4,
-        pagination: true
-      }
-
-      var commentList = new List('vocList', options);
-
-      function resetList(){
-      	commentList.search();
-      	commentList.filter();
-      	commentList.update();
-      	// $(".filter-all").prop('checked', true);
-      	// $('.filter').prop('checked', false);
-      	$('.search').val('');
-      	//console.log('Reset Successfully!');
-      };
-
-      function updateList(){
-        // var values_gender = $("input[name=gender]:checked").val();
-      	// var values_address = $("input[name=address]:checked").val();
-      	// console.log(values_gender, values_address);
-
-      	userList.filter(function (item) {
-      		var genderFilter = false;
-      		var addressFilter = false;
-
-      		if(values_gender == "all")
-      		{
-      			genderFilter = true;
-      		} else {
-      			genderFilter = item.values().gender == values_gender;
-
-      		}
-      		if(values_address == null)
-      		{
-      			addressFilter = true;
-      		} else {
-      			addressFilter = item.values().address.indexOf(values_address) >= 0;
-      		}
-      		return addressFilter && genderFilter
-      	});
-      	userList.update();
-      	//console.log('Filtered: ' + values_gender);
-      }
-
-
+      });    
     </script>
 
 

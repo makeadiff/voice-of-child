@@ -345,13 +345,17 @@ ul.nav{
 
 /*headings*/
 .fs-title {
-    font-size: 18px;
-    /* text-transform: uppercase; */
-    color: #2C3E50;
-    margin-bottom: 10px;
-    letter-spacing: 2px;
-    font-weight: bold;
-    text-align: center;
+  font-size: 18px;
+  /* text-transform: uppercase; */
+  color: #2C3E50;
+  margin-bottom: 10px;
+  letter-spacing: 2px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.left{
+  text-align: left;
 }
 
 .fs-subtitle {
@@ -614,18 +618,17 @@ ul.voc_data,ul.voc_data li{
   margin-left: 0px;
 }
 
+.no-result {
+	display:none;
+}
 
 ul.voc_data li{
-  background: #EEE;
+  background: #FAFAF;
   border-radius: 5px;
   margin-bottom: 15px;
   padding: 10px 20px 10px 20px;
+  border: thin solid #CCC;
 }
-
-.row#filterSearch, .row#filterSearch .col-md-6{
-  padding-right: 0px;
-}
-
 
 .student_name{
   color:#1976D2;
@@ -642,7 +645,7 @@ ul.voc_data li{
 
 p.answer{
   color: #555;
-  margin-bottom: 15px;    
+  margin-bottom: 15px;
 }
 
 p.tags{

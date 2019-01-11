@@ -164,12 +164,60 @@ $('#shelter_id').change(function(){
 });
 
 
-// $("#filerVOC").on("keyup", function() {
-//   var value = $(this).val().toLowerCase();
-//   $("#contentVOC li").filter(function() {
-//     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-//   });
-// });
+var options = {
+	valueNames: [
+		'student_name',
+		'shelter_name'
+	],
+	page: 4,
+	pagination: true
+};
+var commentList = new List('vocList', options);
+
+function resetList(){
+	commentList.search();
+	commentList.filter();
+	commentList.update();
+	$(".filter-all").prop('checked', true);
+	$('.filter').prop('checked', false);
+	$('.search').val('');
+};
+
+function updateList(){
+  var searchValue = $("input.search").val();
+	
+	commentList.filter(function (item) {
+		if(searchValue == null)
+		{
+			searchFilter = true;
+		} else {
+			searchFilter = item.values().student_name.indexOf(searchValue) >= 0;
+		}
+		return searchFilter && searchFilter
+	});
+	commentList.update();
+	// console.log('Filtered: ' + values_gender);
+}
+
+$(function(){
+
+	search = $('input.search');
+	search[0].addEventListener('keyup', updateList);
+
+  updateList();
+
+	commentList.on('updated', function (list) {
+		if (list.matchingItems.length > 0) {
+			$('.no-result').hide()
+		} else {
+			$('.no-result').show()
+		}
+	});
+});
+
+
+
+
 
 function ValidURL(str) {
   var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
