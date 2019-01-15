@@ -1,7 +1,13 @@
 <?php
 
-  $user_info = check_user();
+  $user_info = check_user(false);
   $user_id = $user_info['user_id'];
+
+  accessControl([
+  	// 'group_id'		=> [15, 2, 370, 369], // Finance Fellow, CTL, FR Fellow, FR Volunteers
+  	'group_type'	=> ['strat', 'national','fellow']
+  ]);
+
 
   $is_director = false;
 

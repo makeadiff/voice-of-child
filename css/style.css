@@ -498,8 +498,9 @@ select {
   #msform fieldset{
     width: 100%;
     margin: 0%;
-    margin-top: -20px;
+    margin-top: 60px;
     padding: 15px 20px;
+    box-shadow: none;
   }
 
   .form-class{
@@ -662,10 +663,12 @@ ul.voc_data li.caution{
 p.answer{
   color: #555;
   margin-bottom: 15px;
+  font-size: 14px;
+  line-height: 1.2;
 }
 
 p.tags{
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 span.tag{
@@ -675,6 +678,7 @@ span.tag{
   font-size: 13px;
   margin-left: 3px;
   border-radius: 2px;
+  line-height: 30px;
 }
 
 span.added_on{

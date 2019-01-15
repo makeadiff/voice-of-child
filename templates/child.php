@@ -48,10 +48,8 @@
                   if($comments['question']!=''){
             ?>
                 <li class="<?php echo $comments['actionable']; ?>">
-
                   <a href=""><h3 class="question"><?php echo ucfirst($comments['question']); ?></h3></a>
                   <p><span class="added_on">Added On: <?php echo date('F j, Y, g:i a',strtotime($comments['added_on'])); ?><span></p>
-                  <p class="answer"><?php echo ucfirst($comments['answer']); ?></p>
                   <p class="tags">
                     <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
                     <?php
@@ -64,6 +62,7 @@
                       }
                     ?>
                   </p>
+                  <p class="answer"><?php echo ucfirst($comments['answer']); ?></p>
                 </li>
             <?php
                   }
@@ -73,6 +72,7 @@
               </ul>
               <hr>
               <div class="add_donor col-md-6 col-md-offset-3">
+                <h3 class="fs-subtitle center">Have additional information for <?php echo $child_info['name'];?>? </h3>
                 <a href="./add-comment.php?child_id=<?php echo $child_info['id']; ?>">
                   <button type="button" class="add-button btn btn-default btn-lg">
                     <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> <br>Add Comment
