@@ -91,7 +91,8 @@
             INNER JOIN Center CT ON CT.id = S.center_id
             INNER JOIN City C ON C.id = CT.city_id '.$where.'
             GROUP BY student_id
-            ORDER BY VOC.added_on DESC';
+            ORDER BY VOC.added_on DESC
+            ';
 
       return $this->sql->getAll($q);
     }

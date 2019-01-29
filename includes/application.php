@@ -54,9 +54,8 @@
                 AND G.type <> "volunteer"
                 AND UG.year='.$year;
     $groups = $sql->getCol($check_q);
-    if(in_array('national',$groups)){
-      $GLOBALS['is_director'] = true;
-      // return true;
+    if(in_array('national',$groups) || in_array('strat',$groups)){
+      $GLOBALS['is_director'] = true;     
     }
 
     if(in_array('fellow',$groups) || in_array('strat',$groups) || in_array('national',$groups) || in_array('executive',$groups)){

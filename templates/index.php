@@ -120,7 +120,7 @@
                   $url .= '&data='.str_replace('"','\'',json_encode($data));
 
             ?>
-                  <li>
+                  <li class="<?php echo $comments['actionable']; ?>">
                     <h3 class="student_name"><a href="<?php echo $url;?>"><?php echo $comments['student_name'].' ('.$comments['count'].')'; ?></a></h3>
                     <p class="shelter_name"><?php echo $comments['center_name'].', '.$comments['city_name']; ?></p>
                     <p class="question"><strong><?php echo ucfirst($comments['question']); ?></strong></p>
