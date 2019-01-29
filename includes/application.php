@@ -4,8 +4,8 @@
   $user_id = $user_info['user_id'];
 
   accessControl([
-  	// 'group_id'		=> [15, 2, 370, 369], // Finance Fellow, CTL, FR Fellow, FR Volunteers
-  	'group_type'	=> ['strat', 'national','fellow']
+  	'group_id'		=> [1,4, 269,364,358],
+  	// 'group_type'	=> ['strat', 'national','fellow']
   ]);
 
 
@@ -55,7 +55,7 @@
                 AND UG.year='.$year;
     $groups = $sql->getCol($check_q);
     if(in_array('national',$groups) || in_array('strat',$groups)){
-      $GLOBALS['is_director'] = true;     
+      $GLOBALS['is_director'] = true;
     }
 
     if(in_array('fellow',$groups) || in_array('strat',$groups) || in_array('national',$groups) || in_array('executive',$groups)){
