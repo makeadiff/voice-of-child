@@ -30,7 +30,7 @@
               <div class="add_donor col-md-6 col-md-offset-3">
                 <a href="./add-comment.php">
                   <button type="button" class="add-button btn btn-default btn-lg">
-                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> <br>Add Comment
+                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> <br>Input Data
                   </button>
                 </a>
               </div>

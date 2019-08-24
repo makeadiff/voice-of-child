@@ -30,8 +30,7 @@
     'ed_support' => 'Ed Support',
     'transition_readiness' => 'Transition Readiness',
     'shelter' => 'Shelter Related',
-    'personal' => 'Personal',
-    'school' => 'School Related',
+    'peer-interaction' => 'Peer Interaction',
     'volunteer' => 'Volunteer Related',
     'other' => 'Other'
   );

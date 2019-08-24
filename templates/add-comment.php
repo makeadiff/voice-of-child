@@ -53,7 +53,7 @@
                 <textarea name="answer_0" required placeholder="Eg. The classes are really good and helpful. The volunteers come on time and cover the topics really well."></textarea>
 
                 <p class="form-label">
-                  Question 1 Type
+                  Response 1 Type
                 </p>
                 <?php echo create_select($question_type,'question_type_0');?>
                 <p class="form-label">

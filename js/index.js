@@ -82,7 +82,7 @@ $('#add_questions').click(function(){
 	content += 	'</p>';
 	content += 	'<textarea required  name="answer_'+(question_count)+'" placeholder="Eg. The classes are really good and helpful. The volunteers come on time and cover the topics really well."></textarea>';
 	content += 	'<p class="form-label">';
-	content +=  'Question '+(question_count+1)+' Type';
+	content +=  'Response '+(question_count+1)+' Type';
 	content +=  '</p>';
 	content +=  '<select name="question_type_'+(question_count)+'" id="question_type" required>';
 	for (i in question_type){
@@ -185,7 +185,7 @@ function resetList(){
 
 function updateList(){
   var searchValue = $("input.search").val();
-	
+
 	commentList.filter(function (item) {
 		if(searchValue == null)
 		{
